@@ -1,39 +1,38 @@
 package com.example.rpg;
 
 public class Main {
-    public static void main() {
+    public static void main(String[] args) {
         Player player = new Player("勇者", 30, 8);
         Monster monster = new Monster("スライム", 20, 5);
+        BattleMessage message = new BattleMessage();
 
-        System.out.println("=== RPGを開始します! ===");
-        System.out.println(monster.getName() + "が現れた!");
+        message.showStart();
+        message.showAppear(monster);
 
         while (player.isAlive() && monster.isAlive()) {
             // プレイヤーは先制攻撃できる
             // プレイヤーの攻撃力分ダメージを受ける
-            monster.takeDamage(player.getAttack());
-            System.out.println(player.getName() + "の攻撃!");
-            System.out.println(monster.getName() + "に" + player.getAttack() + "ダメージ!");
+            int playerDamage = player.getAttack();
+
+            monster.takeDamage(playerDamage);
+            message.showAttack(player, monster, playerDamage);
 
             if (!monster.isAlive()) {
                 break;
             }
 
-            player.takeDamage(monster.getAttack());
-            System.out.println(monster.getName() + "の攻撃!");
-            System.out.println(player.getName() + "に" + monster.getAttack() + "ダメージ!");
+            int monsterDamage = monster.getAttack();
 
-            System.out.println(player.getName() + " HP: " + player.getHp());
-            System.out.println(monster.getName() + " HP: " + monster.getHp());
-            System.out.println();
+            player.takeDamage(monsterDamage);
+            message.showAttack(monster, player, monsterDamage);
+
+            message.showHp(player, monster);
         }
 
         if (player.isAlive()) {
-            System.out.println(monster.getName() + "を倒した!");
-            System.out.println("勝利!");
+            message.showWin(monster);
         } else {
-            System.out.println(player.getName() + "は倒れてしまった...");
-            System.out.println("ゲームオーバー");
+            message.showLose(player);
         }
 
     }
