@@ -107,7 +107,12 @@ public class Battle {
         }
 
         if (player.isAlive()) {
+            player.addExp(monster.getExp());
+            player.addGold(monster.getGold());
+
             message.showWin(monster);
+            message.showReward(monster.getExp(), monster.getGold());
+
             return BattleResult.WIN;
         } else {
             message.showLose(player);

@@ -65,6 +65,14 @@ public class BattleMessage {
         System.out.println("勝利!");
     }
 
+    /// 報酬獲得メッセージ
+    /// @param exp 獲得経験値
+    /// @param gold 獲得ゴールド
+    public void showReward(int exp, int gold) {
+        System.out.println("経験値を" + exp + "獲得した!");
+        System.out.println(gold + "ゴールドを手に入れた!");
+    }
+
     /// 敗北メッセージ
     /// @param player プレイヤー
     public void showLose(GameCharacter player) {
