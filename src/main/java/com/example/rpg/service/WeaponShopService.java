@@ -3,7 +3,7 @@ package com.example.rpg.service;
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.WeaponShopMessage;
+import com.example.rpg.ui.shop.WeaponShopMessage;
 import lombok.RequiredArgsConstructor;
 
 /// 武器屋の処理を担当するクラス

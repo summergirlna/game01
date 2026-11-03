@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.save;
 
 /// ロードメッセージの表示を担当するクラス
 public class LoadMessage {

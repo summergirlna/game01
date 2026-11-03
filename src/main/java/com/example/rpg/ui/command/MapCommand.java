@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.command;
 
 /// マップ操作コマンド
 public enum MapCommand {

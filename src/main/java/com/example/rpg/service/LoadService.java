@@ -4,7 +4,7 @@ import com.example.rpg.character.Level;
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.LoadMessage;
+import com.example.rpg.ui.save.LoadMessage;
 import com.example.rpg.value.Gold;
 import lombok.RequiredArgsConstructor;
 

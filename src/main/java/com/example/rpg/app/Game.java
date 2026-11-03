@@ -5,7 +5,20 @@ import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.service.*;
-import com.example.rpg.ui.*;
+import com.example.rpg.ui.command.GameCommand;
+import com.example.rpg.ui.command.TitleCommand;
+import com.example.rpg.ui.equipment.EquipmentMessage;
+import com.example.rpg.ui.field.FieldMessage;
+import com.example.rpg.ui.field.MapMessage;
+import com.example.rpg.ui.game.GameMessage;
+import com.example.rpg.ui.game.StatusMessage;
+import com.example.rpg.ui.inn.InnMessage;
+import com.example.rpg.ui.item.ItemMessage;
+import com.example.rpg.ui.save.LoadMessage;
+import com.example.rpg.ui.save.SaveMessage;
+import com.example.rpg.ui.shop.ShopMessage;
+import com.example.rpg.ui.shop.WeaponShopMessage;
+import com.example.rpg.ui.title.TitleMessage;
 
 import java.util.Scanner;
 

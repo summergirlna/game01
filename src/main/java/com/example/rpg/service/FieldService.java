@@ -2,7 +2,7 @@ package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.FieldMessage;
+import com.example.rpg.ui.field.FieldMessage;
 import lombok.RequiredArgsConstructor;
 
 /// フィールド移動処理を担当するクラス

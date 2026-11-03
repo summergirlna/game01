@@ -6,8 +6,8 @@ import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
-import com.example.rpg.ui.MapCommand;
-import com.example.rpg.ui.MapMessage;
+import com.example.rpg.ui.command.MapCommand;
+import com.example.rpg.ui.field.MapMessage;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Random;

@@ -4,7 +4,7 @@ import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
 import com.example.rpg.item.ItemType;
-import com.example.rpg.ui.BattleMessage;
+import com.example.rpg.ui.battle.BattleMessage;
 
 import java.util.Scanner;
 

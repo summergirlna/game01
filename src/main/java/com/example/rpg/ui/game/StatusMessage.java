@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.game;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;

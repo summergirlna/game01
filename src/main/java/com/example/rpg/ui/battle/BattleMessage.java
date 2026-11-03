@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.battle;
 
 import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Player;

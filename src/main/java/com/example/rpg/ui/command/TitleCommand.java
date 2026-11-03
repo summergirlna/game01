@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.command;
 
 /// タイトル画面のコマンド
 public enum TitleCommand {

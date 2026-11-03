@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.title;
 
 /// タイトル画面のメッセージ表示を担当するクラス
 public class TitleMessage {

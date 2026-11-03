@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.save;
 
 /// セーブメッセージ表示を担当するクラス
 public class SaveMessage {

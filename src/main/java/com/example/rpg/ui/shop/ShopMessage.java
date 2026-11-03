@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.shop;
 
 import com.example.rpg.item.ItemType;
 

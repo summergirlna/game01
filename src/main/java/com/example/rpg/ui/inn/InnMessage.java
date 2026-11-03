@@ -1,4 +1,4 @@
-package com.example.rpg.ui;
+package com.example.rpg.ui.inn;
 
 /// 宿屋メッセージ表示を担当するクラス
 public class InnMessage {

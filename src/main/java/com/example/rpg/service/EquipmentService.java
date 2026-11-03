@@ -2,7 +2,7 @@ package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
-import com.example.rpg.ui.EquipmentMessage;
+import com.example.rpg.ui.equipment.EquipmentMessage;
 import lombok.RequiredArgsConstructor;
 
 /// 装備処理を担当するクラス

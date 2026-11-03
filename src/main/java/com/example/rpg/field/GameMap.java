@@ -1,6 +1,6 @@
 package com.example.rpg.field;
 
-import com.example.rpg.ui.MapCommand;
+import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.value.Position;
 import lombok.Getter;
 
