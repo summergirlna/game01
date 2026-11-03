@@ -12,6 +12,7 @@ public enum GameCommand {
     MOVE,
     SHOP,
     WEAPON_SHOP,
+    SAVE,
     QUIT,
     INVALID;
 
@@ -39,7 +40,8 @@ public enum GameCommand {
             case "5" -> SHOP;
             case "6" -> WEAPON_SHOP;
             case "7" -> MOVE;
-            case "8" -> QUIT;
+            case "8" -> SAVE;
+            case "9" -> QUIT;
             default -> INVALID;
         };
     }
@@ -54,7 +56,8 @@ public enum GameCommand {
             case "3" -> ITEM;
             case "4" -> EQUIPMENT;
             case "5" -> MOVE;
-            case "6" -> QUIT;
+            case "6" -> SAVE;
+            case "7" -> QUIT;
             default -> INVALID;
         };
     }

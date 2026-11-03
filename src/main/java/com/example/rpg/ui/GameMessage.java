@@ -37,7 +37,8 @@ public class GameMessage {
         System.out.println("5. 道具屋で買う");
         System.out.println("6. 武器屋で買う");
         System.out.println("7. 移動する");
-        System.out.println("8. 終了する");
+        System.out.println("8. セーブする");
+        System.out.println("9. 終了する");
         System.out.print("> ");
     }
 
@@ -50,7 +51,8 @@ public class GameMessage {
         System.out.println("3. アイテムを使う");
         System.out.println("4. 装備を変更する");
         System.out.println("5. 移動する");
-        System.out.println("6. 終了する");
+        System.out.println("6. セーブする");
+        System.out.println("7. 終了する");
         System.out.print("> ");
     }
 
