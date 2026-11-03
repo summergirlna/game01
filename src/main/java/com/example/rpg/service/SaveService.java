@@ -27,7 +27,7 @@ public class SaveService {
                 "level=" + player.getLevel().getValue(),
                 "hp=" + player.getHp(),
                 "maxHp=" + player.getMaxHp(),
-                "attack=" + player.getAttack(),
+                "baseAttack=" + player.getBaseAttack(),
                 "exp=" + player.getExp(),
                 "gold=" + player.getGold(),
                 "herb=" + player.getInventory().getAmount(ItemType.HERB),

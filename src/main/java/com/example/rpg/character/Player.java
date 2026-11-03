@@ -119,6 +119,12 @@ public class Player extends GameCharacter {
         lastAttackIncrease += attackIncrease;
     }
 
+    /// 基礎攻撃力を取得する
+    /// @return 装備補正を含まない攻撃力
+    public int getBaseAttack() {
+        return super.getAttack();
+    }
+
     /// 装備込みの攻撃力を取得する
     /// @return 装備込みの攻撃力
     @Override
