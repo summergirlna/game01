@@ -15,6 +15,10 @@ public class Player extends GameCharacter {
 
     private boolean leveledUp;
 
+    private int lastMaxHpIncrease;
+
+    private int lastAttackIncrease;
+
     public Player(String name, int hp, int attack) {
         super(name, hp, attack);
         this.levelTable = new LevelTable();
@@ -22,6 +26,8 @@ public class Player extends GameCharacter {
         this.exp = 0;
         this.gold = 0;
         this.leveledUp = false;
+        this.lastMaxHpIncrease = 0;
+        this.lastAttackIncrease = 0;
     }
 
     /// 経験値を獲得する
@@ -46,11 +52,15 @@ public class Player extends GameCharacter {
     /// レベルアップ状態をリセットする
     public void resetLeveledUp() {
         leveledUp = false;
+        lastMaxHpIncrease = 0;
+        lastAttackIncrease = 0;
     }
 
     /// レベルアップを判定する
     private void checkLevelUp() {
         leveledUp = false;
+        lastMaxHpIncrease = 0;
+        lastAttackIncrease = 0;
 
         while (exp >= levelTable.getRequiredExpForNextLevel(level)) {
             levelUp();
@@ -61,10 +71,16 @@ public class Player extends GameCharacter {
     private void levelUp() {
         Level nextLevel = level.next();
 
+        int maxHpIncrease = levelTable.getMaxHpIncrease(nextLevel);
+        int attackIncrease = levelTable.getAttackIncrease(nextLevel);
+
         level = nextLevel;
         leveledUp = true;
 
         increaseMaxHp(levelTable.getMaxHpIncrease(nextLevel));
         increaseAttack(levelTable.getAttackIncrease(nextLevel));
+
+        lastMaxHpIncrease += maxHpIncrease;
+        lastAttackIncrease += attackIncrease;
     }
 }
