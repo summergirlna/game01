@@ -26,10 +26,4 @@ public class Level {
     public Level next() {
         return new Level(value + 1);
     }
-
-    /// 次のレベルに必要な経験値を取得する
-    /// @return 次のレベルに必要な経験値
-    public int getRequiredExpForNextLevel() {
-        return value * 10;
-    }
 }

@@ -5,6 +5,8 @@ import lombok.Getter;
 /// プレイヤークラス
 @Getter
 public class Player extends GameCharacter {
+    private final LevelTable levelTable;
+
     private Level level;
 
     private int exp;
@@ -15,6 +17,7 @@ public class Player extends GameCharacter {
 
     public Player(String name, int hp, int attack) {
         super(name, hp, attack);
+        this.levelTable = new LevelTable();
         this.level = Level.initial();
         this.exp = 0;
         this.gold = 0;
@@ -49,17 +52,19 @@ public class Player extends GameCharacter {
     private void checkLevelUp() {
         leveledUp = false;
 
-        while (exp >= level.getRequiredExpForNextLevel()) {
+        while (exp >= levelTable.getRequiredExpForNextLevel(level)) {
             levelUp();
         }
     }
 
     /// レベルアップ処理
     private void levelUp() {
-        level = level.next();
+        Level nextLevel = level.next();
+
+        level = nextLevel;
         leveledUp = true;
 
-        increaseMaxHp(5);
-        increaseAttack(2);
+        increaseMaxHp(levelTable.getMaxHpIncrease(nextLevel));
+        increaseAttack(levelTable.getAttackIncrease(nextLevel));
     }
 }
