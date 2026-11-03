@@ -1,0 +1,25 @@
+package com.example.rpg.service;
+
+import com.example.rpg.character.Player;
+import com.example.rpg.field.FieldArea;
+import com.example.rpg.ui.GameMessage;
+import lombok.RequiredArgsConstructor;
+
+/// フィールド移動処理を担当するクラス
+@RequiredArgsConstructor
+public class FieldService {
+    private final GameMessage message;
+
+    /// 次のエリアへ移動する
+    /// @param player プレイヤー
+    public void moveToNextArea(Player player) {
+        FieldArea nextArea = switch (player.getCurrentArea()) {
+            case GRASSLAND -> FieldArea.FOREST;
+            case FOREST -> FieldArea.CAVE;
+            case CAVE -> FieldArea.GRASSLAND;
+        };
+
+        player.moveTo(nextArea);
+        message.showMoveArea(nextArea);
+    }
+}

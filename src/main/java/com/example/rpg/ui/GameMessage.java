@@ -2,6 +2,7 @@ package com.example.rpg.ui;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
+import com.example.rpg.field.FieldArea;
 import com.example.rpg.item.ItemType;
 
 /// ゲーム画面のメッセージ表示を担当するクラス
@@ -26,7 +27,8 @@ public class GameMessage {
         System.out.println("3. 宿屋に泊まる");
         System.out.println("4. アイテムを使う");
         System.out.println("5. 装備を変更する");
-        System.out.println("6. 終了する");
+        System.out.println("6. 移動する");
+        System.out.println("7. 終了する");
         System.out.print("> ");
     }
 
@@ -40,6 +42,7 @@ public class GameMessage {
     public void showStatus(Player player) {
         System.out.println("=== ステータス ===");
         System.out.println("名前: " + player.getName());
+        System.out.println("現在地: " + player.getCurrentArea().getDisplayName());
         System.out.println("レベル: " + player.getLevel().getValue());
         System.out.println("HP: " + player.getHp() + " / " + player.getMaxHp());
         System.out.println("攻撃力: " + player.getAttack());
@@ -82,5 +85,11 @@ public class GameMessage {
     public void showEquipWeapon(WeaponType weapon) {
         System.out.println(weapon.getDisplayName() + "を装備した。");
         System.out.println("攻撃力が " + weapon.getAttackBonus() + " 上がる。");
+    }
+
+    /// エリア移動メッセージを表示する
+    /// @param area 移動先エリア
+    public void showMoveArea(FieldArea area) {
+        System.out.println(area.getDisplayName() + "へ移動した。");
     }
 }
