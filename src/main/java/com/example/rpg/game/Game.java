@@ -3,6 +3,7 @@ package com.example.rpg.game;
 import com.example.rpg.battle.Battle;
 import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Monster;
+import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 
 import java.util.Scanner;
@@ -11,12 +12,15 @@ import java.util.Scanner;
 public class Game {
     private final Player player;
 
+    private final MonsterFactory monsterFactory;
+
     private final Scanner scanner;
 
     private boolean running;
 
     public Game() {
         this.player = new Player("勇者", 30, 8);
+        this.monsterFactory = new MonsterFactory();
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -56,7 +60,7 @@ public class Game {
     private void explore() {
         System.out.println("周囲を探索した。");
 
-        Monster monster = new Monster("スライム", 20, 5, 100, 5);
+        Monster monster = monsterFactory.createRandomMonster();
 
         Battle battle = new Battle(player, monster);
         BattleResult result = battle.start();
