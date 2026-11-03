@@ -13,6 +13,15 @@ public class BattleMessage {
         System.out.println(character.getName() + "が現れた!");
     }
 
+    /// コマンド選択メッセージ
+    public void showCommandMenu() {
+        System.out.println("行動を選んでください");
+        System.out.println("1. 攻撃");
+        System.out.println("2. 回復");
+        System.out.println("3. 逃げる");
+        System.out.print("> ");
+    }
+
     /// 攻撃メッセージ
     /// @param attacker 攻撃者
     /// @param target 相手
@@ -20,6 +29,24 @@ public class BattleMessage {
     public void showAttack(GameCharacter attacker, GameCharacter target, int damage) {
         System.out.println(attacker.getName() + "の攻撃!");
         System.out.println(target.getName() + "に" + damage + "ダメージ!");
+    }
+
+    /// 回復メッセージ
+    /// @param character 回復するキャラクター
+    /// @param amount 回復量
+    public void showHeal(GameCharacter character, int amount) {
+        System.out.println(character.getName() + "はHPを" + amount + "回復した!");
+    }
+
+    /// 逃走メッセージ
+    /// @param character 逃げるキャラクター
+    public void showEscape(GameCharacter character) {
+        System.out.println(character.getName() + "は逃げ出した!");
+    }
+
+    /// 入力ミスメッセージ
+    public void showInvalidCommand() {
+        System.out.println("正しいコマンドを入力してください。");
     }
 
     /// HP表示メッセージ
