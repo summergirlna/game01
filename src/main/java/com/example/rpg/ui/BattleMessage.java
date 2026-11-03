@@ -2,6 +2,7 @@ package com.example.rpg.ui;
 
 import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Player;
+import com.example.rpg.item.ItemType;
 
 /// 戦闘メッセージ
 public class BattleMessage {
@@ -18,9 +19,10 @@ public class BattleMessage {
 
     /// コマンド選択メッセージ
     public void showCommandMenu() {
-        System.out.println("行動を選んでください");
-        System.out.println("1. 攻撃");
-        System.out.println("2. 回復");
+        System.out.println();
+        System.out.println("どうする？");
+        System.out.println("1. 攻撃する");
+        System.out.println("2. 薬草を使う");
         System.out.println("3. 逃げる");
         System.out.print("> ");
     }
@@ -39,6 +41,20 @@ public class BattleMessage {
     /// @param amount 回復量
     public void showHeal(GameCharacter character, int amount) {
         System.out.println(character.getName() + "はHPを" + amount + "回復した!");
+    }
+
+    /// アイテムを所持していない時のメッセージを表示する
+    /// @param itemType アイテム種別
+    public void showNoItem(ItemType itemType) {
+        System.out.println(itemType.getDisplayName() + "を持っていません。");
+    }
+
+    /// アイテム使用メッセージを表示する
+    /// @param character 使用したキャラクター
+    /// @param itemType アイテム種別
+    public void showUseItem(GameCharacter character, ItemType itemType) {
+        System.out.println(character.getName() + "は" + itemType.getDisplayName() + "を使った！");
+        System.out.println(character.getName() + "のHPが" + itemType.getHealAmount() + "回復した！");
     }
 
     /// 逃走メッセージ

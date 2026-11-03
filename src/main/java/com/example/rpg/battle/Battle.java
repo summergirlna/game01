@@ -3,6 +3,7 @@ package com.example.rpg.battle;
 import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
+import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.BattleMessage;
 
 import java.util.Scanner;
@@ -63,8 +64,9 @@ public class Battle {
                     return;
                 }
                 case HEAL -> {
-                    heal(player);
-                    return;
+                    if (useHerb()) {
+                        return;
+                    }
                 }
                 case ESCAPE -> {
                     escape();
@@ -88,15 +90,6 @@ public class Battle {
 
         target.takeDamage(damage);
         message.showAttack(attacker, target, damage);
-    }
-
-    /// 回復処理
-    /// @param character 回復するキャラクター
-    private void heal(GameCharacter character) {
-        int healAmount = 10;
-
-        character.heal(healAmount);
-        message.showHeal(character, healAmount);
     }
 
     /// 逃走処理
@@ -128,5 +121,20 @@ public class Battle {
             message.showLose(player);
             return BattleResult.LOSE;
         }
+    }
+
+    /// 薬草を使う
+    /// @return 薬草を使用できた場合はtrue、所持していない場合はfalse
+    private boolean useHerb() {
+        ItemType itemType = ItemType.HERB;
+
+        if (!player.getInventory().use(itemType)) {
+            message.showNoItem(itemType);
+            return false;
+        }
+
+        player.heal(itemType.getHealAmount());
+        message.showUseItem(player, itemType);
+        return true;
     }
 }
