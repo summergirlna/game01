@@ -6,6 +6,8 @@ public class Main {
         Monster monster = new Monster("スライム", 20, 5);
 
         Battle battle = new Battle(player, monster);
-        battle.start();
+        BattleResult result = battle.start();
+
+        System.out.println("戦闘結果: " + result);
     }
 }

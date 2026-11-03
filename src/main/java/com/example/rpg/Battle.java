@@ -23,7 +23,7 @@ public class Battle {
     }
 
     /// 戦闘を開始する
-    public void start() {
+    public BattleResult start() {
         message.showStart();
         message.showAppear(monster);
         message.showHp(player, monster);
@@ -41,7 +41,7 @@ public class Battle {
             message.showHp(player, monster);
         }
 
-        showResult();
+        return showResult();
     }
 
     /// プレイヤーのターンを実行する
@@ -101,11 +101,17 @@ public class Battle {
     }
 
     /// 戦闘結果表示
-    private void showResult() {
+    private BattleResult showResult() {
+        if (escaped) {
+            return BattleResult.ESCAPE;
+        }
+
         if (player.isAlive()) {
             message.showWin(monster);
+            return BattleResult.WIN;
         } else {
             message.showLose(player);
+            return BattleResult.LOSE;
         }
     }
 }
