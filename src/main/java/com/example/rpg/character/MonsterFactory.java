@@ -20,6 +20,7 @@ public class MonsterFactory {
             case GRASSLAND -> createGrasslandMonster();
             case FOREST -> createForestMonster();
             case CAVE -> createCaveMonster();
+            case TOWN -> throw new IllegalArgumentException("町ではモンスターを生成できません。");
         };
     }
 

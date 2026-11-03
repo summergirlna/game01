@@ -14,9 +14,10 @@ public class FieldService {
     /// @param player プレイヤー
     public void moveToNextArea(Player player) {
         FieldArea nextArea = switch (player.getCurrentArea()) {
+            case TOWN -> FieldArea.GRASSLAND;
             case GRASSLAND -> FieldArea.FOREST;
             case FOREST -> FieldArea.CAVE;
-            case CAVE -> FieldArea.GRASSLAND;
+            case CAVE -> FieldArea.TOWN;
         };
 
         player.moveTo(nextArea);

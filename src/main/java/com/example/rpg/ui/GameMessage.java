@@ -94,6 +94,11 @@ public class GameMessage {
         System.out.println(area.getDisplayName() + "を探索した。");
     }
 
+    /// 町が安全であることを表示する
+    public void showSafeTown() {
+        System.out.println("町は安全だ。モンスターは出ない。");
+    }
+
     /// 何も起きなかった時のメッセージを表示する
     public void showNoEvent() {
         System.out.println("特に何も起きなかった。");

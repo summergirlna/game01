@@ -38,8 +38,8 @@ public class Player extends GameCharacter {
         // 初期は薬草を3つもたせる
         this.inventory.add(ItemType.HERB, 3);
         this.equipment = new Equipment();
-        // 初期は草原にいることにする
-        this.currentArea = FieldArea.GRASSLAND;
+        // 初期は町にいることにする
+        this.currentArea = FieldArea.TOWN;
         this.exp = 0;
         this.gold = Gold.zero();
         this.leveledUp = false;

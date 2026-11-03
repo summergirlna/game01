@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum FieldArea {
+    TOWN("町"),
     GRASSLAND("草原"),
     FOREST("森"),
     CAVE("洞窟");

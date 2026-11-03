@@ -5,6 +5,7 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.field.FieldArea;
 import com.example.rpg.ui.GameMessage;
 import lombok.RequiredArgsConstructor;
 
@@ -25,6 +26,11 @@ public class ExploreService {
     /// @return 探索中に発生した戦闘結果。戦闘が発生しなかった場合はnull
     public BattleResult explore() {
         message.showExploreArea(player.getCurrentArea());
+
+        if (player.getCurrentArea() == FieldArea.TOWN) {
+            message.showSafeTown();
+            return null;
+        }
 
         if (!encounterMonster()) {
             message.showNoEvent();
