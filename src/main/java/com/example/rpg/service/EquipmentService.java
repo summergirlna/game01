@@ -14,7 +14,13 @@ public class EquipmentService {
     /// 銅の剣を装備する
     /// @param player プレイヤー
     public void equipCopperSword(Player player) {
-        player.getEquipment().equipWeapon(WeaponType.COPPER_SWORD);
-        message.showEquipWeapon(WeaponType.COPPER_SWORD);
+        WeaponType weapon = WeaponType.COPPER_SWORD;
+
+        if (!player.getEquipment().equipWeapon(weapon)) {
+            message.showNoWeapon(weapon);
+            return;
+        }
+
+        message.showEquipWeapon(weapon);
     }
 }
