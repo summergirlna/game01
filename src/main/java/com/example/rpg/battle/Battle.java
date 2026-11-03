@@ -30,7 +30,6 @@ public class Battle {
 
     /// 戦闘を開始する
     public BattleResult start() {
-        message.showStart();
         message.showAppear(monster);
         message.showHp(player, monster);
 

@@ -3,6 +3,7 @@ package com.example.rpg.app;
 import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.field.GameMap;
 import com.example.rpg.service.*;
 import com.example.rpg.ui.*;
 
@@ -18,7 +19,7 @@ public class Game {
 
     private final StatusMessage statusMessage;
 
-    private final ExploreService exploreService;
+    private final MapService mapService;
 
     private final InnService innService;
 
@@ -46,7 +47,7 @@ public class Game {
         this.message = new GameMessage();
         this.titleMessage = new TitleMessage();
         this.statusMessage = new StatusMessage();
-        this.exploreService = new ExploreService(player, monsterFactory, new ExploreMessage());
+        this.mapService = new MapService(player, GameMap.initial(), monsterFactory, new MapMessage());
         this.innService = new InnService(new InnMessage());
         this.itemService = new ItemService(new ItemMessage());
         this.equipmentService = new EquipmentService(new EquipmentMessage());
@@ -75,7 +76,7 @@ public class Game {
             GameCommand command = GameCommand.fromInput(input, player.getCurrentArea());
 
             switch (command) {
-                case EXPLORE -> explore();
+                case EXPLORE -> exploreMap();
                 case STATUS -> statusMessage.showStatus(player);
                 case INN -> innService.stay(player);
                 case ITEM -> itemService.useHerb(player);
@@ -93,9 +94,9 @@ public class Game {
         message.showEnd();
     }
 
-    /// 探索する
-    private void explore() {
-        BattleResult result = exploreService.explore();
+    /// マップを探索する
+    private void exploreMap() {
+        BattleResult result = mapService.start();
 
         if (result == BattleResult.LOSE) {
             running = false;

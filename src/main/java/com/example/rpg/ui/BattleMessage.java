@@ -6,10 +6,6 @@ import com.example.rpg.item.ItemType;
 
 /// 戦闘メッセージ
 public class BattleMessage {
-    /// RPG開始メッセージ
-    public void showStart() {
-        System.out.println("=== RPGを開始します! ===");
-    }
 
     /// モンスター出現メッセージ
     /// @param character モンスター
