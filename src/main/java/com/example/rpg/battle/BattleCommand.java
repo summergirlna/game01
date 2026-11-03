@@ -1,4 +1,4 @@
-package com.example.rpg;
+package com.example.rpg.battle;
 
 /// 戦闘中のプレイヤーコマンド
 public enum BattleCommand {

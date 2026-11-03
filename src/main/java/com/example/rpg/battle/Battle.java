@@ -1,4 +1,8 @@
-package com.example.rpg;
+package com.example.rpg.battle;
+
+import com.example.rpg.character.GameCharacter;
+import com.example.rpg.character.Monster;
+import com.example.rpg.character.Player;
 
 import java.util.Scanner;
 

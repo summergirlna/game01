@@ -1,5 +1,10 @@
 package com.example.rpg;
 
+import com.example.rpg.battle.Battle;
+import com.example.rpg.battle.BattleResult;
+import com.example.rpg.character.Monster;
+import com.example.rpg.character.Player;
+
 public class Main {
     public static void main(String[] args) {
         Player player = new Player("勇者", 30, 8);

@@ -1,4 +1,4 @@
-package com.example.rpg;
+package com.example.rpg.character;
 
 import lombok.Getter;
 

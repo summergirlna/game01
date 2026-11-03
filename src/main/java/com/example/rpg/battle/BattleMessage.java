@@ -1,4 +1,6 @@
-package com.example.rpg;
+package com.example.rpg.battle;
+
+import com.example.rpg.character.GameCharacter;
 
 /// 戦闘メッセージ
 public class BattleMessage {
