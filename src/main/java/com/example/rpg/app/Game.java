@@ -55,10 +55,10 @@ public class Game {
         message.showStart();
 
         while (running && player.isAlive()) {
-            message.showMenu();
+            message.showMenu(player.getCurrentArea());
 
             String input = scanner.nextLine();
-            GameCommand command = GameCommand.fromInput(input);
+            GameCommand command = GameCommand.fromInput(input, player.getCurrentArea());
 
             switch (command) {
                 case EXPLORE -> explore();

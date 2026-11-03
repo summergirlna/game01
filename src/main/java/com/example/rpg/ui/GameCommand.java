@@ -1,5 +1,7 @@
 package com.example.rpg.ui;
 
+import com.example.rpg.field.FieldArea;
+
 /// ゲーム中のコマンド
 public enum GameCommand {
     EXPLORE,
@@ -15,18 +17,44 @@ public enum GameCommand {
 
     /// コマンドを入力から取得する
     /// @param input 入力
+    /// @param currentArea 現在地
     /// @return コマンド
-    public static GameCommand fromInput(String input) {
+    public static GameCommand fromInput(String input, FieldArea currentArea) {
+        if (currentArea == FieldArea.TOWN) {
+            return fromTownInput(input);
+        }
+
+        return fromFieldInput(input);
+    }
+
+    /// 町用コマンドを入力から取得する
+    /// @param input 入力
+    /// @return コマンド
+    private static GameCommand fromTownInput(String input) {
+        return switch (input) {
+            case "1" -> STATUS;
+            case "2" -> INN;
+            case "3" -> ITEM;
+            case "4" -> EQUIPMENT;
+            case "5" -> SHOP;
+            case "6" -> WEAPON_SHOP;
+            case "7" -> MOVE;
+            case "8" -> QUIT;
+            default -> INVALID;
+        };
+    }
+
+    /// フィールド用コマンドを入力から取得する
+    /// @param input 入力
+    /// @return コマンド
+    private static GameCommand fromFieldInput(String input) {
         return switch (input) {
             case "1" -> EXPLORE;
             case "2" -> STATUS;
-            case "3" -> INN;
-            case "4" -> ITEM;
-            case "5" -> EQUIPMENT;
-            case "6" -> MOVE;
-            case "7" -> SHOP;
-            case "8" -> WEAPON_SHOP;
-            case "9" -> QUIT;
+            case "3" -> ITEM;
+            case "4" -> EQUIPMENT;
+            case "5" -> MOVE;
+            case "6" -> QUIT;
             default -> INVALID;
         };
     }
