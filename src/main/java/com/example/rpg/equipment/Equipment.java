@@ -39,4 +39,26 @@ public class Equipment {
     public int getAttackBonus() {
         return weapon.getAttackBonus();
     }
+
+    /// 装備情報を復元する
+    /// @param weapon 装備中の武器
+    /// @param hasWoodenSword 木の剣を所持しているか
+    /// @param hasCopperSword 銅の剣を所持しているか
+    public void restore(WeaponType weapon, boolean hasWoodenSword, boolean hasCopperSword) {
+        inventory.clearWeapons();
+
+        if (hasWoodenSword) {
+            inventory.addWeapon(WeaponType.WOODEN_SWORD);
+        }
+
+        if (hasCopperSword) {
+            inventory.addWeapon(WeaponType.COPPER_SWORD);
+        }
+
+        if (!inventory.hasWeapon(weapon)) {
+            throw new IllegalArgumentException("装備中の武器を所持していません。");
+        }
+
+        this.weapon = weapon;
+    }
 }

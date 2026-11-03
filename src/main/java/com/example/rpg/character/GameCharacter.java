@@ -65,4 +65,25 @@ public class GameCharacter {
         return hp > 0;
     }
 
+    /// ステータスを復元する
+    /// @param maxHp 最大HP
+    /// @param hp 現在HP
+    /// @param attack 攻撃力
+    protected void restoreStatus(int maxHp, int hp, int attack) {
+        if (maxHp < 1) {
+            throw new IllegalArgumentException("最大HPは1以上である必要があります。");
+        }
+
+        if (hp < 0 || hp > maxHp) {
+            throw new IllegalArgumentException("HPが不正です。");
+        }
+
+        if (attack < 0) {
+            throw new IllegalArgumentException("攻撃力は0以上である必要があります。");
+        }
+
+        this.maxHp = maxHp;
+        this.hp = hp;
+        this.attack = attack;
+    }
 }

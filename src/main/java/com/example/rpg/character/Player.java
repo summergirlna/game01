@@ -1,6 +1,7 @@
 package com.example.rpg.character;
 
 import com.example.rpg.equipment.Equipment;
+import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.item.Inventory;
 import com.example.rpg.item.ItemType;
@@ -136,5 +137,43 @@ public class Player extends GameCharacter {
     /// @param currentArea 現在地
     public void moveTo(FieldArea currentArea) {
         this.currentArea = currentArea;
+    }
+
+    /// セーブデータから状態を復元する
+    /// @param currentArea 現在地
+    /// @param level レベル
+    /// @param hp 現在HP
+    /// @param maxHp 最大HP
+    /// @param baseAttack 基礎攻撃力
+    /// @param exp 経験値
+    /// @param gold ゴールド
+    /// @param herbAmount 薬草の数
+    /// @param weapon 装備中の武器
+    /// @param hasWoodenSword 木の剣を所持しているか
+    /// @param hasCopperSword 銅の剣を所持しているか
+    public void restore(
+            FieldArea currentArea,
+            Level level,
+            int hp,
+            int maxHp,
+            int baseAttack,
+            int exp,
+            Gold gold,
+            int herbAmount,
+            WeaponType weapon,
+            boolean hasWoodenSword,
+            boolean hasCopperSword
+    ) {
+        this.currentArea = currentArea;
+        this.level = level;
+        this.exp = exp;
+        this.gold = gold;
+        this.leveledUp = false;
+        this.lastMaxHpIncrease = 0;
+        this.lastAttackIncrease = 0;
+
+        restoreStatus(maxHp, hp, baseAttack);
+        inventory.setAmount(ItemType.HERB, herbAmount);
+        equipment.restore(weapon, hasWoodenSword, hasCopperSword);
     }
 }

@@ -35,4 +35,15 @@ public class Inventory {
     public int getAmount(ItemType itemType) {
         return items.getOrDefault(itemType, 0);
     }
+
+    /// アイテムの所持数を設定する
+    /// @param itemType アイテム種別
+    /// @param amount 所持数
+    public void setAmount(ItemType itemType, int amount) {
+        if (amount < 0) {
+            throw new IllegalArgumentException("アイテム数は0以上である必要があります。");
+        }
+
+        items.put(itemType, amount);
+    }
 }

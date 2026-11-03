@@ -19,4 +19,9 @@ public class EquipmentInventory {
     public boolean hasWeapon(WeaponType weapon) {
         return weapons.contains(weapon);
     }
+
+    /// 所持武器を全て削除する
+    public void clearWeapons() {
+        weapons.clear();
+    }
 }
