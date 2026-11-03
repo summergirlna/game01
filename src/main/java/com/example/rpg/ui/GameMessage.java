@@ -29,7 +29,8 @@ public class GameMessage {
         System.out.println("4. アイテムを使う");
         System.out.println("5. 装備を変更する");
         System.out.println("6. 移動する");
-        System.out.println("7. 終了する");
+        System.out.println("7. 道具屋で買う");
+        System.out.println("8. 終了する");
         System.out.print("> ");
     }
 
@@ -62,10 +63,10 @@ public class GameMessage {
     }
 
     /// ゴールドが足りない時のメッセージを表示する
-    /// @param cost 必要なゴールド
-    public void showNotEnoughGold(int cost) {
+    /// @param requiredGold 必要なゴールド
+    public void showNotEnoughGold(int requiredGold) {
         System.out.println("ゴールドが足りません。");
-        System.out.println("宿泊には " + cost + " ゴールド必要です。");
+        System.out.println("必要なゴールド: " + requiredGold);
     }
 
     /// アイテムを使用した時のメッセージを表示する
@@ -86,6 +87,19 @@ public class GameMessage {
     public void showEquipWeapon(WeaponType weapon) {
         System.out.println(weapon.getDisplayName() + "を装備した。");
         System.out.println("攻撃力が " + weapon.getAttackBonus() + " 上がる。");
+    }
+
+    /// アイテムを購入した時のメッセージを表示する
+    /// @param itemType 購入したアイテム
+    /// @param price 価格
+    public void showBuyItem(ItemType itemType, int price) {
+        System.out.println(itemType.getDisplayName() + "を買った。");
+        System.out.println(price + " ゴールドを支払った。");
+    }
+
+    /// 店がない時のメッセージを表示する
+    public void showNoShop() {
+        System.out.println("ここには道具屋がない。");
     }
 
     /// エリアを探索した時のメッセージを表示する
