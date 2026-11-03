@@ -6,6 +6,7 @@ import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /// ゲーム全体の進行を管理するクラス
@@ -14,6 +15,8 @@ public class Game {
 
     private final MonsterFactory monsterFactory;
 
+    private final Random random;
+
     private final Scanner scanner;
 
     private boolean running;
@@ -21,6 +24,7 @@ public class Game {
     public Game() {
         this.player = new Player("勇者", 30, 8);
         this.monsterFactory = new MonsterFactory();
+        this.random = new Random();
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -60,6 +64,11 @@ public class Game {
     private void explore() {
         System.out.println("周囲を探索した。");
 
+        if (!encounterMonster()) {
+            System.out.println("特に何も起きなかった。");
+            return;
+        }
+
         Monster monster = monsterFactory.createRandomMonster();
 
         Battle battle = new Battle(player, monster);
@@ -70,6 +79,13 @@ public class Game {
         if (result == BattleResult.LOSE) {
             running = false;
         }
+    }
+
+    /// モンスターに遭遇するかどうかを判定する
+    /// @return モンスターと遭遇した場合はtrue、そうでない場合はfalse
+    private boolean encounterMonster() {
+        int encounterRate = 60;
+        return random.nextInt(100) < encounterRate;
     }
 
     /// ステータスを表示する
