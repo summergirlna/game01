@@ -5,39 +5,38 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.ui.GameMessage;
+import lombok.RequiredArgsConstructor;
 
 import java.util.Random;
 
 /// 探索処理を担当するクラス
+@RequiredArgsConstructor
 public class ExploreService {
     private final Player player;
 
     private final MonsterFactory monsterFactory;
 
-    private final Random random;
+    private final GameMessage message;
 
-    public ExploreService(Player player, MonsterFactory monsterFactory) {
-        this.player = player;
-        this.monsterFactory = monsterFactory;
-        this.random = new Random();
-    }
+    private final Random random = new Random();
 
     /// 探索する
     /// @return 探索中に発生した戦闘結果。戦闘が発生しなかった場合はnull
     public BattleResult explore() {
-        System.out.println("周囲を探索した。");
+        message.showExploreArea(player.getCurrentArea());
 
         if (!encounterMonster()) {
-            System.out.println("特に何も起きなかった。");
+            message.showNoEvent();
             return null;
         }
 
-        Monster monster = monsterFactory.createRandomMonster();
+        Monster monster = monsterFactory.createRandomMonster(player.getCurrentArea());
 
         Battle battle = new Battle(player, monster);
         BattleResult result = battle.start();
 
-        System.out.println("戦闘結果: " + result);
+        message.showBattleResult(result);
 
         return result;
     }

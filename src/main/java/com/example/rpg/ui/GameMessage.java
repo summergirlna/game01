@@ -1,5 +1,6 @@
 package com.example.rpg.ui;
 
+import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.field.FieldArea;
@@ -85,6 +86,23 @@ public class GameMessage {
     public void showEquipWeapon(WeaponType weapon) {
         System.out.println(weapon.getDisplayName() + "を装備した。");
         System.out.println("攻撃力が " + weapon.getAttackBonus() + " 上がる。");
+    }
+
+    /// エリアを探索した時のメッセージを表示する
+    /// @param area 探索するエリア
+    public void showExploreArea(FieldArea area) {
+        System.out.println(area.getDisplayName() + "を探索した。");
+    }
+
+    /// 何も起きなかった時のメッセージを表示する
+    public void showNoEvent() {
+        System.out.println("特に何も起きなかった。");
+    }
+
+    /// 戦闘結果を表示する
+    /// @param result 戦闘結果
+    public void showBattleResult(BattleResult result) {
+        System.out.println("戦闘結果: " + result);
     }
 
     /// エリア移動メッセージを表示する

@@ -33,7 +33,7 @@ public class Game {
         this.player = new Player("勇者", 30, 8);
         MonsterFactory monsterFactory = new MonsterFactory();
         this.message = new GameMessage();
-        this.exploreService = new ExploreService(player, monsterFactory);
+        this.exploreService = new ExploreService(player, monsterFactory, message);
         this.innService = new InnService(message);
         this.itemService = new ItemService(message);
         this.equipmentService = new EquipmentService(message);
