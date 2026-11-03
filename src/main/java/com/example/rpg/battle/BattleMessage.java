@@ -1,6 +1,7 @@
 package com.example.rpg.battle;
 
 import com.example.rpg.character.GameCharacter;
+import com.example.rpg.character.Player;
 
 /// 戦闘メッセージ
 public class BattleMessage {
@@ -73,6 +74,14 @@ public class BattleMessage {
     public void showReward(int exp, int gold) {
         System.out.println("経験値を" + exp + "獲得した!");
         System.out.println(gold + "ゴールドを手に入れた!");
+    }
+
+    /// レベルアップメッセージ
+    /// @param player プレイヤー
+    public void showLevelUp(Player player) {
+        System.out.println(player.getName() + "はレベル" + player.getLevel() + "に上がった!");
+        System.out.println("最大HP: " + player.getMaxHp());
+        System.out.println("攻撃力: " + player.getAttack());
     }
 
     /// 敗北メッセージ

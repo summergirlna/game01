@@ -117,6 +117,11 @@ public class Battle {
             message.showWin(monster);
             message.showReward(monster.getExp(), monster.getGold());
 
+            if (player.hasLeveledUp()) {
+                message.showLevelUp(player);
+                player.resetLeveledUp();
+            }
+
             return BattleResult.WIN;
         } else {
             message.showLose(player);

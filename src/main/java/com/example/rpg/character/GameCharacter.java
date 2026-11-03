@@ -7,11 +7,11 @@ import lombok.Getter;
 public class GameCharacter {
     private final String name;
 
-    private final int maxHp;
+    private int maxHp;
 
     private int hp;
 
-    private final int attack;
+    private int attack;
 
     public GameCharacter(String name, int maxHp, int attack) {
         this.name = name;
@@ -39,6 +39,19 @@ public class GameCharacter {
         if (hp > maxHp) {
             hp = maxHp;
         }
+    }
+
+    /// 最大HPを増やす
+    /// @param amount 増加量
+    protected void increaseMaxHp(int amount) {
+        maxHp += amount;
+        hp += amount;
+    }
+
+    /// 攻撃力を増やす
+    /// @param amount 増加量
+    protected void increaseAttack(int amount) {
+        attack += amount;
     }
 
     /// 生存しているか判定する
