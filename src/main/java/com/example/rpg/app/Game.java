@@ -122,9 +122,10 @@ public class Game {
                     return true;
                 }
                 case LOAD_GAME -> {
-                    titleMessage.showLoadGame();
-                    loadService.load(player);
-                    return true;
+                    if (loadService.load(player)) {
+                        titleMessage.showLoadGame();
+                        return true;
+                    }
                 }
                 case QUIT -> {
                     return false;

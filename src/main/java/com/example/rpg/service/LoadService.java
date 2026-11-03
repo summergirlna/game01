@@ -24,12 +24,13 @@ public class LoadService {
 
     /// ロードする
     /// @param player プレイヤー
-    public void load(Player player) {
+    /// @return ロードに成功した場合はtrue、失敗した場合はfalse
+    public boolean load(Player player) {
         Path path = Path.of(SAVE_FILE_NAME);
 
         if (!Files.exists(path)) {
             message.showSaveFileNotFound();
-            return;
+            return false;
         }
 
         try {
@@ -62,10 +63,11 @@ public class LoadService {
             );
 
             message.showLoadSuccess(SAVE_FILE_NAME);
+            return true;
         } catch (IOException | RuntimeException e) {
             message.showLoadFailed();
+            return false;
         }
-
     }
 
     /// セーブファイルを読み込む
