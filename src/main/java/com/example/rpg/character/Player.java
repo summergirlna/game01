@@ -77,8 +77,8 @@ public class Player extends GameCharacter {
         level = nextLevel;
         leveledUp = true;
 
-        increaseMaxHp(levelTable.getMaxHpIncrease(nextLevel));
-        increaseAttack(levelTable.getAttackIncrease(nextLevel));
+        increaseMaxHp(maxHpIncrease);
+        increaseAttack(attackIncrease);
 
         lastMaxHpIncrease += maxHpIncrease;
         lastAttackIncrease += attackIncrease;
