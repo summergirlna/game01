@@ -1,6 +1,7 @@
-package com.example.rpg.game;
+package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
+import com.example.rpg.ui.GameMessage;
 import com.example.rpg.item.ItemType;
 import lombok.RequiredArgsConstructor;
 

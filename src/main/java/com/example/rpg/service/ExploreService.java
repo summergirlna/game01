@@ -1,11 +1,10 @@
-package com.example.rpg.game;
+package com.example.rpg.service;
 
 import com.example.rpg.battle.Battle;
 import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
-import lombok.RequiredArgsConstructor;
 
 import java.util.Random;
 

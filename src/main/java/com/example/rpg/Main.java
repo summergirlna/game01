@@ -1,6 +1,6 @@
 package com.example.rpg;
 
-import com.example.rpg.game.Game;
+import com.example.rpg.app.Game;
 
 public class Main {
     public static void main(String[] args) {

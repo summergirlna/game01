@@ -1,4 +1,4 @@
-package com.example.rpg.game;
+package com.example.rpg.ui;
 
 /// ゲーム中のコマンド
 public enum GameCommand {

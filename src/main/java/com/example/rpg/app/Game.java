@@ -1,8 +1,13 @@
-package com.example.rpg.game;
+package com.example.rpg.app;
 
 import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.service.ExploreService;
+import com.example.rpg.service.InnService;
+import com.example.rpg.service.ItemService;
+import com.example.rpg.ui.GameCommand;
+import com.example.rpg.ui.GameMessage;
 
 import java.util.Scanner;
 

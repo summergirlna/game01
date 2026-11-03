@@ -41,6 +41,11 @@ public class GameCharacter {
         }
     }
 
+    /// HPを最大値まで回復する
+    public void healFull() {
+        hp = maxHp;
+    }
+
     /// 最大HPを増やす
     /// @param amount 増加量
     protected void increaseMaxHp(int amount) {

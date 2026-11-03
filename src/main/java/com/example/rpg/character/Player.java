@@ -2,6 +2,7 @@ package com.example.rpg.character;
 
 import com.example.rpg.item.Inventory;
 import com.example.rpg.item.ItemType;
+import com.example.rpg.value.Gold;
 import lombok.Getter;
 
 /// プレイヤークラス
@@ -15,7 +16,7 @@ public class Player extends GameCharacter {
 
     private int exp;
 
-    private int gold;
+    private Gold gold;
 
     private boolean leveledUp;
 
@@ -31,7 +32,7 @@ public class Player extends GameCharacter {
         // 初期は薬草を3つもたせる
         this.inventory.add(ItemType.HERB, 3);
         this.exp = 0;
-        this.gold = 0;
+        this.gold = Gold.zero();
         this.leveledUp = false;
         this.lastMaxHpIncrease = 0;
         this.lastAttackIncrease = 0;
@@ -44,21 +45,27 @@ public class Player extends GameCharacter {
         checkLevelUp();
     }
 
+    /// ゴールドを返す
+    /// @return ゴールド
+    public int getGold() {
+        return gold.getValue();
+    }
+
     /// ゴールドを獲得する
-    /// @param gold 獲得するゴールド
-    public void addGold(int gold) {
-        this.gold += gold;
+    /// @param amount 獲得するゴールド
+    public void addGold(int amount) {
+        gold = gold.add(amount);
     }
 
     /// ゴールドを払う
     /// @param amount 払うゴールドの量
     /// @return 払い成功した場合はtrue、そうでない場合はfalse
     public boolean payGold(int amount) {
-        if (gold < amount) {
+        if (gold.hasEnough(amount)) {
             return false;
         }
 
-        gold -= amount;
+        gold = gold.subtract(amount);
         return true;
     }
 
