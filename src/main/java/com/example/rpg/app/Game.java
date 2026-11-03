@@ -14,6 +14,8 @@ public class Game {
 
     private final GameMessage message;
 
+    private final TitleMessage titleMessage;
+
     private final StatusMessage statusMessage;
 
     private final ExploreService exploreService;
@@ -42,6 +44,7 @@ public class Game {
         this.player = new Player("勇者", 30, 8);
         MonsterFactory monsterFactory = new MonsterFactory();
         this.message = new GameMessage();
+        this.titleMessage = new TitleMessage();
         this.statusMessage = new StatusMessage();
         this.exploreService = new ExploreService(player, monsterFactory, new ExploreMessage());
         this.innService = new InnService(new InnMessage());
@@ -58,6 +61,11 @@ public class Game {
 
     /// ゲームを開始する
     public void start() {
+        if (!showTitle()) {
+            message.showEnd();
+            return;
+        }
+
         message.showStart();
 
         while (running && player.isAlive()) {
@@ -97,5 +105,34 @@ public class Game {
     /// ゲームを終了する
     private void quit() {
         running = false;
+    }
+
+    /// タイトル画面を表示する
+    /// @return ゲームを開始する場合はtrue、終了する場合はfalse
+    private boolean showTitle() {
+        while (true) {
+            titleMessage.showTitle();
+
+            String input = scanner.nextLine();
+            TitleCommand command = TitleCommand.fromInput(input);
+
+            switch (command) {
+                case NEW_GAME -> {
+                    titleMessage.showNewGame();
+                    return true;
+                }
+                case LOAD_GAME -> {
+                    titleMessage.showLoadGame();
+                    loadService.load(player);
+                    return true;
+                }
+                case QUIT -> {
+                    return false;
+                }
+                case INVALID -> titleMessage.showInvalidCommand();
+            }
+        }
+
+
     }
 }
