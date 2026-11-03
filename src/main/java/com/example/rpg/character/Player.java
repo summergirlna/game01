@@ -5,7 +5,7 @@ import lombok.Getter;
 /// プレイヤークラス
 @Getter
 public class Player extends GameCharacter {
-    private int level;
+    private Level level;
 
     private int exp;
 
@@ -15,7 +15,7 @@ public class Player extends GameCharacter {
 
     public Player(String name, int hp, int attack) {
         super(name, hp, attack);
-        this.level = 1;
+        this.level = Level.initial();
         this.exp = 0;
         this.gold = 0;
         this.leveledUp = false;
@@ -49,20 +49,14 @@ public class Player extends GameCharacter {
     private void checkLevelUp() {
         leveledUp = false;
 
-        while (exp >= getRequiredForNextLevel()) {
+        while (exp >= level.getRequiredExpForNextLevel()) {
             levelUp();
         }
     }
 
-    /// 次のレベルに必要な経験値を取得する
-    /// @return 次のレベルに必要な経験値
-    private int getRequiredForNextLevel() {
-        return level * 10;
-    }
-
     /// レベルアップ処理
     private void levelUp() {
-        level++;
+        level = level.next();
         leveledUp = true;
 
         increaseMaxHp(5);

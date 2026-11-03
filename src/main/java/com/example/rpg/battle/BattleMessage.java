@@ -79,7 +79,7 @@ public class BattleMessage {
     /// レベルアップメッセージ
     /// @param player プレイヤー
     public void showLevelUp(Player player) {
-        System.out.println(player.getName() + "はレベル" + player.getLevel() + "に上がった!");
+        System.out.println(player.getName() + "はレベル" + player.getLevel().getValue() + "に上がった!");
         System.out.println("最大HP: " + player.getMaxHp());
         System.out.println("攻撃力: " + player.getAttack());
     }
