@@ -1,40 +1,32 @@
 package com.example.rpg.service;
 
-import com.example.rpg.battle.Battle;
 import com.example.rpg.battle.BattleResult;
-import com.example.rpg.character.Monster;
-import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.MapResult;
 import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.ui.field.MapMessage;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /// マップ移動処理を担当するクラス
 @RequiredArgsConstructor
 public class MapService {
-    private static final int ENCOUNTER_RATE = 30;
 
     private final Player player;
 
     private final GameMap gameMap;
 
-    private final MonsterFactory monsterFactory;
+    private final EncounterService encounterService;
 
     private final MapMessage message;
 
     private final Scanner scanner = new Scanner(System.in);
 
-    private final Random random = new Random();
-
-    private boolean returnedToTown;
-
     /// マップ移動を開始する
-    public BattleResult start() {
+    public MapResult start() {
         while (true) {
             message.showMap(player.getCurrentArea(), gameMap);
             message.showCommandMenu();
@@ -44,14 +36,10 @@ public class MapService {
 
             switch (command) {
                 case UP, DOWN, LEFT, RIGHT -> {
-                    BattleResult result = move(command);
+                    MapResult result = move(command);
 
-                    if (result == BattleResult.LOSE) {
+                    if (result != null) {
                         return result;
-                    }
-
-                    if (returnedToTown) {
-                        return null;
                     }
                 }
                 case MENU -> {
@@ -66,33 +54,32 @@ public class MapService {
 
     /// 移動する
     /// @param command マップ操作コマンド
-    /// @return 移動後に発生した戦闘結果。戦闘が発生しなかった場合はnull
-    private BattleResult move(MapCommand command) {
+    /// @return マップ探索結果。探索を継続する場合はnull
+    private MapResult move(MapCommand command) {
         if (!gameMap.move(command)) {
             message.showCannotMove();
             return null;
         }
 
         if (gameMap.isPlayerOnTownPosition()) {
-            player.moveTo(FieldArea.TOWN);
-            gameMap.resetPlayerPosition();
-            returnedToTown = true;
-            message.showReturnToTown();
-            return null;
+            return returnToTown();
         }
 
-        if (!encounterMonster()) {
-            return null;
+        BattleResult battleResult = encounterService.encounter();
+
+        if (battleResult == BattleResult.LOSE) {
+            return MapResult.LOSE;
         }
 
-        Monster monster = monsterFactory.createRandomMonster(player.getCurrentArea());
-        Battle battle = new Battle(player, monster);
-        return battle.start();
+        return null;
     }
 
-    /// モンスターに遭遇するかどうかを判定する
-    /// @return モンスターと遭遇した場合はtrue、そうでない場合はfalse
-    private boolean encounterMonster() {
-        return random.nextInt(100) < ENCOUNTER_RATE;
+    /// 町へ戻る
+    /// @return 町へ戻った結果
+    private MapResult returnToTown() {
+        player.moveTo(FieldArea.TOWN);
+        gameMap.resetPlayerPosition();
+        message.showReturnToTown();
+        return MapResult.RETURN_TO_TOWN;
     }
 }

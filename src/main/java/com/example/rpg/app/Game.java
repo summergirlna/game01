@@ -4,6 +4,7 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.MapResult;
 import com.example.rpg.service.*;
 import com.example.rpg.ui.command.GameCommand;
 import com.example.rpg.ui.command.TitleCommand;
@@ -60,7 +61,12 @@ public class Game {
         this.message = new GameMessage();
         this.titleMessage = new TitleMessage();
         this.statusMessage = new StatusMessage();
-        this.mapService = new MapService(player, GameMap.initial(), monsterFactory, new MapMessage());
+        this.mapService = new MapService(
+                player,
+                GameMap.initial(),
+                new EncounterService(player, monsterFactory),
+                new MapMessage()
+        );
         this.innService = new InnService(new InnMessage());
         this.itemService = new ItemService(new ItemMessage());
         this.equipmentService = new EquipmentService(new EquipmentMessage());
@@ -109,9 +115,9 @@ public class Game {
 
     /// マップを探索する
     private void exploreMap() {
-        BattleResult result = mapService.start();
+        MapResult result = mapService.start();
 
-        if (result == BattleResult.LOSE) {
+        if (result == MapResult.LOSE) {
             running = false;
         }
     }
