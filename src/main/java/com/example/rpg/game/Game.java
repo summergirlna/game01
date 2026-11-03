@@ -4,7 +4,6 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /// ゲーム全体の進行を管理するクラス
