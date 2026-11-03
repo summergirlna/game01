@@ -19,7 +19,8 @@ public class InnService {
             return;
         }
 
-        player.heal(player.getMaxHp());
+        // 全回復させる
+        player.healFull();
         message.showStayInn(COST);
     }
 }

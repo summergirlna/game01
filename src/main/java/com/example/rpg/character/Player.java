@@ -61,7 +61,7 @@ public class Player extends GameCharacter {
     /// @param amount 払うゴールドの量
     /// @return 払い成功した場合はtrue、そうでない場合はfalse
     public boolean payGold(int amount) {
-        if (gold.hasEnough(amount)) {
+        if (!gold.hasEnough(amount)) {
             return false;
         }
 
