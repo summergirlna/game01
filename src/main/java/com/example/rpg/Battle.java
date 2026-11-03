@@ -32,7 +32,7 @@ public class Battle {
         while (player.isAlive() && monster.isAlive() && !escaped) {
             executePlayerTurn();
 
-            if (!monster.isAlive()) {
+            if (!monster.isAlive() || escaped) {
                 break;
             }
 
