@@ -1,7 +1,7 @@
 package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
-import com.example.rpg.ui.GameMessage;
+import com.example.rpg.ui.InnMessage;
 import lombok.RequiredArgsConstructor;
 
 /// 宿屋の処理を担当するクラス
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 public class InnService {
     private static final int COST = 10;
 
-    private final GameMessage message;
+    private final InnMessage message;
 
     /// 宿屋に泊まる
     /// @param player プレイヤー

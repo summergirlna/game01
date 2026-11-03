@@ -6,7 +6,7 @@ import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.GameMessage;
+import com.example.rpg.ui.ExploreMessage;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Random;
@@ -18,7 +18,7 @@ public class ExploreService {
 
     private final MonsterFactory monsterFactory;
 
-    private final GameMessage message;
+    private final ExploreMessage message;
 
     private final Random random = new Random();
 

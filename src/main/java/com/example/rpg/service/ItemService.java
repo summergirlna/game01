@@ -1,15 +1,15 @@
 package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
-import com.example.rpg.ui.GameMessage;
 import com.example.rpg.item.ItemType;
+import com.example.rpg.ui.ItemMessage;
 import lombok.RequiredArgsConstructor;
 
 /// アイテムの使用処理を担当するクラス
 @RequiredArgsConstructor
 public class ItemService {
 
-    private final GameMessage message;
+    private final ItemMessage message;
 
     /// 薬草を使う
     /// @param player プレイヤー

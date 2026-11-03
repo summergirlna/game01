@@ -3,7 +3,7 @@ package com.example.rpg.service;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.item.ItemType;
-import com.example.rpg.ui.GameMessage;
+import com.example.rpg.ui.ShopMessage;
 import lombok.RequiredArgsConstructor;
 
 /// 店の処理を担当するクラス
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 public class ShopService {
     private static final int HERB_PRICE = 5;
 
-    private final GameMessage message;
+    private final ShopMessage message;
 
     /// 薬草を購入する
     /// @param player プレイヤー

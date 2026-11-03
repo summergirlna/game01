@@ -4,8 +4,7 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.service.*;
-import com.example.rpg.ui.GameCommand;
-import com.example.rpg.ui.GameMessage;
+import com.example.rpg.ui.*;
 
 import java.util.Scanner;
 
@@ -14,6 +13,8 @@ public class Game {
     private final Player player;
 
     private final GameMessage message;
+
+    private final StatusMessage statusMessage;
 
     private final ExploreService exploreService;
 
@@ -35,12 +36,13 @@ public class Game {
         this.player = new Player("勇者", 30, 8);
         MonsterFactory monsterFactory = new MonsterFactory();
         this.message = new GameMessage();
-        this.exploreService = new ExploreService(player, monsterFactory, message);
-        this.innService = new InnService(message);
-        this.itemService = new ItemService(message);
-        this.equipmentService = new EquipmentService(message);
-        this.fieldService = new FieldService(message);
-        this.shopService = new ShopService(message);
+        this.statusMessage = new StatusMessage();
+        this.exploreService = new ExploreService(player, monsterFactory, new ExploreMessage());
+        this.innService = new InnService(new InnMessage());
+        this.itemService = new ItemService(new ItemMessage());
+        this.equipmentService = new EquipmentService(new EquipmentMessage());
+        this.fieldService = new FieldService(new FieldMessage());
+        this.shopService = new ShopService(new ShopMessage());
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -57,7 +59,7 @@ public class Game {
 
             switch (command) {
                 case EXPLORE -> explore();
-                case STATUS -> message.showStatus(player);
+                case STATUS -> statusMessage.showStatus(player);
                 case INN -> innService.stay(player);
                 case ITEM -> itemService.useHerb(player);
                 case EQUIPMENT -> equipmentService.equipCopperSword(player);

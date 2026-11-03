@@ -2,13 +2,13 @@ package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.GameMessage;
+import com.example.rpg.ui.FieldMessage;
 import lombok.RequiredArgsConstructor;
 
 /// フィールド移動処理を担当するクラス
 @RequiredArgsConstructor
 public class FieldService {
-    private final GameMessage message;
+    private final FieldMessage message;
 
     /// 次のエリアへ移動する
     /// @param player プレイヤー
