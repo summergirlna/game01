@@ -3,6 +3,7 @@ package com.example.rpg.battle;
 import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
+import com.example.rpg.ui.BattleMessage;
 
 import java.util.Scanner;
 
