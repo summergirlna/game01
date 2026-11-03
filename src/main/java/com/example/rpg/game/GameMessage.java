@@ -21,7 +21,8 @@ public class GameMessage {
         System.out.println("何をしますか？");
         System.out.println("1. 探索する");
         System.out.println("2. ステータスを見る");
-        System.out.println("3. 終了する");
+        System.out.println("3. 宿屋に泊まる");
+        System.out.println("4. 終了する");
         System.out.print("> ");
     }
 
@@ -40,5 +41,20 @@ public class GameMessage {
         System.out.println("攻撃力: " + player.getAttack());
         System.out.println("経験値: " + player.getExp());
         System.out.println("ゴールド: " + player.getGold());
+    }
+
+    /// 宿屋に泊まった時のメッセージを表示する
+    /// @param cost 宿泊料金
+    public void showStayInn(int cost) {
+        System.out.println("宿屋に泊まった。");
+        System.out.println(cost + " ゴールドを支払った。");
+        System.out.println("HPが全回復した。");
+    }
+
+    /// ゴールドが足りない時のメッセージを表示する
+    /// @param cost 必要なゴールド
+    public void showNotEnoughGold(int cost) {
+        System.out.println("ゴールドが足りません。");
+        System.out.println("宿泊には " + cost + " ゴールド必要です。");
     }
 }

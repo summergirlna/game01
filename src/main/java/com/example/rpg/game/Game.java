@@ -15,9 +15,7 @@ public class Game {
 
     private final ExploreService exploreService;
 
-    private final MonsterFactory monsterFactory;
-
-    private final Random random;
+    private final InnService innService;
 
     private final Scanner scanner;
 
@@ -25,10 +23,10 @@ public class Game {
 
     public Game() {
         this.player = new Player("勇者", 30, 8);
-        this.monsterFactory = new MonsterFactory();
+        MonsterFactory monsterFactory = new MonsterFactory();
         this.message = new GameMessage();
         this.exploreService = new ExploreService(player, monsterFactory);
-        this.random = new Random();
+        this.innService = new InnService(message);
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -46,6 +44,7 @@ public class Game {
             switch (command) {
                 case EXPLORE -> explore();
                 case STATUS -> message.showStatus(player);
+                case INN -> innService.stay(player);
                 case QUIT -> quit();
                 case INVALID -> message.showInvalidCommand();
             }
