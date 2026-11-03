@@ -28,6 +28,8 @@ public class Game {
 
     private final ShopService shopService;
 
+    private final WeaponShopService weaponShopService;
+
     private final Scanner scanner;
 
     private boolean running;
@@ -43,6 +45,7 @@ public class Game {
         this.equipmentService = new EquipmentService(new EquipmentMessage());
         this.fieldService = new FieldService(new FieldMessage());
         this.shopService = new ShopService(new ShopMessage());
+        this.weaponShopService = new WeaponShopService(new WeaponShopMessage());
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -65,6 +68,7 @@ public class Game {
                 case EQUIPMENT -> equipmentService.equipCopperSword(player);
                 case MOVE -> fieldService.moveToNextArea(player);
                 case SHOP -> shopService.buyHerb(player);
+                case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);
                 case QUIT -> quit();
                 case INVALID -> message.showInvalidCommand();
             }

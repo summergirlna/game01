@@ -24,7 +24,8 @@ public class GameMessage {
         System.out.println("5. 装備を変更する");
         System.out.println("6. 移動する");
         System.out.println("7. 道具屋で買う");
-        System.out.println("8. 終了する");
+        System.out.println("8. 武器屋で買う");
+        System.out.println("9. 終了する");
         System.out.print("> ");
     }
 
