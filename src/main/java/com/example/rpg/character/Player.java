@@ -1,5 +1,7 @@
 package com.example.rpg.character;
 
+import com.example.rpg.item.Inventory;
+import com.example.rpg.item.ItemType;
 import lombok.Getter;
 
 /// プレイヤークラス
@@ -8,6 +10,8 @@ public class Player extends GameCharacter {
     private final LevelTable levelTable;
 
     private Level level;
+
+    private final Inventory inventory;
 
     private int exp;
 
@@ -23,6 +27,9 @@ public class Player extends GameCharacter {
         super(name, hp, attack);
         this.levelTable = new LevelTable();
         this.level = Level.initial();
+        this.inventory = new Inventory();
+        // 初期は薬草を3つもたせる
+        this.inventory.add(ItemType.HERB, 3);
         this.exp = 0;
         this.gold = 0;
         this.leveledUp = false;

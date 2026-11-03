@@ -16,6 +16,8 @@ public class Game {
 
     private final InnService innService;
 
+    private final ItemService itemService;
+
     private final Scanner scanner;
 
     private boolean running;
@@ -26,6 +28,7 @@ public class Game {
         this.message = new GameMessage();
         this.exploreService = new ExploreService(player, monsterFactory);
         this.innService = new InnService(message);
+        this.itemService = new ItemService(message);
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -44,6 +47,7 @@ public class Game {
                 case EXPLORE -> explore();
                 case STATUS -> message.showStatus(player);
                 case INN -> innService.stay(player);
+                case ITEM -> itemService.useHerb(player);
                 case QUIT -> quit();
                 case INVALID -> message.showInvalidCommand();
             }

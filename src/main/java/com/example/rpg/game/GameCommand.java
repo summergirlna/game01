@@ -5,6 +5,7 @@ public enum GameCommand {
     EXPLORE,
     STATUS,
     INN,
+    ITEM,
     QUIT,
     INVALID;
 
@@ -16,7 +17,8 @@ public enum GameCommand {
             case "1" -> EXPLORE;
             case "2" -> STATUS;
             case "3" -> INN;
-            case "4" -> QUIT;
+            case "4" -> ITEM;
+            case "5" -> QUIT;
             default -> INVALID;
         };
     }

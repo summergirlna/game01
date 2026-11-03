@@ -1,6 +1,7 @@
 package com.example.rpg.game;
 
 import com.example.rpg.character.Player;
+import com.example.rpg.item.ItemType;
 
 /// ゲーム画面のメッセージ表示を担当するクラス
 public class GameMessage {
@@ -22,7 +23,8 @@ public class GameMessage {
         System.out.println("1. 探索する");
         System.out.println("2. ステータスを見る");
         System.out.println("3. 宿屋に泊まる");
-        System.out.println("4. 終了する");
+        System.out.println("4. アイテムを使う");
+        System.out.println("5. 終了する");
         System.out.print("> ");
     }
 
@@ -41,6 +43,7 @@ public class GameMessage {
         System.out.println("攻撃力: " + player.getAttack());
         System.out.println("経験値: " + player.getExp());
         System.out.println("ゴールド: " + player.getGold());
+        System.out.println("薬草: " + player.getInventory().getAmount(ItemType.HERB));
     }
 
     /// 宿屋に泊まった時のメッセージを表示する
@@ -56,5 +59,18 @@ public class GameMessage {
     public void showNotEnoughGold(int cost) {
         System.out.println("ゴールドが足りません。");
         System.out.println("宿泊には " + cost + " ゴールド必要です。");
+    }
+
+    /// アイテムを使用した時のメッセージを表示する
+    /// @param itemType 使用したアイテム
+    public void showUseItem(ItemType itemType) {
+        System.out.println(itemType.getDisplayName() + "を使った。");
+        System.out.println("HPが " + itemType.getHealAmount() + " 回復した。");
+    }
+
+    /// アイテムを持っていない時のメッセージを表示する
+    /// @param itemType 使用しようとしたアイテム
+    public void showNoItem(ItemType itemType) {
+        System.out.println(itemType.getDisplayName() + "を持っていません。");
     }
 }
