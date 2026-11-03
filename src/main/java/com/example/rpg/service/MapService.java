@@ -5,6 +5,7 @@ import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.ui.field.MapMessage;
@@ -30,6 +31,8 @@ public class MapService {
 
     private final Random random = new Random();
 
+    private boolean returnedToTown;
+
     /// マップ移動を開始する
     public BattleResult start() {
         while (true) {
@@ -45,6 +48,10 @@ public class MapService {
 
                     if (result == BattleResult.LOSE) {
                         return result;
+                    }
+
+                    if (returnedToTown) {
+                        return null;
                     }
                 }
                 case MENU -> {
@@ -63,6 +70,14 @@ public class MapService {
     private BattleResult move(MapCommand command) {
         if (!gameMap.move(command)) {
             message.showCannotMove();
+            return null;
+        }
+
+        if (gameMap.isPlayerOnTownPosition()) {
+            player.moveTo(FieldArea.TOWN);
+            gameMap.resetPlayerPosition();
+            returnedToTown = true;
+            message.showReturnToTown();
             return null;
         }
 

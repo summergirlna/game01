@@ -21,6 +21,8 @@ public class MapMessage {
 
                 if (gameMap.isPlayerPosition(position)) {
                     System.out.print("P");
+                } else if (gameMap.isTownPosition(position)) {
+                    System.out.print("T");
                 } else {
                     System.out.print(".");
                 }
@@ -52,5 +54,10 @@ public class MapMessage {
     /// 通常メニューへ戻るメッセージを表示する
     public void showBackToMenu() {
         System.out.println("メニューに戻ります。");
+    }
+
+    /// 町へ戻るメッセージを表示する
+    public void showReturnToTown() {
+        System.out.println("町へ戻った。");
     }
 }

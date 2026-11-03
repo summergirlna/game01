@@ -11,6 +11,10 @@ public class GameMap {
 
     private final int height;
 
+    private final Position initialPlayerPosition;
+
+    private final Position townPosition;
+
     private Position playerPosition;
 
     public GameMap(int width, int height, Position playerPosition) {
@@ -24,6 +28,8 @@ public class GameMap {
 
         this.width = width;
         this.height = height;
+        this.initialPlayerPosition = playerPosition;
+        this.townPosition = new Position(width - 1, height - 1);
 
         if (!isInBounds(playerPosition)) {
             throw new IllegalArgumentException("プレイヤーの初期位置がマップ範囲外です。");
@@ -74,5 +80,24 @@ public class GameMap {
     public boolean isPlayerPosition(Position position) {
         return playerPosition.getX() == position.getX()
                 && playerPosition.getY() == position.getY();
+    }
+
+    /// プレイヤー位置を初期位置に戻す
+    public void resetPlayerPosition() {
+        playerPosition = initialPlayerPosition;
+    }
+
+    /// 指定した座標が町へ戻る位置か判定する
+    /// @param position 座標
+    /// @return 町へ戻る位置の場合はtrue、町へ戻る位置でない場合はfalse
+    public boolean isTownPosition(Position position) {
+        return townPosition.getX() == position.getX()
+                && townPosition.getY() == position.getY();
+    }
+
+    /// プレイヤーが町へ戻る位置にいるか判定する
+    /// @return 町へ戻る位置にいる場合はtrue、そうでない場合はfalse
+    public boolean isPlayerOnTownPosition() {
+        return isTownPosition(playerPosition);
     }
 }
