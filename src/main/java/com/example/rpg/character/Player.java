@@ -1,5 +1,6 @@
 package com.example.rpg.character;
 
+import com.example.rpg.equipment.Equipment;
 import com.example.rpg.item.Inventory;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.value.Gold;
@@ -13,6 +14,8 @@ public class Player extends GameCharacter {
     private Level level;
 
     private final Inventory inventory;
+
+    private final Equipment equipment;
 
     private int exp;
 
@@ -31,6 +34,7 @@ public class Player extends GameCharacter {
         this.inventory = new Inventory();
         // 初期は薬草を3つもたせる
         this.inventory.add(ItemType.HERB, 3);
+        this.equipment = new Equipment();
         this.exp = 0;
         this.gold = Gold.zero();
         this.leveledUp = false;
@@ -108,5 +112,12 @@ public class Player extends GameCharacter {
 
         lastMaxHpIncrease += maxHpIncrease;
         lastAttackIncrease += attackIncrease;
+    }
+
+    /// 装備込みの攻撃力を取得する
+    /// @return 装備込みの攻撃力
+    @Override
+    public int getAttack() {
+        return super.getAttack() + equipment.getAttackBonus();
     }
 }

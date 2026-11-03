@@ -1,6 +1,7 @@
 package com.example.rpg.ui;
 
 import com.example.rpg.character.Player;
+import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.item.ItemType;
 
 /// ゲーム画面のメッセージ表示を担当するクラス
@@ -24,7 +25,8 @@ public class GameMessage {
         System.out.println("2. ステータスを見る");
         System.out.println("3. 宿屋に泊まる");
         System.out.println("4. アイテムを使う");
-        System.out.println("5. 終了する");
+        System.out.println("5. 装備を変更する");
+        System.out.println("6. 終了する");
         System.out.print("> ");
     }
 
@@ -41,6 +43,7 @@ public class GameMessage {
         System.out.println("レベル: " + player.getLevel().getValue());
         System.out.println("HP: " + player.getHp() + " / " + player.getMaxHp());
         System.out.println("攻撃力: " + player.getAttack());
+        System.out.println("武器: " + player.getEquipment().getWeapon().getDisplayName());
         System.out.println("経験値: " + player.getExp());
         System.out.println("ゴールド: " + player.getGold());
         System.out.println("薬草: " + player.getInventory().getAmount(ItemType.HERB));
@@ -72,5 +75,12 @@ public class GameMessage {
     /// @param itemType 使用しようとしたアイテム
     public void showNoItem(ItemType itemType) {
         System.out.println(itemType.getDisplayName() + "を持っていません。");
+    }
+
+    /// 武器を装備した時のメッセージを表示する
+    /// @param weapon 装備した武器
+    public void showEquipWeapon(WeaponType weapon) {
+        System.out.println(weapon.getDisplayName() + "を装備した。");
+        System.out.println("攻撃力が " + weapon.getAttackBonus() + " 上がる。");
     }
 }

@@ -3,6 +3,7 @@ package com.example.rpg.app;
 import com.example.rpg.battle.BattleResult;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
+import com.example.rpg.service.EquipmentService;
 import com.example.rpg.service.ExploreService;
 import com.example.rpg.service.InnService;
 import com.example.rpg.service.ItemService;
@@ -23,6 +24,8 @@ public class Game {
 
     private final ItemService itemService;
 
+    private final EquipmentService equipmentService;
+
     private final Scanner scanner;
 
     private boolean running;
@@ -34,6 +37,7 @@ public class Game {
         this.exploreService = new ExploreService(player, monsterFactory);
         this.innService = new InnService(message);
         this.itemService = new ItemService(message);
+        this.equipmentService = new EquipmentService(message);
         this.scanner = new Scanner(System.in);
         this.running = true;
     }
@@ -53,6 +57,7 @@ public class Game {
                 case STATUS -> message.showStatus(player);
                 case INN -> innService.stay(player);
                 case ITEM -> itemService.useHerb(player);
+                case EQUIPMENT -> equipmentService.equipCopperSword(player);
                 case QUIT -> quit();
                 case INVALID -> message.showInvalidCommand();
             }
