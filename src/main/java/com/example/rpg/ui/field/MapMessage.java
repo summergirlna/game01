@@ -23,6 +23,10 @@ public class MapMessage {
                     System.out.print("P");
                 } else if (gameMap.isBossPosition(currentArea, position)) {
                     System.out.print("B");
+                } else if (gameMap.isNextAreaPosition(currentArea, position)) {
+                    System.out.print("N");
+                } else if (gameMap.isPreviousAreaPosition(currentArea, position)) {
+                    System.out.print("R");
                 } else if (gameMap.isTownPosition(position)) {
                     System.out.print("T");
                 } else {
@@ -39,6 +43,7 @@ public class MapMessage {
 
     /// マップ操作メニューを表示する
     public void showCommandMenu() {
+        System.out.println("P: 現在地  T: 町  N: 次のエリア  R: 前のエリア  B: ボス");
         System.out.println("w: 上  s: 下  a: 左  d: 右  m: メニュー");
         System.out.print("> ");
     }
@@ -61,6 +66,12 @@ public class MapMessage {
     /// 町へ戻るメッセージを表示する
     public void showReturnToTown() {
         System.out.println("町へ戻った。");
+    }
+
+    /// エリア移動メッセージを表示する
+    /// @param area 移動先エリア
+    public void showMoveArea(FieldArea area) {
+        System.out.println(area.getDisplayName() + "へ移動した。");
     }
 
     /// ボス戦開始メッセージを表示する

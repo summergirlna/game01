@@ -17,6 +17,10 @@ public class GameMap {
 
     private final Position bossPosition;
 
+    private final Position nextAreaPosition;
+
+    private final Position previousAreaPosition;
+
     private Position playerPosition;
 
     public GameMap(int width, int height, Position playerPosition) {
@@ -35,6 +39,10 @@ public class GameMap {
         this.townPosition = new Position(width - 1, height - 1);
         // ボスは左上
         this.bossPosition = new Position(0, 0);
+        // Nextは右上
+        this.nextAreaPosition = new Position(width -1, 0);
+        // Previousは左下
+        this.previousAreaPosition = new Position(0, height - 1);
 
         if (!isInBounds(playerPosition)) {
             throw new IllegalArgumentException("プレイヤーの初期位置がマップ範囲外です。");
@@ -122,5 +130,55 @@ public class GameMap {
     /// @return ボスにいる場合はtrue、そうでない場合はfalse
     public boolean isPlayerOnBossPosition(FieldArea currentArea) {
         return isBossPosition(currentArea, playerPosition);
+    }
+
+    /// 指定した座標が次のエリアへ進む位置か判定する
+    /// @param currentArea 現在地
+    /// @param position 座標
+    /// @return 次のエリアへ進む位置の場合はtrue、そうでない場合はfalse
+    public boolean isNextAreaPosition(FieldArea currentArea, Position position) {
+        return hasNextArea(currentArea)
+                && nextAreaPosition.getX() == position.getX()
+                && nextAreaPosition.getY() == position.getY();
+    }
+
+    /// プレイヤーが次のエリアへ進む位置にいるか判定する
+    /// @param currentArea 現在地
+    /// @return 次のエリアへ進む位置にいる場合はtrue、そうでない場合はfalse
+    public boolean isPlayerOnNextAreaPosition(FieldArea currentArea) {
+        return isNextAreaPosition(currentArea, playerPosition);
+    }
+
+    /// 指定した座標が前のエリアへ戻る位置か判定する
+    /// @param currentArea 現在地
+    /// @param position 座標
+    /// @return 前のエリアへ戻る位置の場合はtrue、そうでない場合はfalse
+    public boolean isPreviousAreaPosition(FieldArea currentArea, Position position) {
+        return hasPreviousArea(currentArea)
+                && previousAreaPosition.getX() == position.getX()
+                && previousAreaPosition.getY() == position.getY();
+    }
+
+    /// プレイヤーが前のエリアへ戻る位置にいるか判定する
+    /// @param currentArea 現在地
+    /// @return 前のエリアへ戻る位置にいる場合はtrue、そうでない場合はfalse
+    public boolean isPlayerOnPreviousAreaPosition(FieldArea currentArea) {
+        return isPreviousAreaPosition(currentArea, playerPosition);
+    }
+
+    /// 次のエリアがあるか判定する
+    /// @param currentArea 現在地
+    /// @return 次のエリアがある場合はtrue、そうでない場合はfalse
+    private boolean hasNextArea(FieldArea currentArea) {
+        return currentArea == FieldArea.GRASSLAND
+                || currentArea == FieldArea.FOREST;
+    }
+
+    /// 前のエリアがあるか判定する
+    /// @param currentArea 現在地
+    /// @return 前のエリアがある場合はtrue、そうでない場合はfalse
+    private boolean hasPreviousArea(FieldArea currentArea) {
+        return currentArea == FieldArea.FOREST
+                || currentArea == FieldArea.CAVE;
     }
 }

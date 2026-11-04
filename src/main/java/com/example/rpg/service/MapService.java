@@ -70,6 +70,16 @@ public class MapService {
             return returnToTown();
         }
 
+        if (gameMap.isPlayerOnNextAreaPosition(player.getCurrentArea())) {
+            moveToNextArea();
+            return null;
+        }
+
+        if (gameMap.isPlayerOnPreviousAreaPosition(player.getCurrentArea())) {
+            moveToPreviousArea();
+            return null;
+        }
+
         if (gameMap.isPlayerOnBossPosition(player.getCurrentArea())) {
             return fightBoss();
         }
@@ -90,6 +100,32 @@ public class MapService {
         gameMap.resetPlayerPosition();
         message.showReturnToTown();
         return MapResult.RETURN_TO_TOWN;
+    }
+
+    /// 次のエリアへ移動する
+    private void moveToNextArea() {
+        FieldArea nextArea = switch (player.getCurrentArea()) {
+            case GRASSLAND -> FieldArea.FOREST;
+            case FOREST -> FieldArea.CAVE;
+            case CAVE, TOWN -> player.getCurrentArea();
+        };
+
+        player.moveTo(nextArea);
+        gameMap.resetPlayerPosition();
+        message.showMoveArea(nextArea);
+    }
+
+    /// 前のエリアへ移動する
+    private void moveToPreviousArea() {
+        FieldArea previousArea = switch (player.getCurrentArea()) {
+            case FOREST -> FieldArea.GRASSLAND;
+            case CAVE -> FieldArea.FOREST;
+            case GRASSLAND, TOWN -> player.getCurrentArea();
+        };
+
+        player.moveTo(previousArea);
+        gameMap.resetPlayerPosition();
+        message.showMoveArea(previousArea);
     }
 
     /// ボス戦を行う
