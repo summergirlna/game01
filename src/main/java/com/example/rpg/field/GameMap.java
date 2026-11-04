@@ -15,6 +15,8 @@ public class GameMap {
 
     private final Position townPosition;
 
+    private final Position bossPosition;
+
     private Position playerPosition;
 
     public GameMap(int width, int height, Position playerPosition) {
@@ -29,7 +31,10 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.initialPlayerPosition = playerPosition;
+        // 町は右下
         this.townPosition = new Position(width - 1, height - 1);
+        // ボスは左上
+        this.bossPosition = new Position(0, 0);
 
         if (!isInBounds(playerPosition)) {
             throw new IllegalArgumentException("プレイヤーの初期位置がマップ範囲外です。");
@@ -99,5 +104,19 @@ public class GameMap {
     /// @return 町へ戻る位置にいる場合はtrue、そうでない場合はfalse
     public boolean isPlayerOnTownPosition() {
         return isTownPosition(playerPosition);
+    }
+
+    /// 指定した座標がボスの位置か判定する
+    /// @param position 座標
+    /// @return ボスの位置の場合はtrue、ボスの位置でない場合はfalse
+    public boolean isBossPosition(Position position) {
+        return bossPosition.getX() == position.getX()
+                && bossPosition.getY() == position.getY();
+    }
+
+    /// プレイヤーがボスにいるか判定する
+    /// @return ボスにいる場合はtrue、そうでない場合はfalse
+    public boolean isPlayerOnBossPosition() {
+        return isBossPosition(playerPosition);
     }
 }

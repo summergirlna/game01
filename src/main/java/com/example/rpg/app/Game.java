@@ -65,6 +65,7 @@ public class Game {
                 player,
                 GameMap.initial(),
                 new EncounterService(player, monsterFactory),
+                monsterFactory,
                 new MapMessage()
         );
         this.innService = new InnService(new InnMessage());
@@ -117,7 +118,7 @@ public class Game {
     private void exploreMap() {
         MapResult result = mapService.start();
 
-        if (result == MapResult.LOSE) {
+        if (result == MapResult.LOSE || result == MapResult.CLEAR) {
             running = false;
         }
     }

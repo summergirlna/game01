@@ -1,6 +1,9 @@
 package com.example.rpg.service;
 
+import com.example.rpg.battle.Battle;
 import com.example.rpg.battle.BattleResult;
+import com.example.rpg.character.Monster;
+import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
@@ -20,6 +23,8 @@ public class MapService {
     private final GameMap gameMap;
 
     private final EncounterService encounterService;
+
+    private final MonsterFactory monsterFactory;
 
     private final MapMessage message;
 
@@ -65,6 +70,10 @@ public class MapService {
             return returnToTown();
         }
 
+        if (gameMap.isPlayerOnBossPosition()) {
+            return fightBoss();
+        }
+
         BattleResult battleResult = encounterService.encounter();
 
         if (battleResult == BattleResult.LOSE) {
@@ -81,5 +90,24 @@ public class MapService {
         gameMap.resetPlayerPosition();
         message.showReturnToTown();
         return MapResult.RETURN_TO_TOWN;
+    }
+
+    /// ボス戦を行う
+    /// @return ボス戦結果
+    private MapResult fightBoss() {
+        message.showBossEncounter();
+
+        Monster boss = monsterFactory.createBoss();
+        Battle battle = new Battle(player, boss);
+        BattleResult result = battle.start();
+
+        return switch (result) {
+            case WIN -> {
+                message.showGameClear();
+                yield MapResult.CLEAR;
+            }
+            case LOSE -> MapResult.LOSE;
+            case ESCAPE -> null;
+        };
     }
 }

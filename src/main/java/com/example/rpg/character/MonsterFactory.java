@@ -59,4 +59,10 @@ public class MonsterFactory {
             default -> throw new IllegalStateException("想定外のモンスター種別です。");
         };
     }
+
+    /// ボスモンスターを生成する
+    /// @return ボスモンスター
+    public Monster createBoss() {
+        return new Monster("魔王", 80, 16, 100, 100);
+    }
 }

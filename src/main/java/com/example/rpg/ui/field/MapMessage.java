@@ -21,6 +21,8 @@ public class MapMessage {
 
                 if (gameMap.isPlayerPosition(position)) {
                     System.out.print("P");
+                } else if (gameMap.isBossPosition(position)) {
+                    System.out.print("B");
                 } else if (gameMap.isTownPosition(position)) {
                     System.out.print("T");
                 } else {
@@ -59,5 +61,17 @@ public class MapMessage {
     /// 町へ戻るメッセージを表示する
     public void showReturnToTown() {
         System.out.println("町へ戻った。");
+    }
+
+    /// ボス戦開始メッセージを表示する
+    public void showBossEncounter() {
+        System.out.println("強大な敵が立ちはだかった！");
+    }
+
+    /// ゲームクリアメッセージを表示する
+    public void showGameClear() {
+        System.out.println("ボスを倒した！");
+        System.out.println("世界に平和が戻った。");
+        System.out.println("=== GAME CLEAR ===");
     }
 }

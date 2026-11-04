@@ -4,5 +4,6 @@ package com.example.rpg.field;
 public enum MapResult {
     BACK_TO_MENU,
     RETURN_TO_TOWN,
-    LOSE
+    LOSE,
+    CLEAR
 }
