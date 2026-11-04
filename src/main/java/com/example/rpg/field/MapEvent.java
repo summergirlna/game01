@@ -1,0 +1,38 @@
+package com.example.rpg.field;
+
+import com.example.rpg.value.Position;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+/// マップイベント
+@Getter
+@RequiredArgsConstructor
+public enum MapEvent {
+    TOWN('T', new Position(4, 4)),
+    BOSS('B', new Position(0, 0)),
+    NEXT_AREA('N', new Position(4, 0)),
+    PREVIOUS_AREA('R', new Position(0, 4));
+
+    private final char symbol;
+
+    private final Position position;
+
+    /// 指定したエリアで表示されるイベントか判定する
+    /// @param currentArea 現在地
+    /// @return 表示される場合はtrue、そうでない場合はfalse
+    public boolean isVisibleIn(FieldArea currentArea) {
+        return switch (this) {
+            case TOWN -> currentArea != FieldArea.TOWN;
+            case BOSS -> currentArea == FieldArea.CAVE;
+            case NEXT_AREA -> currentArea == FieldArea.GRASSLAND || currentArea == FieldArea.FOREST;
+            case PREVIOUS_AREA -> currentArea == FieldArea.FOREST || currentArea == FieldArea.CAVE;
+        };
+    }
+
+    /// 指定した座標にあるイベントか判定する
+    /// @param position 座標
+    /// @return 同じ座標の場合はtrue、そうでない場合はfalse
+    public boolean isAt(Position position) {
+        return this.position.getX() == position.getX() && this.position.getY() == position.getY();
+    }
+}

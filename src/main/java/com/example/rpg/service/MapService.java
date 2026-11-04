@@ -7,6 +7,7 @@ import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.MapEvent;
 import com.example.rpg.field.MapResult;
 import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.ui.field.MapMessage;
@@ -66,22 +67,10 @@ public class MapService {
             return null;
         }
 
-        if (gameMap.isPlayerOnTownPosition()) {
-            return returnToTown();
-        }
+        MapResult eventResult = handleMapEvent();
 
-        if (gameMap.isPlayerOnNextAreaPosition(player.getCurrentArea())) {
-            moveToNextArea();
-            return null;
-        }
-
-        if (gameMap.isPlayerOnPreviousAreaPosition(player.getCurrentArea())) {
-            moveToPreviousArea();
-            return null;
-        }
-
-        if (gameMap.isPlayerOnBossPosition(player.getCurrentArea())) {
-            return fightBoss();
+        if (eventResult != null) {
+            return eventResult;
         }
 
         BattleResult battleResult = encounterService.encounter();
@@ -91,6 +80,29 @@ public class MapService {
         }
 
         return null;
+    }
+
+    /// マップイベントを処理する
+    /// @return マップ探索結果。探索を継続する場合はnull
+    private MapResult handleMapEvent() {
+        MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
+
+        if (event == null) {
+            return null;
+        }
+
+        return switch (event) {
+            case TOWN -> returnToTown();
+            case NEXT_AREA -> {
+                moveToNextArea();
+                yield null;
+            }
+            case PREVIOUS_AREA -> {
+                moveToPreviousArea();
+                yield null;
+            }
+            case BOSS -> fightBoss();
+        };
     }
 
     /// 町へ戻る

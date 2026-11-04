@@ -2,6 +2,7 @@ package com.example.rpg.ui.field;
 
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.MapEvent;
 import com.example.rpg.value.Position;
 
 /// マップメッセージ表示を担当するクラス
@@ -21,18 +22,16 @@ public class MapMessage {
 
                 if (gameMap.isPlayerPosition(position)) {
                     System.out.print("P");
-                } else if (gameMap.isBossPosition(currentArea, position)) {
-                    System.out.print("B");
-                } else if (gameMap.isNextAreaPosition(currentArea, position)) {
-                    System.out.print("N");
-                } else if (gameMap.isPreviousAreaPosition(currentArea, position)) {
-                    System.out.print("R");
-                } else if (gameMap.isTownPosition(position)) {
-                    System.out.print("T");
+                    continue;
+                }
+
+                MapEvent event = gameMap.getEventAt(currentArea, position);
+
+                if (event != null) {
+                    System.out.print(event.getSymbol());
                 } else {
                     System.out.print(".");
                 }
-
             }
 
             System.out.println();

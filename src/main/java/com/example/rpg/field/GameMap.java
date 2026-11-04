@@ -4,6 +4,8 @@ import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.value.Position;
 import lombok.Getter;
 
+import java.util.Arrays;
+
 /// フィールドマップを表すクラス
 @Getter
 public class GameMap {
@@ -12,14 +14,6 @@ public class GameMap {
     private final int height;
 
     private final Position initialPlayerPosition;
-
-    private final Position townPosition;
-
-    private final Position bossPosition;
-
-    private final Position nextAreaPosition;
-
-    private final Position previousAreaPosition;
 
     private Position playerPosition;
 
@@ -35,14 +29,6 @@ public class GameMap {
         this.width = width;
         this.height = height;
         this.initialPlayerPosition = playerPosition;
-        // 町は右下
-        this.townPosition = new Position(width - 1, height - 1);
-        // ボスは左上
-        this.bossPosition = new Position(0, 0);
-        // Nextは右上
-        this.nextAreaPosition = new Position(width -1, 0);
-        // Previousは左下
-        this.previousAreaPosition = new Position(0, height - 1);
 
         if (!isInBounds(playerPosition)) {
             throw new IllegalArgumentException("プレイヤーの初期位置がマップ範囲外です。");
@@ -100,85 +86,23 @@ public class GameMap {
         playerPosition = initialPlayerPosition;
     }
 
-    /// 指定した座標が町へ戻る位置か判定する
-    /// @param position 座標
-    /// @return 町へ戻る位置の場合はtrue、町へ戻る位置でない場合はfalse
-    public boolean isTownPosition(Position position) {
-        return townPosition.getX() == position.getX()
-                && townPosition.getY() == position.getY();
-    }
-
-    /// プレイヤーが町へ戻る位置にいるか判定する
-    /// @return 町へ戻る位置にいる場合はtrue、そうでない場合はfalse
-    public boolean isPlayerOnTownPosition() {
-        return isTownPosition(playerPosition);
-    }
-
-    /// 指定した座標がボスの位置か判定する
-    /// ボスは洞窟にいる仕様
-    /// @param currentArea 現在のエリア
-    /// @param position 座標
-    /// @return ボスの位置の場合はtrue、ボスの位置でない場合はfalse
-    public boolean isBossPosition(FieldArea currentArea, Position position) {
-        return currentArea == FieldArea.CAVE
-                && bossPosition.getX() == position.getX()
-                && bossPosition.getY() == position.getY();
-    }
-
-    /// プレイヤーがボスにいるか判定する
-    /// @param currentArea 現在のエリア
-    /// @return ボスにいる場合はtrue、そうでない場合はfalse
-    public boolean isPlayerOnBossPosition(FieldArea currentArea) {
-        return isBossPosition(currentArea, playerPosition);
-    }
-
-    /// 指定した座標が次のエリアへ進む位置か判定する
+    /// 指定した座標にあるマップイベントを取得する
     /// @param currentArea 現在地
     /// @param position 座標
-    /// @return 次のエリアへ進む位置の場合はtrue、そうでない場合はfalse
-    public boolean isNextAreaPosition(FieldArea currentArea, Position position) {
-        return hasNextArea(currentArea)
-                && nextAreaPosition.getX() == position.getX()
-                && nextAreaPosition.getY() == position.getY();
+    /// @return マップイベント。存在しない場合はnull
+    public MapEvent getEventAt(FieldArea currentArea, Position position) {
+        return Arrays.stream(MapEvent.values())
+                .filter(event -> event.isVisibleIn(currentArea))
+                .filter(event -> event.isAt(position))
+                .findFirst()
+                .orElse(null);
     }
 
-    /// プレイヤーが次のエリアへ進む位置にいるか判定する
+    /// プレイヤー位置にあるマップイベントを取得する
     /// @param currentArea 現在地
-    /// @return 次のエリアへ進む位置にいる場合はtrue、そうでない場合はfalse
-    public boolean isPlayerOnNextAreaPosition(FieldArea currentArea) {
-        return isNextAreaPosition(currentArea, playerPosition);
+    /// @return マップイベント。存在しない場合はnull
+    public MapEvent getPlayerEvent(FieldArea currentArea) {
+        return getEventAt(currentArea, playerPosition);
     }
 
-    /// 指定した座標が前のエリアへ戻る位置か判定する
-    /// @param currentArea 現在地
-    /// @param position 座標
-    /// @return 前のエリアへ戻る位置の場合はtrue、そうでない場合はfalse
-    public boolean isPreviousAreaPosition(FieldArea currentArea, Position position) {
-        return hasPreviousArea(currentArea)
-                && previousAreaPosition.getX() == position.getX()
-                && previousAreaPosition.getY() == position.getY();
-    }
-
-    /// プレイヤーが前のエリアへ戻る位置にいるか判定する
-    /// @param currentArea 現在地
-    /// @return 前のエリアへ戻る位置にいる場合はtrue、そうでない場合はfalse
-    public boolean isPlayerOnPreviousAreaPosition(FieldArea currentArea) {
-        return isPreviousAreaPosition(currentArea, playerPosition);
-    }
-
-    /// 次のエリアがあるか判定する
-    /// @param currentArea 現在地
-    /// @return 次のエリアがある場合はtrue、そうでない場合はfalse
-    private boolean hasNextArea(FieldArea currentArea) {
-        return currentArea == FieldArea.GRASSLAND
-                || currentArea == FieldArea.FOREST;
-    }
-
-    /// 前のエリアがあるか判定する
-    /// @param currentArea 現在地
-    /// @return 前のエリアがある場合はtrue、そうでない場合はfalse
-    private boolean hasPreviousArea(FieldArea currentArea) {
-        return currentArea == FieldArea.FOREST
-                || currentArea == FieldArea.CAVE;
-    }
 }
