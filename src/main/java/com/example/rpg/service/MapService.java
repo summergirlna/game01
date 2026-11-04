@@ -70,7 +70,7 @@ public class MapService {
             return returnToTown();
         }
 
-        if (gameMap.isPlayerOnBossPosition()) {
+        if (gameMap.isPlayerOnBossPosition(player.getCurrentArea())) {
             return fightBoss();
         }
 

@@ -107,16 +107,20 @@ public class GameMap {
     }
 
     /// 指定した座標がボスの位置か判定する
+    /// ボスは洞窟にいる仕様
+    /// @param currentArea 現在のエリア
     /// @param position 座標
     /// @return ボスの位置の場合はtrue、ボスの位置でない場合はfalse
-    public boolean isBossPosition(Position position) {
-        return bossPosition.getX() == position.getX()
+    public boolean isBossPosition(FieldArea currentArea, Position position) {
+        return currentArea == FieldArea.CAVE
+                && bossPosition.getX() == position.getX()
                 && bossPosition.getY() == position.getY();
     }
 
     /// プレイヤーがボスにいるか判定する
+    /// @param currentArea 現在のエリア
     /// @return ボスにいる場合はtrue、そうでない場合はfalse
-    public boolean isPlayerOnBossPosition() {
-        return isBossPosition(playerPosition);
+    public boolean isPlayerOnBossPosition(FieldArea currentArea) {
+        return isBossPosition(currentArea, playerPosition);
     }
 }

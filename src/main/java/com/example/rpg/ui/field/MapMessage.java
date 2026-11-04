@@ -21,7 +21,7 @@ public class MapMessage {
 
                 if (gameMap.isPlayerPosition(position)) {
                     System.out.print("P");
-                } else if (gameMap.isBossPosition(position)) {
+                } else if (gameMap.isBossPosition(currentArea, position)) {
                     System.out.print("B");
                 } else if (gameMap.isTownPosition(position)) {
                     System.out.print("T");
