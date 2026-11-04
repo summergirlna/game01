@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ステータス</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="status-page">
+    <section class="status-card">
+        <header class="status-header">
+            <div>
+                <p class="caption">RPG STATUS</p>
+                <h1 th:text="${name}">勇者</h1>
+            </div>
+            <div class="level">
+                Lv. <span th:text="${level}">1</span>
+            </div>
+        </header>
+
+        <section class="hp-section">
+            <div class="hp-label">
+                <span>HP</span>
+                <span>
+                    <span th:text="${hp}">30</span>
+                    /
+                    <span th:text="${maxHp}">30</span>
+                </span>
+            </div>
+            <div class="hp-bar">
+                <div class="hp-bar-value"
+                     th:style="'width: ' + (${hp} * 100 / ${maxHp}) + '%'"></div>
+            </div>
+        </section>
+
+        <section class="status-list">
+            <div class="status-row">
+                <span>現在地</span>
+                <strong th:text="${area}">町</strong>
+            </div>
+            <div class="status-row">
+                <span>攻撃力</span>
+                <strong th:text="${attack}">8</strong>
+            </div>
+            <div class="status-row">
+                <span>武器</span>
+                <strong th:text="${weapon}">木の剣</strong>
+            </div>
+            <div class="status-row">
+                <span>銅の剣</span>
+                <strong th:text="${hasCopperSword ? 'あり' : 'なし'}">なし</strong>
+            </div>
+            <div class="status-row">
+                <span>経験値</span>
+                <strong th:text="${exp}">0</strong>
+            </div>
+            <div class="status-row">
+                <span>ゴールド</span>
+                <strong>
+                    <span th:text="${gold}">0</span> G
+                </strong>
+            </div>
+            <div class="status-row">
+                <span>薬草</span>
+                <strong>
+                    <span th:text="${herbAmount}">3</span> 個
+                </strong>
+            </div>
+        </section>
+    </section>
+</main>
+</body>
+</html>
