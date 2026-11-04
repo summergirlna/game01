@@ -42,7 +42,7 @@ public class MapMessage {
 
     /// マップ操作メニューを表示する
     public void showCommandMenu() {
-        System.out.println("P: 現在地  T: 町  N: 次のエリア  R: 前のエリア  B: ボス");
+        System.out.println("P: 現在地  T: 町  N: 次のエリア  R: 前のエリア  B: ボス  C: 宝箱");
         System.out.println("w: 上  s: 下  a: 左  d: 右  m: メニュー");
         System.out.print("> ");
     }
@@ -76,6 +76,20 @@ public class MapMessage {
     /// ボス戦開始メッセージを表示する
     public void showBossEncounter() {
         System.out.println("強大な敵が立ちはだかった！");
+    }
+
+    /// 宝箱を開けた時のメッセージを表示する
+    /// @param gold 獲得ゴールド
+    /// @param herbAmount 獲得した薬草の数
+    public void showOpenChest(int gold, int herbAmount) {
+        System.out.println("宝箱を開けた！");
+        System.out.println(gold + " ゴールドを手に入れた。");
+        System.out.println("薬草を " + herbAmount + " 個手に入れた。");
+    }
+
+    /// 開封済みの宝箱を調べた時のメッセージを表示する
+    public void showOpenedChest() {
+        System.out.println("宝箱は空だった。");
     }
 
     /// ゲームクリアメッセージを表示する

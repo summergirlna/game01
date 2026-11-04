@@ -9,6 +9,7 @@ import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.field.MapEvent;
 import com.example.rpg.field.MapResult;
+import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.command.MapCommand;
 import com.example.rpg.ui.field.MapMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,10 @@ import java.util.Scanner;
 /// マップ移動処理を担当するクラス
 @RequiredArgsConstructor
 public class MapService {
+
+    private static final int CHEST_GOLD = 20;
+
+    private static final int CHEST_HERB_AMOUNT = 2;
 
     private final Player player;
 
@@ -101,6 +106,10 @@ public class MapService {
                 moveToPreviousArea();
                 yield null;
             }
+            case CHEST -> {
+                openChest();
+                yield null;
+            }
             case BOSS -> fightBoss();
         };
     }
@@ -112,6 +121,19 @@ public class MapService {
         gameMap.resetPlayerPosition();
         message.showReturnToTown();
         return MapResult.RETURN_TO_TOWN;
+    }
+
+    /// 宝箱を開ける
+    private void openChest() {
+        if (player.hasOpenedTreasureChest()) {
+            message.showOpenedChest();
+            return;
+        }
+
+        player.openTreasureChest();
+        player.addGold(CHEST_GOLD);
+        player.getInventory().add(ItemType.HERB, CHEST_HERB_AMOUNT);
+        message.showOpenChest(CHEST_GOLD, CHEST_HERB_AMOUNT);
     }
 
     /// 次のエリアへ移動する

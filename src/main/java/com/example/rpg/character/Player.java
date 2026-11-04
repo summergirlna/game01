@@ -31,6 +31,8 @@ public class Player extends GameCharacter {
 
     private int lastAttackIncrease;
 
+    private boolean openedTreasureChest;
+
     public Player(String name, int hp, int attack) {
         super(name, hp, attack);
         this.levelTable = new LevelTable();
@@ -46,6 +48,18 @@ public class Player extends GameCharacter {
         this.leveledUp = false;
         this.lastMaxHpIncrease = 0;
         this.lastAttackIncrease = 0;
+        this.openedTreasureChest = false;
+    }
+
+    /// 宝箱を開けたかどうかを返す
+    /// @return 開けている場合はtrue
+    public boolean hasOpenedTreasureChest() {
+        return openedTreasureChest;
+    }
+
+    /// 宝箱を開ける
+    public void openTreasureChest() {
+        openedTreasureChest = true;
     }
 
     /// 経験値を獲得する

@@ -11,7 +11,8 @@ public enum MapEvent {
     TOWN('T', new Position(4, 4)),
     BOSS('B', new Position(0, 0)),
     NEXT_AREA('N', new Position(4, 0)),
-    PREVIOUS_AREA('R', new Position(0, 4));
+    PREVIOUS_AREA('R', new Position(0, 4)),
+    CHEST('C', new Position(2, 1));
 
     private final char symbol;
 
@@ -26,6 +27,7 @@ public enum MapEvent {
             case BOSS -> currentArea == FieldArea.CAVE;
             case NEXT_AREA -> currentArea == FieldArea.GRASSLAND || currentArea == FieldArea.FOREST;
             case PREVIOUS_AREA -> currentArea == FieldArea.FOREST || currentArea == FieldArea.CAVE;
+            case CHEST -> currentArea == FieldArea.FOREST;
         };
     }
 
