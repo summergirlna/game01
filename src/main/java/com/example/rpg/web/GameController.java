@@ -15,6 +15,26 @@ public class GameController {
 
     private final WebGameSession webGameSession;
 
+    /// トップ画面を表示する
+    /// @return リダイレクト先
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/game";
+    }
+
+    /// ゲームメニュー画面を表示する
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @GetMapping("/game")
+    public String game(Model model) {
+        Player player = webGameSession.getPlayer();
+
+        model.addAttribute("player", player);
+        model.addAttribute("isTown", player.getCurrentArea().name().equals("TOWN"));
+
+        return "game";
+    }
+
     /// ステータス画面を表示する
     /// @param model 画面モデル
     /// @return テンプレート名

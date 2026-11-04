@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="game-page">
+    <section class="game-card">
+        <header class="game-header">
+            <div>
+                <p class="caption">WEB RPG</p>
+                <h1>RPG</h1>
+            </div>
+            <div class="level">
+                Lv. <span th:text="${player.level.value}">1</span>
+            </div>
+        </header>
+
+        <section class="hero-summary">
+            <div>
+                <span class="summary-label">名前</span>
+                <strong th:text="${player.name}">勇者</strong>
+            </div>
+            <div>
+                <span class="summary-label">現在地</span>
+                <strong th:text="${player.currentArea.displayName}">町</strong>
+            </div>
+            <div>
+                <span class="summary-label">HP</span>
+                <strong>
+                    <span th:text="${player.hp}">30</span>
+                    /
+                    <span th:text="${player.maxHp}">30</span>
+                </strong>
+            </div>
+            <div>
+                <span class="summary-label">ゴールド</span>
+                <strong>
+                    <span th:text="${player.gold}">0</span> G
+                </strong>
+            </div>
+        </section>
+
+        <section class="menu-panel">
+            <a class="menu-button" th:href="@{/status}">ステータスを見る</a>
+
+            <form th:if="${isTown}" method="post" action="#">
+                <button class="menu-button" type="button" disabled>宿屋に泊まる</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>薬草を使う</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>装備を変更する</button>
+            </form>
+
+            <form th:if="${isTown}" method="post" action="#">
+                <button class="menu-button" type="button" disabled>道具屋で買う</button>
+            </form>
+
+            <form th:if="${isTown}" method="post" action="#">
+                <button class="menu-button" type="button" disabled>武器屋で買う</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>移動する</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>セーブする</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>ロードする</button>
+            </form>
+        </section>
+
+        <p class="message-box">
+            コマンドを選んでください。
+        </p>
+    </section>
+</main>
+</body>
+</html>
