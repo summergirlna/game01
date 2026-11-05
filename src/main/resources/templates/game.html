@@ -41,6 +41,12 @@
                     <span th:text="${player.gold}">0</span> G
                 </strong>
             </div>
+            <div>
+                <span class="summary-label">薬草</span>
+                <strong>
+                    <span th:text="${player.inventory.getAmount(T(com.example.rpg.item.ItemType).HERB)}">3</span> 個
+                </strong>
+            </div>
         </section>
 
         <section class="menu-panel">
@@ -50,8 +56,8 @@
                 <button class="menu-button" type="button" disabled>宿屋に泊まる</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>薬草を使う</button>
+            <form method="post" th:action="@{/game/use-herb}">
+                <button class="menu-button" type="submit">薬草を使う</button>
             </form>
 
             <form method="post" action="#">
@@ -79,7 +85,7 @@
             </form>
         </section>
 
-        <p class="message-box">
+        <p class="message-box" th:text="${message} ?: 'コマンドを選んでください。'">
             コマンドを選んでください。
         </p>
     </section>

@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /// Web版ゲーム画面コントローラ
 @Controller
@@ -33,6 +34,25 @@ public class GameController {
         model.addAttribute("isTown", player.getCurrentArea().name().equals("TOWN"));
 
         return "game";
+    }
+
+    /// 薬草を使う
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/use-herb")
+    public String useHerb(Model model) {
+        Player player = webGameSession.getPlayer();
+        ItemType itemType = ItemType.HERB;
+
+        if (!player.getInventory().use(itemType)) {
+            model.addAttribute("message", itemType.getDisplayName() + "を持っていません。");
+            return game(model);
+        }
+
+        player.heal(itemType.getHealAmount());
+        model.addAttribute("message", itemType.getDisplayName() + "を使った。HPが " + itemType.getHealAmount() + " 回復した。");
+
+        return game(model);
     }
 
     /// ステータス画面を表示する
