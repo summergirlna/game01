@@ -92,12 +92,12 @@
                 <button class="menu-button" type="submit">移動する</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>セーブする</button>
+            <form method="post" th:action="@{/game/save}">
+                <button class="menu-button" type="submit">セーブする</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>ロードする</button>
+            <form method="post" th:action="@{/game/load}">
+                <button class="menu-button" type="submit">ロードする</button>
             </form>
         </section>
 

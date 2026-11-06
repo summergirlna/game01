@@ -110,6 +110,30 @@ public class GameController {
         return game(model);
     }
 
+    /// セーブする
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/save")
+    public String save(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.save(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
+    /// ロードする
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/load")
+    public String load(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.load(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
     /// ステータス画面を表示する
     /// @param model 画面モデル
     /// @return テンプレート名
