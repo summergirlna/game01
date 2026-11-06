@@ -5,6 +5,7 @@ import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.save.SaveMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,14 +14,13 @@ import java.util.List;
 
 /// セーブ処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class SaveService {
     private static final String SAVE_FILE_NAME = "save.txt";
 
-    private final SaveMessage message;
-
     /// セーブする
     /// @param player プレイヤー
-    public void save(Player player) {
+    public GameActionResult save(Player player) {
         List<String> lines = List.of(
                 "name=" + player.getName(),
                 "currentArea=" + player.getCurrentArea().name(),
@@ -38,10 +38,9 @@ public class SaveService {
 
         try {
             Files.write(Path.of(SAVE_FILE_NAME), lines);
-            message.showSaveSuccess(SAVE_FILE_NAME);
+            return new GameActionResult(SAVE_FILE_NAME + " にセーブしました。");
         } catch (IOException e) {
-            message.showSaveFailed();
+            return new GameActionResult("セーブに失敗しました。");
         }
-
     }
 }

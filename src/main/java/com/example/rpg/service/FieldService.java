@@ -4,15 +4,17 @@ import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.ui.field.FieldMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /// フィールド移動処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class FieldService {
-    private final FieldMessage message;
 
     /// 次のエリアへ移動する
     /// @param player プレイヤー
-    public void moveToNextArea(Player player) {
+    /// @return 操作結果
+    public GameActionResult moveToNextArea(Player player) {
         FieldArea nextArea = switch (player.getCurrentArea()) {
             case TOWN -> FieldArea.GRASSLAND;
             case GRASSLAND -> FieldArea.FOREST;
@@ -21,6 +23,6 @@ public class FieldService {
         };
 
         player.moveTo(nextArea);
-        message.showMoveArea(nextArea);
+        return new GameActionResult(nextArea.getDisplayName() + "へ移動した。");
     }
 }

@@ -7,6 +7,7 @@ import com.example.rpg.field.FieldArea;
 import com.example.rpg.ui.save.LoadMessage;
 import com.example.rpg.value.Gold;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,20 +18,18 @@ import java.util.Map;
 
 /// ロード処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class LoadService {
     private static final String SAVE_FILE_NAME = "save.txt";
 
-    private final LoadMessage message;
-
     /// ロードする
     /// @param player プレイヤー
-    /// @return ロードに成功した場合はtrue、失敗した場合はfalse
-    public boolean load(Player player) {
+    /// @return 操作結果
+    public GameActionResult load(Player player) {
         Path path = Path.of(SAVE_FILE_NAME);
 
         if (!Files.exists(path)) {
-            message.showSaveFileNotFound();
-            return false;
+            return new GameActionResult("セーブファイルが見つかりません。");
         }
 
         try {
@@ -62,11 +61,9 @@ public class LoadService {
                     hasCopperSword
             );
 
-            message.showLoadSuccess(SAVE_FILE_NAME);
-            return true;
+            return new GameActionResult(SAVE_FILE_NAME + " からロードしました。");
         } catch (IOException | RuntimeException e) {
-            message.showLoadFailed();
-            return false;
+            return new GameActionResult("ロードに失敗しました。");
         }
     }
 

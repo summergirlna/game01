@@ -1,4 +1,4 @@
-package com.example.rpg.web;
+package com.example.rpg.service;
 
 /// Webゲーム操作結果
 /// @param message メッセージ

@@ -5,28 +5,29 @@ import com.example.rpg.field.FieldArea;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.shop.ShopMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /// 店の処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class ShopService {
     private static final int HERB_PRICE = 5;
 
-    private final ShopMessage message;
-
     /// 薬草を購入する
     /// @param player プレイヤー
-    public void buyHerb(Player player) {
+    /// @return 操作結果
+    public GameActionResult buyHerb(Player player) {
+        ItemType itemType = ItemType.HERB;
+
         if (player.getCurrentArea() != FieldArea.TOWN) {
-            message.showNoShop();
-            return;
+            return new GameActionResult("ここには道具屋がない。");
         }
 
         if (!player.payGold(HERB_PRICE)) {
-            message.showNotEnoughGold(HERB_PRICE);
-            return;
+            return new GameActionResult("ゴールドが足りません。必要なゴールド: " + HERB_PRICE);
         }
 
-        player.getInventory().add(ItemType.HERB, 1);
-        message.showBuyItem(ItemType.HERB, HERB_PRICE);
+        player.getInventory().add(itemType, 1);
+        return new GameActionResult(itemType.getDisplayName() + "を買った。" + HERB_PRICE + " ゴールドを支払った。");
     }
 }

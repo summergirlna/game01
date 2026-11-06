@@ -4,23 +4,22 @@ import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.ui.equipment.EquipmentMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /// 装備処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class EquipmentService {
-
-    private final EquipmentMessage message;
 
     /// 銅の剣を装備する
     /// @param player プレイヤー
-    public void equipCopperSword(Player player) {
+    public GameActionResult equipCopperSword(Player player) {
         WeaponType weapon = WeaponType.COPPER_SWORD;
 
         if (!player.getEquipment().equipWeapon(weapon)) {
-            message.showNoWeapon(weapon);
-            return;
+            return new GameActionResult(weapon.getDisplayName() + "を持っていません。");
         }
 
-        message.showEquipWeapon(weapon);
+        return new GameActionResult(weapon.getDisplayName() + "を装備した。攻撃力が " + weapon.getAttackBonus() + " 上がる。");
     }
 }

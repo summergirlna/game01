@@ -4,24 +4,24 @@ import com.example.rpg.character.Player;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.item.ItemMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 /// アイテムの使用処理を担当するクラス
 @RequiredArgsConstructor
+@Service
 public class ItemService {
-
-    private final ItemMessage message;
 
     /// 薬草を使う
     /// @param player プレイヤー
-    public void useHerb(Player player) {
+    /// @return 操作結果
+    public GameActionResult useHerb(Player player) {
         ItemType itemType = ItemType.HERB;
 
         if (!player.getInventory().use(itemType)) {
-            message.showNoItem(itemType);
-            return;
+            return new GameActionResult(itemType.getDisplayName() + "を持っていません。");
         }
 
         player.heal(itemType.getHealAmount());
-        message.showUseItem(itemType);
+        return new GameActionResult(itemType.getDisplayName() + "を使った。HPが " + itemType.getHealAmount() + " 回復した。");
     }
 }

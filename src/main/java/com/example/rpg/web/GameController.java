@@ -3,6 +3,8 @@ package com.example.rpg.web;
 import com.example.rpg.character.Player;
 import com.example.rpg.equipment.WeaponType;
 import com.example.rpg.item.ItemType;
+import com.example.rpg.service.GameActionResult;
+import com.example.rpg.service.GameFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,7 @@ public class GameController {
 
     private final WebGameSession webGameSession;
 
-    private final WebGameService webGameService;
+    private final GameFacade gameFacade;
 
     /// トップ画面を表示する
     /// @return リダイレクト先
@@ -44,7 +46,7 @@ public class GameController {
     @PostMapping("/game/use-herb")
     public String useHerb(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.useHerb(player);
+        GameActionResult result = gameFacade.useHerb(player);
         model.addAttribute("message", result.message());
 
         return game(model);
@@ -56,7 +58,7 @@ public class GameController {
     @PostMapping("/game/inn")
     public String stayInn(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.stayInn(player);
+        GameActionResult result = gameFacade.stayInn(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -68,7 +70,7 @@ public class GameController {
     @PostMapping("/game/move")
     public String move(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.moveToNextArea(player);
+        GameActionResult result = gameFacade.moveToNextArea(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -80,7 +82,7 @@ public class GameController {
     @PostMapping("/game/buy-herb")
     public String buyHerb(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.buyHerb(player);
+        GameActionResult result = gameFacade.buyHerb(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -92,7 +94,7 @@ public class GameController {
     @PostMapping("/game/equip-copper-sword")
     public String equipCopperSword(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.equipCopperSword(player);
+        GameActionResult result = gameFacade.equipCopperSword(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -104,7 +106,7 @@ public class GameController {
     @PostMapping("/game/buy-copper-sword")
     public String buyCopperSword(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.buyCopperSword(player);
+        GameActionResult result = gameFacade.buyCopperSword(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -116,7 +118,7 @@ public class GameController {
     @PostMapping("/game/save")
     public String save(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.save(player);
+        GameActionResult result = gameFacade.save(player);
 
         model.addAttribute("message", result.message());
         return game(model);
@@ -128,7 +130,7 @@ public class GameController {
     @PostMapping("/game/load")
     public String load(Model model) {
         Player player = webGameSession.getPlayer();
-        GameActionResult result = webGameService.load(player);
+        GameActionResult result = gameFacade.load(player);
 
         model.addAttribute("message", result.message());
         return game(model);
