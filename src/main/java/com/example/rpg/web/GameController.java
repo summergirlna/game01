@@ -74,6 +74,42 @@ public class GameController {
         return game(model);
     }
 
+    /// 薬草を購入する
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/buy-herb")
+    public String buyHerb(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.buyHerb(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
+    /// 銅の剣を装備する
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/equip-copper-sword")
+    public String equipCopperSword(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.equipCopperSword(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
+    /// 銅の剣を購入する
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/buy-copper-sword")
+    public String buyCopperSword(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.buyCopperSword(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
     /// ステータス画面を表示する
     /// @param model 画面モデル
     /// @return テンプレート名

@@ -36,6 +36,18 @@
                 </strong>
             </div>
             <div>
+                <span class="summary-label">攻撃力</span>
+                <strong th:text="${player.attack}">8</strong>
+            </div>
+            <div>
+                <span class="summary-label">武器</span>
+                <strong th:text="${player.equipment.weapon.displayName}">木の剣</strong>
+            </div>
+            <div>
+                <span class="summary-label">銅の剣</span>
+                <strong th:text="${player.equipment.inventory.hasWeapon(T(com.example.rpg.equipment.WeaponType).COPPER_SWORD) ? 'あり' : 'なし'}">なし</strong>
+            </div>
+            <div>
                 <span class="summary-label">ゴールド</span>
                 <strong>
                     <span th:text="${player.gold}">0</span> G
@@ -64,16 +76,16 @@
                 <button class="menu-button" type="submit">薬草を使う</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>装備を変更する</button>
+            <form method="post" th:action="@{/game/equip-copper-sword}">
+                <button class="menu-button" type="submit">銅の剣を装備する</button>
             </form>
 
-            <form th:if="${isTown}" method="post" action="#">
-                <button class="menu-button" type="button" disabled>道具屋で買う</button>
+            <form th:if="${isTown}" method="post" th:action="@{/game/buy-herb}">
+                <button class="menu-button" type="submit">道具屋で薬草を買う</button>
             </form>
 
-            <form th:if="${isTown}" method="post" action="#">
-                <button class="menu-button" type="button" disabled>武器屋で買う</button>
+            <form th:if="${isTown}" method="post" th:action="@{/game/buy-copper-sword}">
+                <button class="menu-button" type="submit">武器屋で銅の剣を買う</button>
             </form>
 
             <form method="post" th:action="@{/game/move}">
