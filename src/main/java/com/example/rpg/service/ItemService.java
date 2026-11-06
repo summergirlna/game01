@@ -2,7 +2,6 @@ package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.item.ItemType;
-import com.example.rpg.ui.item.ItemMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

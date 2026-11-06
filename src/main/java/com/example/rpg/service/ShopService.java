@@ -3,7 +3,6 @@ package com.example.rpg.service;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.item.ItemType;
-import com.example.rpg.ui.shop.ShopMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

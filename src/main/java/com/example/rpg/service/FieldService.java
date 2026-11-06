@@ -2,7 +2,6 @@ package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
-import com.example.rpg.ui.field.FieldMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
