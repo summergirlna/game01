@@ -62,9 +62,7 @@
         </section>
 
         <section class="menu-panel">
-            <form th:unless="${isTown}" method="post" action="#">
-                <button class="menu-button" type="button" disabled>探索する</button>
-            </form>
+            <a th:unless="${isTown}" class="menu-button" th:href="@{/map}">探索する</a>
 
             <a class="menu-button" th:href="@{/status}">ステータスを見る</a>
 

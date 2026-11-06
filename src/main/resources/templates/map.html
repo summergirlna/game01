@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>探索</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="game-page">
+    <section class="game-card">
+        <header class="game-header">
+            <div>
+                <p class="caption">FIELD MAP</p>
+                <h1 th:text="${player.currentArea.displayName}">草原</h1>
+            </div>
+            <div class="level">
+                Lv. <span th:text="${player.level.value}">1</span>
+            </div>
+        </header>
+
+        <section class="map-grid">
+            <th:block th:each="row : ${rows}">
+                <div class="map-cell"
+                     th:each="cell : ${row}"
+                     th:text="${cell.symbol}"
+                     th:classappend="' ' + ${cell.cssClass}">
+                    .
+                </div>
+            </th:block>
+        </section>
+
+        <section class="map-controls">
+            <div></div>
+            <form method="post" th:action="@{/map/move}">
+                <input type="hidden" name="command" value="UP">
+                <button class="menu-button" type="submit">↑</button>
+            </form>
+            <div></div>
+
+            <form method="post" th:action="@{/map/move}">
+                <input type="hidden" name="command" value="LEFT">
+                <button class="menu-button" type="submit">←</button>
+            </form>
+            <a class="menu-button" th:href="@{/game}">戻る</a>
+            <form method="post" th:action="@{/map/move}">
+                <input type="hidden" name="command" value="RIGHT">
+                <button class="menu-button" type="submit">→</button>
+            </form>
+
+            <div></div>
+            <form method="post" th:action="@{/map/move}">
+                <input type="hidden" name="command" value="DOWN">
+                <button class="menu-button" type="submit">↓</button>
+            </form>
+            <div></div>
+        </section>
+
+        <p class="message-box" th:text="${message}">
+            探索を開始した。
+        </p>
+
+        <p class="map-help">
+            P: 現在地 / T: 町 / N: 次のエリア / R: 前のエリア / B: ボス / C: 宝箱
+        </p>
+    </section>
+</main>
+</body>
+</html>
