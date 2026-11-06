@@ -52,8 +52,8 @@
         <section class="menu-panel">
             <a class="menu-button" th:href="@{/status}">ステータスを見る</a>
 
-            <form th:if="${isTown}" method="post" action="#">
-                <button class="menu-button" type="button" disabled>宿屋に泊まる</button>
+            <form th:if="${isTown}" method="post" th:action="@{/game/inn}">
+                <button class="menu-button" type="submit">宿屋に泊まる</button>
             </form>
 
             <form method="post" th:action="@{/game/use-herb}">

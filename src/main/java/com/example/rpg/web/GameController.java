@@ -16,6 +16,8 @@ public class GameController {
 
     private final WebGameSession webGameSession;
 
+    private final WebGameService webGameService;
+
     /// トップ画面を表示する
     /// @return リダイレクト先
     @GetMapping("/")
@@ -42,16 +44,21 @@ public class GameController {
     @PostMapping("/game/use-herb")
     public String useHerb(Model model) {
         Player player = webGameSession.getPlayer();
-        ItemType itemType = ItemType.HERB;
+        GameActionResult result = webGameService.useHerb(player);
+        model.addAttribute("message", result.message());
 
-        if (!player.getInventory().use(itemType)) {
-            model.addAttribute("message", itemType.getDisplayName() + "を持っていません。");
-            return game(model);
-        }
+        return game(model);
+    }
 
-        player.heal(itemType.getHealAmount());
-        model.addAttribute("message", itemType.getDisplayName() + "を使った。HPが " + itemType.getHealAmount() + " 回復した。");
+    /// 宿屋に泊まる
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/inn")
+    public String stayInn(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.stayInn(player);
 
+        model.addAttribute("message", result.message());
         return game(model);
     }
 
