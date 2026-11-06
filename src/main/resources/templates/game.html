@@ -50,6 +50,10 @@
         </section>
 
         <section class="menu-panel">
+            <form th:unless="${isTown}" method="post" action="#">
+                <button class="menu-button" type="button" disabled>探索する</button>
+            </form>
+
             <a class="menu-button" th:href="@{/status}">ステータスを見る</a>
 
             <form th:if="${isTown}" method="post" th:action="@{/game/inn}">
@@ -72,8 +76,8 @@
                 <button class="menu-button" type="button" disabled>武器屋で買う</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>移動する</button>
+            <form method="post" th:action="@{/game/move}">
+                <button class="menu-button" type="submit">移動する</button>
             </form>
 
             <form method="post" action="#">

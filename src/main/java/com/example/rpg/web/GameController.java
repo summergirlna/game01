@@ -62,6 +62,18 @@ public class GameController {
         return game(model);
     }
 
+    /// 次のエリアへ移動する
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/game/move")
+    public String move(Model model) {
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = webGameService.moveToNextArea(player);
+
+        model.addAttribute("message", result.message());
+        return game(model);
+    }
+
     /// ステータス画面を表示する
     /// @param model 画面モデル
     /// @return テンプレート名

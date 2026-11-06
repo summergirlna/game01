@@ -40,4 +40,17 @@ public class WebGameService {
         player.healFull();
         return new GameActionResult("宿屋に泊まった。HPが全回復した。");
     }
+
+    public GameActionResult moveToNextArea(Player player) {
+        FieldArea nextArea = switch (player.getCurrentArea()) {
+            case TOWN -> FieldArea.GRASSLAND;
+            case GRASSLAND -> FieldArea.FOREST;
+            case FOREST -> FieldArea.CAVE;
+            case CAVE -> FieldArea.TOWN;
+        };
+
+        player.moveTo(nextArea);
+        return new GameActionResult(nextArea.getDisplayName() + "へ移動した。");
+
+    }
 }
