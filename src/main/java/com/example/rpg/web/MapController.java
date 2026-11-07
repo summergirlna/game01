@@ -89,7 +89,7 @@ public class MapController {
         if (PATH_BOSS_BATTLE.equals(result.redirectPath())) {
             webGameSession.startBattle(monsterFactory.createBoss(), true);
             webGameSession.setLastMessage(result.message());
-            return REDIRECT_PREFIX + PATH_BOSS_BATTLE;
+            return REDIRECT_PREFIX + PATH_BATTLE;
         }
 
         webGameSession.setLastMessage(result.message());

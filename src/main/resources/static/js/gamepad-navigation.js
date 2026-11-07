@@ -14,7 +14,7 @@
         ArrowDown: 1,
         ArrowLeft: -1,
         ArrowRight: 1
-    }
+    };
 
     const DECISION_KEYS = new Set(["Enter", " "]);
     const BACK_KEYS = new Set(["Escape", "Backspace"]);
@@ -81,13 +81,9 @@
             backItem.click();
             return;
         }
-
-        if (window.history.length > 1) {
-            window.history.back();
-        }
     };
 
-    const handlwArrowKey = (key) => {
+    const handleArrowKey = (key) => {
         const mapCommand = MAP_COMMAND_BY_KEY[key];
 
         if (activateMapCommand(mapCommand)) {
@@ -95,7 +91,7 @@
         }
 
         moveSelection(SELECTION_MOVE_BY_KEY[key]);
-    }
+    };
 
     window.addEventListener("DOMContentLoaded", () => {
         const items = getItems();
@@ -114,7 +110,7 @@
 
         if (event.key in SELECTION_MOVE_BY_KEY) {
             event.preventDefault();
-            handlwArrowKey(event.key);
+            handleArrowKey(event.key);
             return;
         }
 
