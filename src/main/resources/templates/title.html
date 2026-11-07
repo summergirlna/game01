@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>RPG - タイトル</title>
     <link rel="stylesheet" th:href="@{/css/game.css}">
+    <script defer th:src="@{/js/gamepad-navigation.js}"></script>
 </head>
 <body>
 <main class="title-page dq-title-page">
@@ -12,17 +13,17 @@
         <h1 class="dq-title">RPG</h1>
 
         <nav class="dq-command-window" aria-label="タイトルメニュー">
-            <a class="dq-command active" th:href="@{/game}">
+            <a class="dq-command" th:href="@{/game}" data-nav-item>
                 はじめから
             </a>
 
             <form method="post" th:action="@{/game/load}">
-                <button class="dq-command" type="submit">
+                <button class="dq-command" type="submit" data-nav-item>
                     つづきから
                 </button>
             </form>
 
-            <a class="dq-command" th:href="@{/help}">
+            <a class="dq-command" th:href="@{/help}" data-nav-item>
                 あそびかた
             </a>
         </nav>

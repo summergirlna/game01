@@ -467,12 +467,12 @@ h1 {
 }
 
 .dq-command:hover,
-.dq-command.active {
+.dq-command.is-selected {
     color: #facc15;
 }
 
 .dq-command:hover::before,
-.dq-command.active::before {
+.dq-command.is-selected::before {
     content: "▶";
     position: absolute;
     left: 12px;
@@ -549,4 +549,48 @@ h1 {
     .dq-command {
         font-size: 1.1rem;
     }
+}
+
+.menu-button,
+.dq-command,
+.dq-back-command {
+    position: relative;
+}
+
+.menu-button.is-selected,
+.menu-button:focus-visible,
+.dq-command.is-selected,
+.dq-command:focus-visible,
+.dq-back-command.is-selected,
+.dq-back-command:focus-visible {
+    outline: none;
+    color: #facc15;
+    border-color: #facc15;
+}
+
+.menu-button.is-selected::before,
+.menu-button:focus-visible::before,
+.dq-command.is-selected::before,
+.dq-command:focus-visible::before,
+.dq-back-command.is-selected::before,
+.dq-back-command:focus-visible::before {
+    content: "▶";
+    position: absolute;
+    left: 12px;
+    color: #facc15;
+}
+
+.menu-button.is-selected,
+.menu-button:focus-visible {
+    padding-left: 36px;
+}
+
+.dq-command.is-selected,
+.dq-command:focus-visible {
+    color: #facc15;
+}
+
+.dq-back-command.is-selected,
+.dq-back-command:focus-visible {
+    padding-left: 42px;
 }

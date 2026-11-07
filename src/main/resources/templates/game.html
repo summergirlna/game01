@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>RPG</title>
     <link rel="stylesheet" th:href="@{/css/game.css}">
+    <script defer th:src="@{/js/gamepad-navigation.js}"></script>
 </head>
 <body>
 <main class="game-page">
@@ -62,40 +63,40 @@
         </section>
 
         <section class="menu-panel">
-            <a th:unless="${isTown}" class="menu-button" th:href="@{/map}">探索する</a>
+            <a th:unless="${isTown}" class="menu-button" th:href="@{/map}" data-nav-item>探索する</a>
 
-            <a class="menu-button" th:href="@{/status}">ステータスを見る</a>
+            <a class="menu-button" th:href="@{/status}" data-nav-item>ステータスを見る</a>
 
             <form th:if="${isTown}" method="post" th:action="@{/game/inn}">
-                <button class="menu-button" type="submit">宿屋に泊まる</button>
+                <button class="menu-button" type="submit" data-nav-item>宿屋に泊まる</button>
             </form>
 
             <form method="post" th:action="@{/game/use-herb}">
-                <button class="menu-button" type="submit">薬草を使う</button>
+                <button class="menu-button" type="submit" data-nav-item>薬草を使う</button>
             </form>
 
             <form method="post" th:action="@{/game/equip-copper-sword}">
-                <button class="menu-button" type="submit">銅の剣を装備する</button>
+                <button class="menu-button" type="submit" data-nav-item>銅の剣を装備する</button>
             </form>
 
             <form th:if="${isTown}" method="post" th:action="@{/game/buy-herb}">
-                <button class="menu-button" type="submit">道具屋で薬草を買う</button>
+                <button class="menu-button" type="submit" data-nav-item>道具屋で薬草を買う</button>
             </form>
 
             <form th:if="${isTown}" method="post" th:action="@{/game/buy-copper-sword}">
-                <button class="menu-button" type="submit">武器屋で銅の剣を買う</button>
+                <button class="menu-button" type="submit" data-nav-item>武器屋で銅の剣を買う</button>
             </form>
 
             <form method="post" th:action="@{/game/move}">
-                <button class="menu-button" type="submit">移動する</button>
+                <button class="menu-button" type="submit" data-nav-item>移動する</button>
             </form>
 
             <form method="post" th:action="@{/game/save}">
-                <button class="menu-button" type="submit">セーブする</button>
+                <button class="menu-button" type="submit" data-nav-item>セーブする</button>
             </form>
 
             <form method="post" th:action="@{/game/load}">
-                <button class="menu-button" type="submit">ロードする</button>
+                <button class="menu-button" type="submit" data-nav-item>ロードする</button>
             </form>
         </section>
 
