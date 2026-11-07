@@ -1,10 +1,12 @@
 package com.example.rpg.character;
 
 import com.example.rpg.field.FieldArea;
+import org.springframework.stereotype.Component;
 
 import java.util.Random;
 
 /// モンスターを生成するファクトリークラス
+@Component
 public class MonsterFactory {
     private final Random random;
 

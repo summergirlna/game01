@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>戦闘</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="game-page">
+    <section class="game-card">
+        <header class="game-header">
+            <div>
+                <p class="caption">BATTLE</p>
+                <h1 th:text="${monster.name}">スライム</h1>
+            </div>
+            <div class="level">
+                Battle
+            </div>
+        </header>
+
+        <section class="hero-summary">
+            <div>
+                <span class="summary-label">勇者 HP</span>
+                <strong>
+                    <span th:text="${player.hp}">30</span>
+                    /
+                    <span th:text="${player.maxHp}">30</span>
+                </strong>
+            </div>
+            <div>
+                <span class="summary-label">勇者 攻撃力</span>
+                <strong th:text="${player.attack}">8</strong>
+            </div>
+            <div>
+                <span class="summary-label">敵 HP</span>
+                <strong>
+                    <span th:text="${monster.hp}">10</span>
+                    /
+                    <span th:text="${monster.maxHp}">10</span>
+                </strong>
+            </div>
+            <div>
+                <span class="summary-label">敵 攻撃力</span>
+                <strong th:text="${monster.attack}">3</strong>
+            </div>
+        </section>
+
+        <section class="menu-panel">
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>攻撃する</button>
+            </form>
+
+            <form method="post" action="#">
+                <button class="menu-button" type="button" disabled>逃げる</button>
+            </form>
+        </section>
+
+        <p class="message-box" th:text="${message}">
+            モンスターが現れた！
+        </p>
+    </section>
+</main>
+</body>
+</html>

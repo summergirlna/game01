@@ -42,7 +42,7 @@ public class MapService {
         }
 
         if (encounter()) {
-            return GameActionResult.message("モンスターが現れた！戦闘はまだ準備中です。");
+            return GameActionResult.redirect("モンスターが現れた！", "/battle");
         }
 
         return GameActionResult.message(player.getCurrentArea().getDisplayName() + "を探索している。");

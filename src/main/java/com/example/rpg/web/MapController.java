@@ -1,5 +1,6 @@
 package com.example.rpg.web;
 
+import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.field.MapEvent;
@@ -26,6 +27,8 @@ public class MapController {
 
     private final MapService mapService;
 
+    private final MonsterFactory monsterFactory;
+
     /// マップ画面を表示する
     /// @param model 画面モデル
     /// @return テンプレート名
@@ -45,6 +48,15 @@ public class MapController {
         GameMap gameMap = webGameSession.getGameMap();
 
         GameActionResult result = mapService.move(player, gameMap, command);
+
+        if (result.hasRedirect()) {
+            if ("/battle".equals(result.redirectPath())) {
+                webGameSession.setCurrentMonster(monsterFactory.createRandomMonster(player.getCurrentArea()));
+            }
+
+            return "redirect:" + result.redirectPath();
+        }
+
         addMapAttributes(model, result.message());
 
         return "map";
