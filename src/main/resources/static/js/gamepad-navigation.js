@@ -79,7 +79,6 @@
 
         if (backItem) {
             backItem.click();
-            return;
         }
     };
 

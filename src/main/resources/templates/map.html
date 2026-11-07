@@ -42,7 +42,7 @@
                 <input name="command" type="hidden" value="LEFT">
                 <button class="menu-button" data-map-command="LEFT" data-nav-item type="submit">←</button>
             </form>
-            <a class="menu-button" th:href="@{/game}">戻る</a>
+            <a class="menu-button" data-nav-back data-nav-item th:href="@{/game}">メニュー</a>
             <form method="post" th:action="@{/map/move}">
                 <input name="command" type="hidden" value="RIGHT">
                 <button class="menu-button" data-map-command="RIGHT" data-nav-item type="submit">→</button>
