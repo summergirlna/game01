@@ -27,37 +27,122 @@
     animation: monster-bounce 1.8s ease-in-out infinite;
 }
 
-.monster-sprite::before {
+.monster-slime {
+    border-radius: 58% 58% 48% 48%;
+    background: radial-gradient(circle at 38% 36%, #ffffff 0 7px, transparent 8px),
+    radial-gradient(circle at 62% 36%, #ffffff 0 7px, transparent 8px),
+    radial-gradient(circle at 38% 38%, #111827 0 3px, transparent 4px),
+    radial-gradient(circle at 62% 38%, #111827 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 70%, #1e3a8a 0 10px, transparent 11px),
+    linear-gradient(180deg, #67e8f9 0%, #06b6d4 52%, #0284c7 100%);
+}
+
+.monster-bat {
+    width: 150px;
+    height: 88px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 45%, #ffffff 0 5px, transparent 6px),
+    radial-gradient(circle at 55% 45%, #ffffff 0 5px, transparent 6px),
+    radial-gradient(circle at 45% 46%, #111827 0 2px, transparent 3px),
+    radial-gradient(circle at 55% 46%, #111827 0 2px, transparent 3px),
+    radial-gradient(ellipse at 50% 64%, #111827 0 7px, transparent 8px),
+    linear-gradient(180deg, #a78bfa 0%, #7c3aed 58%, #4c1d95 100%);
+    clip-path: polygon(
+            0 30%,
+            24% 8%,
+            38% 30%,
+            50% 12%,
+            62% 30%,
+            76% 8%,
+            100% 30%,
+            78% 72%,
+            58% 60%,
+            50% 88%,
+            42% 60%,
+            22% 72%
+    );
+    animation: monster-flap 0.8s ease-in-out infinite;
+}
+
+.monster-goblin {
+    width: 112px;
+    height: 112px;
+    border-radius: 42% 42% 48% 48%;
+    background: radial-gradient(circle at 36% 38%, #ffffff 0 6px, transparent 7px),
+    radial-gradient(circle at 64% 38%, #ffffff 0 6px, transparent 7px),
+    radial-gradient(circle at 36% 40%, #111827 0 3px, transparent 4px),
+    radial-gradient(circle at 64% 40%, #111827 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 68%, #14532d 0 12px, transparent 13px),
+    linear-gradient(180deg, #86efac 0%, #22c55e 54%, #15803d 100%);
+}
+
+.monster-goblin::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    left: -22px;
+    width: 156px;
+    height: 28px;
+    background: linear-gradient(90deg, transparent 0 10%, #86efac 10% 24%, transparent 24% 76%, #86efac 76% 90%, transparent 90%);
+    clip-path: polygon(0 50%, 18% 0, 30% 50%, 18% 100%, 0 50%, 100% 50%, 82% 0, 70% 50%, 82% 100%, 100% 50%);
+    z-index: -1;
+}
+
+.monster-orc {
+    width: 140px;
+    height: 118px;
+    border-radius: 38% 38% 48% 48%;
+    background: radial-gradient(circle at 35% 36%, #ffffff 0 7px, transparent 8px),
+    radial-gradient(circle at 65% 36%, #ffffff 0 7px, transparent 8px),
+    radial-gradient(circle at 35% 38%, #111827 0 3px, transparent 4px),
+    radial-gradient(circle at 65% 38%, #111827 0 3px, transparent 4px),
+    radial-gradient(ellipse at 50% 68%, #431407 0 16px, transparent 17px),
+    linear-gradient(180deg, #d97706 0%, #92400e 56%, #451a03 100%);
+}
+
+.monster-orc::before {
     content: "";
     position: absolute;
     top: 16px;
-    left: 26px;
-    width: 34px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.28);
-    transform: rotate(-18deg);
-}
-
-.monster-sprite::after {
-    content: "";
-    position: absolute;
-    bottom: -10px;
     left: 18px;
-    width: 92px;
+    width: 104px;
     height: 18px;
     border-radius: 999px;
-    background: rgba(2, 6, 23, 0.32);
-    filter: blur(2px);
-    animation: monster-shadow 1.8s ease-in-out infinite;
+    background: #facc15;
+    box-shadow: 0 0 0 4px rgba(69, 26, 3, 0.55);
 }
 
-.monster-symbol {
+.monster-demon-lord {
+    width: 152px;
+    height: 136px;
+    border-radius: 44% 44% 38% 38%;
+    background: radial-gradient(circle at 35% 38%, #fef2f2 0 7px, transparent 8px),
+    radial-gradient(circle at 65% 38%, #fef2f2 0 7px, transparent 8px),
+    radial-gradient(circle at 35% 40%, #7f1d1d 0 4px, transparent 5px),
+    radial-gradient(circle at 65% 40%, #7f1d1d 0 4px, transparent 5px),
+    radial-gradient(ellipse at 50% 70%, #020617 0 18px, transparent 19px),
+    linear-gradient(180deg, #ef4444 0%, #991b1b 48%, #111827 100%);
+    box-shadow: inset -14px -20px 0 rgba(2, 6, 23, 0.35),
+    inset 18px 14px 0 rgba(255, 255, 255, 0.12),
+    0 0 28px rgba(239, 68, 68, 0.45),
+    0 22px 34px rgba(2, 6, 23, 0.45);
+    animation: monster-boss-float 2.2s ease-in-out infinite;
+}
+
+.monster-demon-lord::before {
+    content: "";
     position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
+    top: -26px;
+    left: 10px;
+    width: 132px;
+    height: 44px;
+    background: linear-gradient(90deg, transparent 0 10%, #991b1b 10% 28%, transparent 28% 72%, #991b1b 72% 90%, transparent 90%);
+    clip-path: polygon(0 100%, 18% 0, 36% 100%, 64% 100%, 82% 0, 100% 100%);
+}
+
+.monster-unknown {
+    background: radial-gradient(circle at 50% 42%, #ffffff 0 8px, transparent 9px),
+    linear-gradient(180deg, #94a3b8 0%, #475569 100%);
 }
 
 .monster-name {
@@ -76,6 +161,28 @@
 
     50% {
         transform: translateY(-8px) scale(1.04, 0.96);
+    }
+}
+
+@keyframes monster-flap {
+    0%,
+    100% {
+        transform: translateY(0) scaleX(1);
+    }
+
+    50% {
+        transform: translateY(-6px) scaleX(1.08);
+    }
+}
+
+@keyframes monster-boss-float {
+    0%,
+    100% {
+        transform: translateY(0) scale(1);
+    }
+
+    50% {
+        transform: translateY(-10px) scale(1.03);
     }
 }
 

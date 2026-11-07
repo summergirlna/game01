@@ -20,7 +20,7 @@
         </header>
 
         <section aria-label="敵キャラクター" class="monster-stage">
-            <div aria-hidden="true" class="monster-sprite">
+            <div aria-hidden="true" class="monster-sprite" th:classappend="' ' + ${monster.spriteCssClass}">
                 <span class="monster-symbol">●</span>
             </div>
             <p class="monster-name" th:text="${monster.name}">スライム</p>

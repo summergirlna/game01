@@ -14,4 +14,18 @@ public class Monster extends GameCharacter {
         this.exp = exp;
         this.gold = gold;
     }
+
+    /// モンスター表示用にCSSクラスを返す
+    ///
+    /// @return モンスター表示用CSSクラス
+    public String getSpriteCssClass() {
+        return switch (getName()) {
+            case "スライム" -> "monster-slime";
+            case "こうもり" -> "monster-bat";
+            case "ゴブリン" -> "monster-goblin";
+            case "オーク" -> "monster-orc";
+            case "魔王" -> "monster-demon-lord";
+            default -> "monster-unknown";
+        };
+    }
 }
