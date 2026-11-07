@@ -10,6 +10,7 @@ public enum MapCommand {
     INVALID;
 
     /// コマンドを入力から取得する
+    ///
     /// @param input 入力
     /// @return マップ操作コマンド
     public static MapCommand fromInput(String input) {

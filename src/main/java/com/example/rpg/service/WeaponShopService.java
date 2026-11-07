@@ -14,6 +14,7 @@ public class WeaponShopService {
     private static final int COPPER_SWORD_PRICE = 30;
 
     /// 銅の剣を購入する
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult buyCopperSword(Player player) {

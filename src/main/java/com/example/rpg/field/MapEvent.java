@@ -19,6 +19,7 @@ public enum MapEvent {
     private final Position position;
 
     /// 指定したエリアで表示されるイベントか判定する
+    ///
     /// @param currentArea 現在地
     /// @return 表示される場合はtrue、そうでない場合はfalse
     public boolean isVisibleIn(FieldArea currentArea) {
@@ -32,6 +33,7 @@ public enum MapEvent {
     }
 
     /// 指定した座標にあるイベントか判定する
+    ///
     /// @param position 座標
     /// @return 同じ座標の場合はtrue、そうでない場合はfalse
     public boolean isAt(Position position) {

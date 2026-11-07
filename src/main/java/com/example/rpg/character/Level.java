@@ -16,12 +16,14 @@ public class Level {
     }
 
     /// 初期レベルを作成する
+    ///
     /// @return 初期レベル
     public static Level initial() {
         return new Level(1);
     }
 
     /// 次のレベルを作成する
+    ///
     /// @return 次のレベル
     public Level next() {
         return new Level(value + 1);

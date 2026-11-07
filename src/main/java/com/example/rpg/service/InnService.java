@@ -12,6 +12,7 @@ public class InnService {
     private static final int COST = 10;
 
     /// 宿屋に泊まる
+    ///
     /// @param player プレイヤー
     public GameActionResult stay(Player player) {
         if (player.getCurrentArea() != FieldArea.TOWN) {

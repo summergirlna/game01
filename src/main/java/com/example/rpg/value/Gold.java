@@ -16,12 +16,14 @@ public class Gold {
     }
 
     /// 初期ゴールドを作成する
+    ///
     /// @return 初期ゴールド
     public static Gold zero() {
         return new Gold(0);
     }
 
     /// ゴールドを加算する
+    ///
     /// @param amount 加算する量
     /// @return 加算後のゴールド
     public Gold add(int amount) {
@@ -33,6 +35,7 @@ public class Gold {
     }
 
     /// ゴールドを支払う
+    ///
     /// @param amount 支払う量
     /// @return 支払い後のゴールド
     public Gold subtract(int amount) {
@@ -48,6 +51,7 @@ public class Gold {
     }
 
     /// 指定した金額以上持っているか判定する
+    ///
     /// @param amount 金額
     /// @return 足りている場合はtrue、そうでない場合はfalse
     public boolean hasEnough(int amount) {

@@ -4,6 +4,7 @@ package com.example.rpg.character;
 public class LevelTable {
 
     /// 次のレベルに必要な累計経験値を取得する
+    ///
     /// @param level 現在のレベル
     /// @return 次のレベルに必要な累計経験値
     public int getRequiredExpForNextLevel(Level level) {
@@ -18,6 +19,7 @@ public class LevelTable {
     }
 
     /// レベルアップ時の最大HP上昇量を取得する
+    ///
     /// @param nextLevel 次のレベル
     /// @return 最大HP上昇量
     public int getMaxHpIncrease(Level nextLevel) {
@@ -31,6 +33,7 @@ public class LevelTable {
     }
 
     /// レベルアップ時の攻撃力上昇量を取得する
+    ///
     /// @param nextLevel 次のレベル
     /// @return 攻撃力上昇量
     public int getAttackIncrease(Level nextLevel) {

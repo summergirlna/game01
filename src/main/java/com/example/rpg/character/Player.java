@@ -12,13 +12,9 @@ import lombok.Getter;
 @Getter
 public class Player extends GameCharacter {
     private final LevelTable levelTable;
-
-    private Level level;
-
     private final Inventory inventory;
-
     private final Equipment equipment;
-
+    private Level level;
     private FieldArea currentArea;
 
     private int exp;
@@ -52,6 +48,7 @@ public class Player extends GameCharacter {
     }
 
     /// 宝箱を開けたかどうかを返す
+    ///
     /// @return 開けている場合はtrue
     public boolean hasOpenedTreasureChest() {
         return openedTreasureChest;
@@ -63,6 +60,7 @@ public class Player extends GameCharacter {
     }
 
     /// 経験値を獲得する
+    ///
     /// @param exp 獲得する経験値
     public void addExp(int exp) {
         this.exp += exp;
@@ -70,18 +68,21 @@ public class Player extends GameCharacter {
     }
 
     /// ゴールドを返す
+    ///
     /// @return ゴールド
     public int getGold() {
         return gold.getValue();
     }
 
     /// ゴールドを獲得する
+    ///
     /// @param amount 獲得するゴールド
     public void addGold(int amount) {
         gold = gold.add(amount);
     }
 
     /// ゴールドを払う
+    ///
     /// @param amount 払うゴールドの量
     /// @return 払い成功した場合はtrue、そうでない場合はfalse
     public boolean payGold(int amount) {
@@ -94,6 +95,7 @@ public class Player extends GameCharacter {
     }
 
     /// レベルアップしたかどうかを返す
+    ///
     /// @return レベルアップした場合はtrue
     public boolean hasLeveledUp() {
         return leveledUp;
@@ -135,12 +137,14 @@ public class Player extends GameCharacter {
     }
 
     /// 基礎攻撃力を取得する
+    ///
     /// @return 装備補正を含まない攻撃力
     public int getBaseAttack() {
         return super.getAttack();
     }
 
     /// 装備込みの攻撃力を取得する
+    ///
     /// @return 装備込みの攻撃力
     @Override
     public int getAttack() {
@@ -148,21 +152,23 @@ public class Player extends GameCharacter {
     }
 
     /// 現在地を変更する
+    ///
     /// @param currentArea 現在地
     public void moveTo(FieldArea currentArea) {
         this.currentArea = currentArea;
     }
 
     /// セーブデータから状態を復元する
-    /// @param currentArea 現在地
-    /// @param level レベル
-    /// @param hp 現在HP
-    /// @param maxHp 最大HP
-    /// @param baseAttack 基礎攻撃力
-    /// @param exp 経験値
-    /// @param gold ゴールド
-    /// @param herbAmount 薬草の数
-    /// @param weapon 装備中の武器
+    ///
+    /// @param currentArea    現在地
+    /// @param level          レベル
+    /// @param hp             現在HP
+    /// @param maxHp          最大HP
+    /// @param baseAttack     基礎攻撃力
+    /// @param exp            経験値
+    /// @param gold           ゴールド
+    /// @param herbAmount     薬草の数
+    /// @param weapon         装備中の武器
     /// @param hasWoodenSword 木の剣を所持しているか
     /// @param hasCopperSword 銅の剣を所持しているか
     public void restore(

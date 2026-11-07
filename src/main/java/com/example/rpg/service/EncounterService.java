@@ -21,6 +21,7 @@ public class EncounterService {
     private final Random random = new Random();
 
     /// モンスターと遭遇した場合、戦闘を開始する
+    ///
     /// @return 戦闘が発生した場合は戦闘結果、発生しなかった場合はnull
     public BattleResult encounter() {
         if (!encounterMonster()) {
@@ -33,6 +34,7 @@ public class EncounterService {
     }
 
     /// モンスターに遭遇するかどうかを判定する
+    ///
     /// @return モンスターと遭遇した場合はtrue、そうでない場合はfalse
     private boolean encounterMonster() {
         return random.nextInt(100) < ENCOUNTER_RATE;

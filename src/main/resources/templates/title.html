@@ -12,18 +12,18 @@
         <p class="dq-subtitle">WEB RPG</p>
         <h1 class="dq-title">RPG</h1>
 
-        <nav class="dq-command-window" aria-label="タイトルメニュー">
-            <a class="dq-command" th:href="@{/game}" data-nav-item>
+        <nav aria-label="タイトルメニュー" class="dq-command-window">
+            <a class="dq-command" data-nav-item th:href="@{/game}">
                 はじめから
             </a>
 
             <form method="post" th:action="@{/game/load}">
-                <button class="dq-command" type="submit" data-nav-item>
+                <button class="dq-command" data-nav-item type="submit">
                     つづきから
                 </button>
             </form>
 
-            <a class="dq-command" th:href="@{/help}" data-nav-item>
+            <a class="dq-command" data-nav-item th:href="@{/help}">
                 あそびかた
             </a>
         </nav>

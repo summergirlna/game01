@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class FieldService {
 
     /// 次のエリアへ移動する
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult moveToNextArea(Player player) {

@@ -15,6 +15,7 @@ public class MonsterFactory {
     }
 
     /// エリアに応じたランダムなモンスターを生成する
+    ///
     /// @param area エリア
     /// @return モンスター
     public Monster createRandomMonster(FieldArea area) {
@@ -27,6 +28,7 @@ public class MonsterFactory {
     }
 
     /// 草原に出現するモンスターを生成する
+    ///
     /// @return モンスター
     private Monster createGrasslandMonster() {
         int monsterType = random.nextInt(2);
@@ -39,6 +41,7 @@ public class MonsterFactory {
     }
 
     /// 森に出現するモンスターを生成する
+    ///
     /// @return モンスター
     private Monster createForestMonster() {
         int monsterType = random.nextInt(2);
@@ -51,6 +54,7 @@ public class MonsterFactory {
     }
 
     /// 洞窟に出現するモンスターを生成する
+    ///
     /// @return モンスター
     private Monster createCaveMonster() {
         int monsterType = random.nextInt(2);
@@ -63,6 +67,7 @@ public class MonsterFactory {
     }
 
     /// ボスモンスターを生成する
+    ///
     /// @return ボスモンスター
     public Monster createBoss() {
         return new Monster("魔王", 80, 16, 100, 100);

@@ -13,6 +13,7 @@ public class ShopService {
     private static final int HERB_PRICE = 5;
 
     /// 薬草を購入する
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult buyHerb(Player player) {

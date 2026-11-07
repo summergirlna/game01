@@ -8,6 +8,7 @@ import com.example.rpg.item.ItemType;
 public class BattleMessage {
 
     /// モンスター出現メッセージ
+    ///
     /// @param character モンスター
     public void showAppear(GameCharacter character) {
         System.out.println(character.getName() + "が現れた!");
@@ -24,36 +25,41 @@ public class BattleMessage {
     }
 
     /// 攻撃メッセージ
+    ///
     /// @param attacker 攻撃者
-    /// @param target 相手
-    /// @param damage ダメージ
+    /// @param target   相手
+    /// @param damage   ダメージ
     public void showAttack(GameCharacter attacker, GameCharacter target, int damage) {
         System.out.println(attacker.getName() + "の攻撃!");
         System.out.println(target.getName() + "に" + damage + "ダメージ!");
     }
 
     /// 回復メッセージ
+    ///
     /// @param character 回復するキャラクター
-    /// @param amount 回復量
+    /// @param amount    回復量
     public void showHeal(GameCharacter character, int amount) {
         System.out.println(character.getName() + "はHPを" + amount + "回復した!");
     }
 
     /// アイテムを所持していない時のメッセージを表示する
+    ///
     /// @param itemType アイテム種別
     public void showNoItem(ItemType itemType) {
         System.out.println(itemType.getDisplayName() + "を持っていません。");
     }
 
     /// アイテム使用メッセージを表示する
+    ///
     /// @param character 使用したキャラクター
-    /// @param itemType アイテム種別
+    /// @param itemType  アイテム種別
     public void showUseItem(GameCharacter character, ItemType itemType) {
         System.out.println(character.getName() + "は" + itemType.getDisplayName() + "を使った！");
         System.out.println(character.getName() + "のHPが" + itemType.getHealAmount() + "回復した！");
     }
 
     /// 逃走メッセージ
+    ///
     /// @param character 逃げるキャラクター
     public void showEscape(GameCharacter character) {
         System.out.println(character.getName() + "は逃げ出した!");
@@ -65,7 +71,8 @@ public class BattleMessage {
     }
 
     /// HP表示メッセージ
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param monster モンスター
     public void showHp(GameCharacter player, GameCharacter monster) {
         System.out.println(player.getName() + " HP: " + player.getHp());
@@ -74,6 +81,7 @@ public class BattleMessage {
     }
 
     /// 勝利メッセージ
+    ///
     /// @param monster モンスター
     public void showWin(GameCharacter monster) {
         System.out.println(monster.getName() + "を倒した!");
@@ -81,7 +89,8 @@ public class BattleMessage {
     }
 
     /// 報酬獲得メッセージ
-    /// @param exp 獲得経験値
+    ///
+    /// @param exp  獲得経験値
     /// @param gold 獲得ゴールド
     public void showReward(int exp, int gold) {
         System.out.println("経験値を" + exp + "獲得した!");
@@ -89,6 +98,7 @@ public class BattleMessage {
     }
 
     /// レベルアップメッセージ
+    ///
     /// @param player プレイヤー
     public void showLevelUp(Player player) {
         System.out.println(player.getName() + "はレベル" + player.getLevel().getValue() + "に上がった!");
@@ -99,6 +109,7 @@ public class BattleMessage {
     }
 
     /// 敗北メッセージ
+    ///
     /// @param player プレイヤー
     public void showLose(GameCharacter player) {
         System.out.println(player.getName() + "は倒れてしまった...");

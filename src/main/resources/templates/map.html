@@ -22,9 +22,9 @@
         <section class="map-grid">
             <th:block th:each="row : ${rows}">
                 <div class="map-cell"
+                     th:classappend="' ' + ${cell.cssClass}"
                      th:each="cell : ${row}"
-                     th:text="${cell.symbol}"
-                     th:classappend="' ' + ${cell.cssClass}">
+                     th:text="${cell.symbol}">
                     .
                 </div>
             </th:block>
@@ -33,25 +33,25 @@
         <section class="map-controls">
             <div></div>
             <form method="post" th:action="@{/map/move}">
-                <input type="hidden" name="command" value="UP">
-                <button class="menu-button" type="submit" data-nav-item data-map-command="UP">↑</button>
+                <input name="command" type="hidden" value="UP">
+                <button class="menu-button" data-map-command="UP" data-nav-item type="submit">↑</button>
             </form>
             <div></div>
 
             <form method="post" th:action="@{/map/move}">
-                <input type="hidden" name="command" value="LEFT">
-                <button class="menu-button" type="submit" data-nav-item data-map-command="LEFT">←</button>
+                <input name="command" type="hidden" value="LEFT">
+                <button class="menu-button" data-map-command="LEFT" data-nav-item type="submit">←</button>
             </form>
             <a class="menu-button" th:href="@{/game}">戻る</a>
             <form method="post" th:action="@{/map/move}">
-                <input type="hidden" name="command" value="RIGHT">
-                <button class="menu-button" type="submit" data-nav-item data-map-command="RIGHT">→</button>
+                <input name="command" type="hidden" value="RIGHT">
+                <button class="menu-button" data-map-command="RIGHT" data-nav-item type="submit">→</button>
             </form>
 
             <div></div>
             <form method="post" th:action="@{/map/move}">
-                <input type="hidden" name="command" value="DOWN">
-                <button class="menu-button" type="submit" data-nav-item data-map-command="DOWN">↓</button>
+                <input name="command" type="hidden" value="DOWN">
+                <button class="menu-button" data-map-command="DOWN" data-nav-item type="submit">↓</button>
             </form>
             <div></div>
         </section>

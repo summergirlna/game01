@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class EquipmentService {
 
     /// 銅の剣を装備する
+    ///
     /// @param player プレイヤー
     public GameActionResult equipCopperSword(Player player) {
         WeaponType weapon = WeaponType.COPPER_SWORD;

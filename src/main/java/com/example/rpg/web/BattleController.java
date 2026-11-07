@@ -20,6 +20,7 @@ public class BattleController {
     private final BattleService battleService;
 
     /// 戦闘画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/battle")
@@ -39,6 +40,7 @@ public class BattleController {
     }
 
     /// 攻撃する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/battle/attack")
@@ -67,6 +69,7 @@ public class BattleController {
     }
 
     /// 薬草を使う
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/battle/use-herb")
@@ -94,6 +97,7 @@ public class BattleController {
     }
 
     /// 逃げる
+    ///
     /// @return リダイレクト先
     @PostMapping("/battle/escape")
     public String escape() {

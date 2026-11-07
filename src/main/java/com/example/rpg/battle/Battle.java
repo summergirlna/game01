@@ -82,8 +82,9 @@ public class Battle {
     }
 
     /// 攻撃処理
+    ///
     /// @param attacker 攻撃者
-    /// @param target 攻撃対象
+    /// @param target   攻撃対象
     private void attack(GameCharacter attacker, GameCharacter target) {
         int damage = attacker.getAttack();
 
@@ -123,6 +124,7 @@ public class Battle {
     }
 
     /// 薬草を使う
+    ///
     /// @return 薬草を使用できた場合はtrue、所持していない場合はfalse
     private boolean useHerb() {
         ItemType itemType = ItemType.HERB;

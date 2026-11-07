@@ -30,6 +30,7 @@ public class MapController {
     private final MonsterFactory monsterFactory;
 
     /// マップ画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/map")
@@ -40,8 +41,9 @@ public class MapController {
     }
 
     /// マップ上を移動する
+    ///
     /// @param command マップ操作コマンド
-    /// @param model 画面モデル
+    /// @param model   画面モデル
     /// @return テンプレート名
     @PostMapping("/map/move")
     public String move(@RequestParam MapCommand command, Model model) {
@@ -73,7 +75,8 @@ public class MapController {
     }
 
     /// マップ画面用属性を追加する
-    /// @param model 画面モデル
+    ///
+    /// @param model   画面モデル
     /// @param message メッセージ
     private void addMapAttributes(Model model, String message) {
         Player player = webGameSession.getPlayer();
@@ -85,7 +88,8 @@ public class MapController {
     }
 
     /// マップ表示行を作成する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @return マップ表示行
     private List<List<MapCell>> buildRows(Player player, GameMap gameMap) {
@@ -107,8 +111,9 @@ public class MapController {
     }
 
     /// マップ表示セルを作成する
-    /// @param player プレイヤー
-    /// @param gameMap マップ
+    ///
+    /// @param player   プレイヤー
+    /// @param gameMap  マップ
     /// @param position 座標
     /// @return マップ表示セル
     private MapCell buildCell(Player player, GameMap gameMap, Position position) {

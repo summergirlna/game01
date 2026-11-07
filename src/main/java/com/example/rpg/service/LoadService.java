@@ -22,6 +22,7 @@ public class LoadService {
     private static final String SAVE_FILE_NAME = "save.txt";
 
     /// ロードする
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult load(Player player) {
@@ -67,6 +68,7 @@ public class LoadService {
     }
 
     /// セーブファイルを読み込む
+    ///
     /// @param path セーブファイルのパス
     /// @return セーブデータ
     /// @throws IOException ファイルが読み込めない場合は例外

@@ -13,6 +13,7 @@ public class GameOverController {
     private final WebGameSession webGameSession;
 
     /// ゲームオーバー画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/game-over")

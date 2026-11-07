@@ -21,6 +21,7 @@ public class GameController {
     private final GameFacade gameFacade;
 
     /// トップ画面を表示する
+    ///
     /// @return テンプレート名
     @GetMapping("/")
     public String index() {
@@ -28,6 +29,7 @@ public class GameController {
     }
 
     /// ヘルプ画面を表示する
+    ///
     /// @return テンプレート名
     @GetMapping("/help")
     public String help() {
@@ -35,6 +37,7 @@ public class GameController {
     }
 
     /// ゲームメニュー画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/game")
@@ -52,6 +55,7 @@ public class GameController {
     }
 
     /// 薬草を使う
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/use-herb")
@@ -64,6 +68,7 @@ public class GameController {
     }
 
     /// 宿屋に泊まる
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/inn")
@@ -76,6 +81,7 @@ public class GameController {
     }
 
     /// 次のエリアへ移動する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/move")
@@ -88,6 +94,7 @@ public class GameController {
     }
 
     /// 薬草を購入する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/buy-herb")
@@ -100,6 +107,7 @@ public class GameController {
     }
 
     /// 銅の剣を装備する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/equip-copper-sword")
@@ -112,6 +120,7 @@ public class GameController {
     }
 
     /// 銅の剣を購入する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/buy-copper-sword")
@@ -124,6 +133,7 @@ public class GameController {
     }
 
     /// セーブする
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/save")
@@ -136,6 +146,7 @@ public class GameController {
     }
 
     /// ロードする
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @PostMapping("/game/load")
@@ -148,6 +159,7 @@ public class GameController {
     }
 
     /// ステータス画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/status")

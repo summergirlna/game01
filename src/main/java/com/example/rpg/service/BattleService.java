@@ -60,7 +60,8 @@ public class BattleService {
     }
 
     /// 薬草を使う
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param monster モンスター
     /// @return 操作結果
     public GameActionResult useHerb(Player player, Monster monster) {
@@ -91,6 +92,7 @@ public class BattleService {
     }
 
     /// 逃げる
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult escape(Player player) {
@@ -98,7 +100,8 @@ public class BattleService {
     }
 
     /// モンスターの攻撃メッセージを追加する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param monster モンスター
     /// @param message メッセージ
     private void appendMonsterAttack(Player player, Monster monster, StringBuilder message) {
@@ -113,8 +116,9 @@ public class BattleService {
     }
 
     /// 攻撃する
+    ///
     /// @param attacker 攻撃者
-    /// @param target 攻撃対象
+    /// @param target   攻撃対象
     /// @return ダメージ
     private int applyAttack(GameCharacter attacker, GameCharacter target) {
         int damage = attacker.getAttack();

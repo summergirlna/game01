@@ -18,6 +18,7 @@ public class SaveService {
     private static final String SAVE_FILE_NAME = "save.txt";
 
     /// セーブする
+    ///
     /// @param player プレイヤー
     public GameActionResult save(Player player) {
         List<String> lines = List.of(

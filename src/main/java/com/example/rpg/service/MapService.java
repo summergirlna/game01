@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
-import java.util.Scanner;
 
 /// マップ移動処理を担当するクラス
 @RequiredArgsConstructor
@@ -26,7 +25,8 @@ public class MapService {
     private final Random random = new Random();
 
     /// 移動する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @param command マップ操作コマンド
     /// @return 操作結果
@@ -49,15 +49,17 @@ public class MapService {
     }
 
     /// 通常エンカウントを判定する
+    ///
     /// @return エンカウントした場合はtrue
     private boolean encounter() {
         return random.nextInt(100) < ENCOUNTER_RATE_PERCENT;
     }
 
     /// マップイベントを処理する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
-    /// @param event マップイベント
+    /// @param event   マップイベント
     /// @return 操作結果
     private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
         return switch (event) {
@@ -70,7 +72,8 @@ public class MapService {
     }
 
     /// 町へ戻る
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @return 操作結果
     private GameActionResult returnToTown(Player player, GameMap gameMap) {
@@ -80,7 +83,8 @@ public class MapService {
     }
 
     /// 次のエリアへ移動する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @return 操作結果
     private GameActionResult moveToNextArea(Player player, GameMap gameMap) {
@@ -97,7 +101,8 @@ public class MapService {
     }
 
     /// 前のエリアへ移動する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @return 操作結果
     private GameActionResult moveToPreviousArea(Player player, GameMap gameMap) {
@@ -114,6 +119,7 @@ public class MapService {
     }
 
     /// 宝箱を開ける
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     private GameActionResult openChest(Player player) {

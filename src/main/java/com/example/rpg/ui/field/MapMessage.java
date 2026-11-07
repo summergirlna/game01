@@ -9,8 +9,9 @@ import com.example.rpg.value.Position;
 public class MapMessage {
 
     /// マップを表示する
+    ///
     /// @param currentArea 現在のフィールドエリア
-    /// @param gameMap マップ情報
+    /// @param gameMap     マップ情報
     public void showMap(FieldArea currentArea, GameMap gameMap) {
         System.out.println();
         System.out.println("現在地: " + currentArea.getDisplayName());
@@ -68,6 +69,7 @@ public class MapMessage {
     }
 
     /// エリア移動メッセージを表示する
+    ///
     /// @param area 移動先エリア
     public void showMoveArea(FieldArea area) {
         System.out.println(area.getDisplayName() + "へ移動した。");
@@ -79,7 +81,8 @@ public class MapMessage {
     }
 
     /// 宝箱を開けた時のメッセージを表示する
-    /// @param gold 獲得ゴールド
+    ///
+    /// @param gold       獲得ゴールド
     /// @param herbAmount 獲得した薬草の数
     public void showOpenChest(int gold, int herbAmount) {
         System.out.println("宝箱を開けた！");

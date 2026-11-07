@@ -13,6 +13,7 @@ public class ClearController {
     private final WebGameSession webGameSession;
 
     /// ゲームクリア画面を表示する
+    ///
     /// @param model 画面モデル
     /// @return テンプレート名
     @GetMapping("/clear")

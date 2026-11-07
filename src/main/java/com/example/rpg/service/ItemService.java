@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 public class ItemService {
 
     /// 薬草を使う
+    ///
     /// @param player プレイヤー
     /// @return 操作結果
     public GameActionResult useHerb(Player player) {

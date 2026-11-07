@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Setter
 public class WebGameSession {
 
-    private final Player player = new Player("勇者", 30 ,8);
+    private final Player player = new Player("勇者", 30, 8);
 
     private final GameMap gameMap = GameMap.initial();
 
@@ -24,7 +24,8 @@ public class WebGameSession {
     private String lastMessage;
 
     /// 戦闘を開始する
-    /// @param monster モンスター
+    ///
+    /// @param monster    モンスター
     /// @param bossBattle ボス戦の場合はtrue
     public void startBattle(Monster monster, boolean bossBattle) {
         this.currentMonster = monster;
@@ -32,6 +33,7 @@ public class WebGameSession {
     }
 
     /// 戦闘中か判定する
+    ///
     /// @return 戦闘中の場合はtrue
     public boolean isInBattle() {
         return currentMonster != null && currentMonster.isAlive();
@@ -43,6 +45,7 @@ public class WebGameSession {
     }
 
     /// 最後のメッセージを取得してクリアする
+    ///
     /// @param defaultMessage デフォルトメッセージ
     /// @return 最後のメッセージ
     public String consumeLastMessage(String defaultMessage) {
