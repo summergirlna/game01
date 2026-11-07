@@ -189,6 +189,7 @@ h1 {
     border-radius: 10px;
     background: rgba(15, 23, 42, 0.95);
     color: #e2e8f0;
+    white-space: pre-line;
 }
 
 .back-button {

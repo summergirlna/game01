@@ -19,9 +19,29 @@ public class WebGameSession {
 
     private Monster currentMonster;
 
+    private String lastMessage;
+
     /// 戦闘中か判定する
     /// @return 戦闘中の場合はtrue
     public boolean isInBattle() {
         return currentMonster != null && currentMonster.isAlive();
+    }
+
+    /// 戦闘状態をクリアする
+    public void clearBattle() {
+        currentMonster = null;
+    }
+
+    /// 最後のメッセージを取得してクリアする
+    /// @param defaultMessage デフォルトメッセージ
+    /// @return 最後のメッセージ
+    public String consumeLastMessage(String defaultMessage) {
+        if (lastMessage == null || lastMessage.isBlank()) {
+            return defaultMessage;
+        }
+
+        String message = lastMessage;
+        lastMessage = null;
+        return message;
     }
 }

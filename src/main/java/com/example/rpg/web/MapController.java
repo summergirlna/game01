@@ -34,7 +34,8 @@ public class MapController {
     /// @return テンプレート名
     @GetMapping("/map")
     public String map(Model model) {
-        addMapAttributes(model, "探索を開始した。");
+        String message = webGameSession.consumeLastMessage("探索を開始した。");
+        addMapAttributes(model, message);
         return "map";
     }
 

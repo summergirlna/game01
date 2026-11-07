@@ -37,6 +37,10 @@ public class GameController {
         model.addAttribute("player", player);
         model.addAttribute("isTown", player.getCurrentArea().name().equals("TOWN"));
 
+        if (!model.containsAttribute("message")) {
+            model.addAttribute("message", webGameSession.consumeLastMessage("コマンドを選んでください。"));
+        }
+
         return "game";
     }
 

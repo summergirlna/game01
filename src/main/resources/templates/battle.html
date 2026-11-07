@@ -46,12 +46,12 @@
         </section>
 
         <section class="menu-panel">
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>攻撃する</button>
+            <form method="post" th:action="@{/battle/attack}">
+                <button class="menu-button" type="submit">攻撃する</button>
             </form>
 
-            <form method="post" action="#">
-                <button class="menu-button" type="button" disabled>逃げる</button>
+            <form method="post" th:action="@{/battle/escape}">
+                <button class="menu-button" type="submit">逃げる</button>
             </form>
         </section>
 
