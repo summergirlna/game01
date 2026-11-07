@@ -13,9 +13,11 @@
         <h1 class="dq-title">RPG</h1>
 
         <nav aria-label="タイトルメニュー" class="dq-command-window">
-            <a class="dq-command" data-nav-item th:href="@{/game}">
-                はじめから
-            </a>
+            <form method="post" th:action="@{/game/new}">
+                <button class="dq-command" data-nav-item type="submit">
+                    はじめから
+                </button>
+            </form>
 
             <form method="post" th:action="@{/game/load}">
                 <button class="dq-command" data-nav-item type="submit">

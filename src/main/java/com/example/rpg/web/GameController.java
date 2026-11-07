@@ -17,6 +17,8 @@ import java.util.function.Function;
 public class GameController {
 
     private static final String VIEW_GAME = "game";
+    private static final String REDIRECT_PREFIX = "redirect:";
+    private static final String PATH_MAP = "/map";
     private static final String ATTRIBUTE_PLAYER = "player";
     private static final String ATTRIBUTE_IS_TOWN = "isTown";
     private static final String ATTRIBUTE_MESSAGE = "message";
@@ -25,6 +27,15 @@ public class GameController {
     private final WebGameSession webGameSession;
 
     private final GameFacade gameFacade;
+
+    /// ニューゲームを開始する
+    /// @return リダイレクト先
+    @PostMapping("/game/new")
+    public String newGame() {
+        webGameSession.startNewGame();
+
+        return REDIRECT_PREFIX + PATH_MAP;
+    }
 
     /// ゲームメニュー画面を表示する
     ///
@@ -113,7 +124,12 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/load")
     public String load(Model model) {
-        return handleGameAction(model, gameFacade::load);
+        Player player = webGameSession.getPlayer();
+        GameActionResult result = gameFacade.load(player);
+
+        webGameSession.setLastMessage(result.message());
+
+        return REDIRECT_PREFIX + PATH_MAP;
     }
 
     /// ゲーム操作を実行してゲームメニュー画面を再表示する

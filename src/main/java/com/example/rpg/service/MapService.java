@@ -41,11 +41,29 @@ public class MapService {
             return handleMapEvent(player, gameMap, event);
         }
 
-        if (encounter()) {
+        if (canEncounter(player) && encounter()) {
             return GameActionResult.redirect("モンスターが現れた！", "/battle");
         }
 
-        return GameActionResult.message(player.getCurrentArea().getDisplayName() + "を探索している。");
+        return GameActionResult.message(exploringMessage(player));
+    }
+
+    /// 探索メッセージを作成する
+    /// @param player プレイヤー
+    /// @return 探索メッセージ
+    private String exploringMessage(Player player) {
+        if (player.isInTown()) {
+            return "町を歩いている。";
+        }
+
+        return player.getCurrentArea().getDisplayName() + "を探索している。";
+    }
+
+    /// 通常エンカウントできるかどうかを返す
+    /// @param player プレイヤー
+    /// @return 通常エンカウントできる場合はtrue
+    public boolean canEncounter(Player player) {
+        return !player.isInTown();
     }
 
     /// 通常エンカウントを判定する

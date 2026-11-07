@@ -13,15 +13,31 @@ import org.springframework.stereotype.Component;
 @Setter
 public class WebGameSession {
 
-    private final Player player = new Player("勇者", 30, 8);
+    private Player player = new Player("勇者", 30, 8);
 
-    private final GameMap gameMap = GameMap.initial();
+    private GameMap gameMap = GameMap.initial();
 
     private Monster currentMonster;
 
     private boolean bossBattle;
 
     private String lastMessage;
+
+    /// ニューゲームを開始する
+    public void startNewGame() {
+        player = createInitialPlayer();
+        gameMap = GameMap.initial();
+        currentMonster = null;
+        bossBattle = false;
+        lastMessage = "冒険を開始した。";
+    }
+
+    /// 初期プレイヤーを作成する
+    ///
+    /// @return 初期プレイヤー
+    private static Player createInitialPlayer() {
+        return new Player("勇者", 30, 8);
+    }
 
     /// 戦闘を開始する
     ///
