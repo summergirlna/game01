@@ -24,6 +24,10 @@ public class MapService {
 
     private final InnService innService;
 
+    private final ShopService shopService;
+
+    private final WeaponShopService weaponShopService;
+
     private final Random random = new Random();
 
     /// 移動する
@@ -85,6 +89,8 @@ public class MapService {
         return switch (event) {
             case TOWN -> returnToTown(player, gameMap);
             case INN -> innService.stay(player);
+            case ITEM_SHOP -> shopService.buyHerb(player);
+            case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);
             case NEXT_AREA -> moveToNextArea(player, gameMap);
             case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
             case CHEST -> openChest(player);

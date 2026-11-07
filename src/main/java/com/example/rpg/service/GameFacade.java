@@ -11,11 +11,7 @@ public class GameFacade {
 
     private final ItemService itemService;
 
-    private final ShopService shopService;
-
     private final EquipmentService equipmentService;
-
-    private final WeaponShopService weaponShopService;
 
     private final SaveService saveService;
 
@@ -27,16 +23,8 @@ public class GameFacade {
         return itemService.useHerb(player);
     }
 
-    public GameActionResult buyHerb(Player player) {
-        return shopService.buyHerb(player);
-    }
-
     public GameActionResult equipCopperSword(Player player) {
         return equipmentService.equipCopperSword(player);
-    }
-
-    public GameActionResult buyCopperSword(Player player) {
-        return weaponShopService.buyCopperSword(player);
     }
 
     public GameActionResult save(Player player) {

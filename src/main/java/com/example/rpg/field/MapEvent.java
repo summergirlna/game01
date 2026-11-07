@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 public enum MapEvent {
     TOWN('T', new Position(4, 4)),
     INN('宿', new Position(1, 2)),
+    ITEM_SHOP('道', new Position(3, 2)),
+    WEAPON_SHOP('武', new Position(2, 1)),
     BOSS('B', new Position(0, 0)),
     NEXT_AREA('N', new Position(4, 0)),
     PREVIOUS_AREA('R', new Position(0, 4)),
@@ -26,7 +28,7 @@ public enum MapEvent {
     public boolean isVisibleIn(FieldArea currentArea) {
         return switch (this) {
             case TOWN -> currentArea != FieldArea.TOWN;
-            case INN -> currentArea == FieldArea.TOWN;
+            case INN, ITEM_SHOP, WEAPON_SHOP -> currentArea == FieldArea.TOWN;
             case BOSS -> currentArea == FieldArea.CAVE;
             case NEXT_AREA -> currentArea == FieldArea.GRASSLAND || currentArea == FieldArea.FOREST;
             case PREVIOUS_AREA -> currentArea == FieldArea.FOREST || currentArea == FieldArea.CAVE;

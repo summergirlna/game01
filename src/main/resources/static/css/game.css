@@ -262,6 +262,18 @@ h1 {
     color: #fdf2f8;
 }
 
+.map-cell.item_shop {
+    border-color: #fcd34d;
+    background: #a16207;
+    color: #fffbeb;
+}
+
+.map-cell.weapon_shop {
+    border-color: #c4b5fd;
+    background: #5b21b6;
+    color: #f5f3ff;
+}
+
 .map-cell.next_area,
 .map-cell.previous_area {
     border-color: #86efac;

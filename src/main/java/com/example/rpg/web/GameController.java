@@ -73,15 +73,6 @@ public class GameController {
         return handleGameAction(model, gameFacade::moveToNextArea);
     }
 
-    /// 薬草を購入する
-    ///
-    /// @param model 画面モデル
-    /// @return テンプレート名
-    @PostMapping("/game/buy-herb")
-    public String buyHerb(Model model) {
-        return handleGameAction(model, gameFacade::buyHerb);
-    }
-
     /// 銅の剣を装備する
     ///
     /// @param model 画面モデル
@@ -89,15 +80,6 @@ public class GameController {
     @PostMapping("/game/equip-copper-sword")
     public String equipCopperSword(Model model) {
         return handleGameAction(model, gameFacade::equipCopperSword);
-    }
-
-    /// 銅の剣を購入する
-    ///
-    /// @param model 画面モデル
-    /// @return テンプレート名
-    @PostMapping("/game/buy-copper-sword")
-    public String buyCopperSword(Model model) {
-        return handleGameAction(model, gameFacade::buyCopperSword);
     }
 
     /// セーブする

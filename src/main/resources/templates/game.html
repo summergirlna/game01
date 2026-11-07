@@ -75,14 +75,6 @@
                 <button class="menu-button" data-nav-item type="submit">銅の剣を装備する</button>
             </form>
 
-            <form method="post" th:action="@{/game/buy-herb}" th:if="${isTown}">
-                <button class="menu-button" data-nav-item type="submit">道具屋で薬草を買う</button>
-            </form>
-
-            <form method="post" th:action="@{/game/buy-copper-sword}" th:if="${isTown}">
-                <button class="menu-button" data-nav-item type="submit">武器屋で銅の剣を買う</button>
-            </form>
-
             <form method="post" th:action="@{/game/move}">
                 <button class="menu-button" data-nav-item type="submit">移動する</button>
             </form>
