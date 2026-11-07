@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GAME OVER</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="game-page">
+    <section class="game-card game-over-card">
+        <header class="game-header">
+            <div>
+                <p class="caption">GAME OVER</p>
+                <h1>冒険は終わった</h1>
+            </div>
+            <div class="level game-over-label">
+                LOSE
+            </div>
+        </header>
+
+        <p class="message-box" th:text="${message}">
+            勇者は倒れた……
+        </p>
+
+        <section class="hero-summary">
+            <div>
+                <span class="summary-label">勇者</span>
+                <strong th:text="${player.name}">勇者</strong>
+            </div>
+            <div>
+                <span class="summary-label">レベル</span>
+                <strong th:text="${player.level.value}">1</strong>
+            </div>
+            <div>
+                <span class="summary-label">HP</span>
+                <strong>
+                    <span th:text="${player.hp}">0</span>
+                    /
+                    <span th:text="${player.maxHp}">30</span>
+                </strong>
+            </div>
+            <div>
+                <span class="summary-label">ゴールド</span>
+                <strong>
+                    <span th:text="${player.gold}">0</span> G
+                </strong>
+            </div>
+        </section>
+
+        <section class="menu-panel">
+            <form method="post" th:action="@{/game/load}">
+                <button class="menu-button" type="submit">ロードする</button>
+            </form>
+        </section>
+    </section>
+</main>
+</body>
+</html>

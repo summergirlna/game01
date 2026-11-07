@@ -53,7 +53,7 @@ public class BattleService {
                     .append(player.getName())
                     .append("は倒れた……");
 
-            return GameActionResult.redirect(message.toString(), "/game");
+            return GameActionResult.redirect(message.toString(), "/game-over");
         }
 
         return GameActionResult.message(message.toString());
@@ -84,7 +84,7 @@ public class BattleService {
                     .append(player.getName())
                     .append("は倒れた……");
 
-            return GameActionResult.redirect(message.toString(), "/game");
+            return GameActionResult.redirect(message.toString(), "/game-over");
         }
 
         return GameActionResult.message(message.toString());
