@@ -75,13 +75,6 @@
                 <button class="menu-button" data-nav-item type="submit">銅の剣を装備する</button>
             </form>
 
-            <form method="post" th:action="@{/game/save}">
-                <button class="menu-button" data-nav-item type="submit">セーブする</button>
-            </form>
-
-            <form method="post" th:action="@{/game/load}">
-                <button class="menu-button" data-nav-item type="submit">ロードする</button>
-            </form>
         </section>
 
         <p class="message-box" th:text="${message} ?: 'コマンドを選んでください。'">

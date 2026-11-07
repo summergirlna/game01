@@ -13,8 +13,6 @@ public class GameFacade {
 
     private final EquipmentService equipmentService;
 
-    private final SaveService saveService;
-
     private final LoadService loadService;
 
     public GameActionResult useHerb(Player player) {
@@ -23,10 +21,6 @@ public class GameFacade {
 
     public GameActionResult equipCopperSword(Player player) {
         return equipmentService.equipCopperSword(player);
-    }
-
-    public GameActionResult save(Player player) {
-        return saveService.save(player);
     }
 
     public GameActionResult load(Player player) {

@@ -280,6 +280,12 @@ h1 {
     color: #f5f3ff;
 }
 
+.map-cell.save_point {
+    border-color: #67e8f9;
+    background: #155e75;
+    color: #ecfeff;
+}
+
 .map-cell.next_area,
 .map-cell.previous_area {
     border-color: #86efac;

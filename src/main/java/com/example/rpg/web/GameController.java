@@ -74,15 +74,6 @@ public class GameController {
         return handleGameAction(model, gameFacade::equipCopperSword);
     }
 
-    /// セーブする
-    ///
-    /// @param model 画面モデル
-    /// @return テンプレート名
-    @PostMapping("/game/save")
-    public String save(Model model) {
-        return handleGameAction(model, gameFacade::save);
-    }
-
     /// ロードする
     ///
     /// @param model 画面モデル

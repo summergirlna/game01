@@ -13,6 +13,7 @@ public enum MapEvent {
     INN('宿', new Position(1, 2)),
     ITEM_SHOP('道', new Position(3, 2)),
     WEAPON_SHOP('武', new Position(2, 1)),
+    SAVE_POINT('記', new Position(2, 3)),
     BOSS('B', new Position(0, 0)),
     NEXT_AREA('N', new Position(4, 0)),
     PREVIOUS_AREA('R', new Position(0, 4)),
@@ -29,7 +30,7 @@ public enum MapEvent {
     public boolean isVisibleIn(FieldArea currentArea) {
         return switch (this) {
             case TOWN -> currentArea != FieldArea.TOWN;
-            case EXIT, INN, ITEM_SHOP, WEAPON_SHOP -> currentArea == FieldArea.TOWN;
+            case EXIT, INN, ITEM_SHOP, WEAPON_SHOP, SAVE_POINT -> currentArea == FieldArea.TOWN;
             case BOSS -> currentArea == FieldArea.CAVE;
             case NEXT_AREA -> currentArea == FieldArea.GRASSLAND || currentArea == FieldArea.FOREST;
             case PREVIOUS_AREA -> currentArea == FieldArea.FOREST || currentArea == FieldArea.CAVE;
