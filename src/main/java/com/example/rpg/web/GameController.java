@@ -64,15 +64,6 @@ public class GameController {
         return handleGameAction(model, gameFacade::useHerb);
     }
 
-    /// 宿屋に泊まる
-    ///
-    /// @param model 画面モデル
-    /// @return テンプレート名
-    @PostMapping("/game/inn")
-    public String stayInn(Model model) {
-        return handleGameAction(model, gameFacade::stayInn);
-    }
-
     /// 次のエリアへ移動する
     ///
     /// @param model 画面モデル

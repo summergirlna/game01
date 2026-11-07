@@ -11,8 +11,6 @@ public class GameFacade {
 
     private final ItemService itemService;
 
-    private final InnService innService;
-
     private final ShopService shopService;
 
     private final EquipmentService equipmentService;
@@ -27,10 +25,6 @@ public class GameFacade {
 
     public GameActionResult useHerb(Player player) {
         return itemService.useHerb(player);
-    }
-
-    public GameActionResult stayInn(Player player) {
-        return innService.stay(player);
     }
 
     public GameActionResult buyHerb(Player player) {

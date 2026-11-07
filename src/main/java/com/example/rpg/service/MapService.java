@@ -22,6 +22,8 @@ public class MapService {
 
     private static final int ENCOUNTER_RATE_PERCENT = 30;
 
+    private final InnService innService;
+
     private final Random random = new Random();
 
     /// 移動する
@@ -82,6 +84,7 @@ public class MapService {
     private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
         return switch (event) {
             case TOWN -> returnToTown(player, gameMap);
+            case INN -> innService.stay(player);
             case NEXT_AREA -> moveToNextArea(player, gameMap);
             case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
             case CHEST -> openChest(player);

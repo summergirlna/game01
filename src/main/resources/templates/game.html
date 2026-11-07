@@ -67,10 +67,6 @@
 
             <a class="menu-button" data-nav-item th:href="@{/status}">ステータスを見る</a>
 
-            <form method="post" th:action="@{/game/inn}" th:if="${isTown}">
-                <button class="menu-button" data-nav-item type="submit">宿屋に泊まる</button>
-            </form>
-
             <form method="post" th:action="@{/game/use-herb}">
                 <button class="menu-button" data-nav-item type="submit">薬草を使う</button>
             </form>
