@@ -17,8 +17,6 @@ public class GameFacade {
 
     private final LoadService loadService;
 
-    private final FieldService fieldService;
-
     public GameActionResult useHerb(Player player) {
         return itemService.useHerb(player);
     }
@@ -33,9 +31,5 @@ public class GameFacade {
 
     public GameActionResult load(Player player) {
         return loadService.load(player);
-    }
-
-    public GameActionResult moveToNextArea(Player player) {
-        return fieldService.moveToNextArea(player);
     }
 }

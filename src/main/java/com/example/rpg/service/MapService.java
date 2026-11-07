@@ -88,6 +88,7 @@ public class MapService {
     private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
         return switch (event) {
             case TOWN -> returnToTown(player, gameMap);
+            case EXIT -> leaveTown(player, gameMap);
             case INN -> innService.stay(player);
             case ITEM_SHOP -> shopService.buyHerb(player);
             case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);
@@ -96,6 +97,16 @@ public class MapService {
             case CHEST -> openChest(player);
             case BOSS -> GameActionResult.redirect("強大な敵が立ちはだかった！", "/battle/boss");
         };
+    }
+
+    /// 町を出て草原へ移動する
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @return 操作結果
+    private GameActionResult leaveTown(Player player, GameMap gameMap) {
+        player.moveTo(FieldArea.GRASSLAND);
+        gameMap.resetPlayerPosition();
+        return GameActionResult.message("町を出て草原へ向かった。");
     }
 
     /// 町へ戻る

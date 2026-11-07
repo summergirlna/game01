@@ -64,15 +64,6 @@ public class GameController {
         return handleGameAction(model, gameFacade::useHerb);
     }
 
-    /// 次のエリアへ移動する
-    ///
-    /// @param model 画面モデル
-    /// @return テンプレート名
-    @PostMapping("/game/move")
-    public String move(Model model) {
-        return handleGameAction(model, gameFacade::moveToNextArea);
-    }
-
     /// 銅の剣を装備する
     ///
     /// @param model 画面モデル
