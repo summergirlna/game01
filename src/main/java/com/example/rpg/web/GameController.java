@@ -21,10 +21,17 @@ public class GameController {
     private final GameFacade gameFacade;
 
     /// トップ画面を表示する
-    /// @return リダイレクト先
+    /// @return テンプレート名
     @GetMapping("/")
     public String index() {
         return "title";
+    }
+
+    /// ヘルプ画面を表示する
+    /// @return テンプレート名
+    @GetMapping("/help")
+    public String help() {
+        return "help";
     }
 
     /// ゲームメニュー画面を表示する

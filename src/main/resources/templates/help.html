@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG - ヘルプ</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="title-page dq-title-page">
+    <section class="dq-help-card">
+        <h1 class="dq-help-title">ヘルプ</h1>
+
+        <div class="dq-help-window">
+            <h2>基本の遊び方</h2>
+            <ul>
+                <li>町では宿屋・道具屋・武器屋を利用できます。</li>
+                <li>フィールドでは探索して敵と戦います。</li>
+                <li>HPが減ったら薬草や宿屋で回復しましょう。</li>
+                <li>ゴールドを集めて装備や道具を整えましょう。</li>
+                <li>セーブすると冒険の状態を保存できます。</li>
+            </ul>
+        </div>
+
+        <a class="dq-back-command" th:href="@{/}">
+            タイトルへ戻る
+        </a>
+    </section>
+</main>
+</body>
+</html>
