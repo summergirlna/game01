@@ -28,7 +28,7 @@ public class LoadService {
         Path path = Path.of(SAVE_FILE_NAME);
 
         if (!Files.exists(path)) {
-            return new GameActionResult("セーブファイルが見つかりません。");
+            return GameActionResult.message("セーブファイルが見つかりません。");
         }
 
         try {
@@ -60,9 +60,9 @@ public class LoadService {
                     hasCopperSword
             );
 
-            return new GameActionResult(SAVE_FILE_NAME + " からロードしました。");
+            return GameActionResult.message(SAVE_FILE_NAME + " からロードしました。");
         } catch (IOException | RuntimeException e) {
-            return new GameActionResult("ロードに失敗しました。");
+            return GameActionResult.message("ロードに失敗しました。");
         }
     }
 

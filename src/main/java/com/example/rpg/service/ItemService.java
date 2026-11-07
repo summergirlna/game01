@@ -17,10 +17,10 @@ public class ItemService {
         ItemType itemType = ItemType.HERB;
 
         if (!player.getInventory().use(itemType)) {
-            return new GameActionResult(itemType.getDisplayName() + "を持っていません。");
+            return GameActionResult.message(itemType.getDisplayName() + "を持っていません。");
         }
 
         player.heal(itemType.getHealAmount());
-        return new GameActionResult(itemType.getDisplayName() + "を使った。HPが " + itemType.getHealAmount() + " 回復した。");
+        return GameActionResult.message(itemType.getDisplayName() + "を使った。HPが " + itemType.getHealAmount() + " 回復した。");
     }
 }

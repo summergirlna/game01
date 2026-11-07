@@ -22,6 +22,6 @@ public class FieldService {
         };
 
         player.moveTo(nextArea);
-        return new GameActionResult(nextArea.getDisplayName() + "へ移動した。");
+        return GameActionResult.message(nextArea.getDisplayName() + "へ移動した。");
     }
 }

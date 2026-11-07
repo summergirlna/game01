@@ -19,14 +19,14 @@ public class ShopService {
         ItemType itemType = ItemType.HERB;
 
         if (player.getCurrentArea() != FieldArea.TOWN) {
-            return new GameActionResult("ここには道具屋がない。");
+            return GameActionResult.message("ここには道具屋がない。");
         }
 
         if (!player.payGold(HERB_PRICE)) {
-            return new GameActionResult("ゴールドが足りません。必要なゴールド: " + HERB_PRICE);
+            return GameActionResult.message("ゴールドが足りません。必要なゴールド: " + HERB_PRICE);
         }
 
         player.getInventory().add(itemType, 1);
-        return new GameActionResult(itemType.getDisplayName() + "を買った。" + HERB_PRICE + " ゴールドを支払った。");
+        return GameActionResult.message(itemType.getDisplayName() + "を買った。" + HERB_PRICE + " ゴールドを支払った。");
     }
 }

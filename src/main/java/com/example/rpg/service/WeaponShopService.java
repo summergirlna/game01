@@ -20,18 +20,18 @@ public class WeaponShopService {
         WeaponType weapon = WeaponType.COPPER_SWORD;
 
         if (player.getCurrentArea() != FieldArea.TOWN) {
-            return new GameActionResult("ここには武器屋がない。");
+            return GameActionResult.message("ここには武器屋がない。");
         }
 
         if (player.getEquipment().getInventory().hasWeapon(weapon)) {
-            return new GameActionResult(weapon.getDisplayName() + "はすでに持っています。");
+            return GameActionResult.message(weapon.getDisplayName() + "はすでに持っています。");
         }
 
         if (!player.payGold(COPPER_SWORD_PRICE)) {
-            return new GameActionResult("ゴールドが足りません。必要なゴールド: " + COPPER_SWORD_PRICE);
+            return GameActionResult.message("ゴールドが足りません。必要なゴールド: " + COPPER_SWORD_PRICE);
         }
 
         player.getEquipment().addWeapon(weapon);
-        return new GameActionResult(weapon.getDisplayName() + "を買った。" + COPPER_SWORD_PRICE + " ゴールドを支払った。");
+        return GameActionResult.message(weapon.getDisplayName() + "を買った。" + COPPER_SWORD_PRICE + " ゴールドを支払った。");
     }
 }

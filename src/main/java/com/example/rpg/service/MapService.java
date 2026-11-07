@@ -32,7 +32,7 @@ public class MapService {
     /// @return 操作結果
     public GameActionResult move(Player player, GameMap gameMap, MapCommand command) {
         if (!gameMap.move(command)) {
-            return new GameActionResult("これ以上そちらには進めません。");
+            return GameActionResult.message("これ以上そちらには進めません。");
         }
 
         MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
@@ -42,10 +42,10 @@ public class MapService {
         }
 
         if (encounter()) {
-            return new GameActionResult("モンスターが現れた！戦闘はまだ準備中です。");
+            return GameActionResult.message("モンスターが現れた！戦闘はまだ準備中です。");
         }
 
-        return new GameActionResult(player.getCurrentArea().getDisplayName() + "を探索している。");
+        return GameActionResult.message(player.getCurrentArea().getDisplayName() + "を探索している。");
     }
 
     /// 通常エンカウントを判定する
@@ -65,7 +65,7 @@ public class MapService {
             case NEXT_AREA -> moveToNextArea(player, gameMap);
             case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
             case CHEST -> openChest(player);
-            case BOSS -> new GameActionResult("強大な敵が立ちはだかった！ボス戦はまだ準備中です。");
+            case BOSS -> GameActionResult.message("強大な敵が立ちはだかった！ボス戦はまだ準備中です。");
         };
     }
 
@@ -76,7 +76,7 @@ public class MapService {
     private GameActionResult returnToTown(Player player, GameMap gameMap) {
         player.moveTo(FieldArea.TOWN);
         gameMap.resetPlayerPosition();
-        return new GameActionResult("町へ戻った。");
+        return GameActionResult.message("町へ戻った。");
     }
 
     /// 次のエリアへ移動する
@@ -93,7 +93,7 @@ public class MapService {
         player.moveTo(nextArea);
         gameMap.resetPlayerPosition();
 
-        return new GameActionResult(nextArea.getDisplayName() + "へ移動した。");
+        return GameActionResult.message(nextArea.getDisplayName() + "へ移動した。");
     }
 
     /// 前のエリアへ移動する
@@ -110,7 +110,7 @@ public class MapService {
         player.moveTo(previousArea);
         gameMap.resetPlayerPosition();
 
-        return new GameActionResult(previousArea.getDisplayName() + "へ移動した。");
+        return GameActionResult.message(previousArea.getDisplayName() + "へ移動した。");
     }
 
     /// 宝箱を開ける
@@ -118,13 +118,13 @@ public class MapService {
     /// @return 操作結果
     private GameActionResult openChest(Player player) {
         if (player.hasOpenedTreasureChest()) {
-            return new GameActionResult("宝箱は空だった。");
+            return GameActionResult.message("宝箱は空だった。");
         }
 
         player.openTreasureChest();
         player.addGold(CHEST_GOLD);
         player.getInventory().add(ItemType.HERB, CHEST_HERB_AMOUNT);
 
-        return new GameActionResult("宝箱を開けた！" + CHEST_GOLD + " ゴールドと薬草 " + CHEST_HERB_AMOUNT + " 個を手に入れた。");
+        return GameActionResult.message("宝箱を開けた！" + CHEST_GOLD + " ゴールドと薬草 " + CHEST_HERB_AMOUNT + " 個を手に入れた。");
     }
 }

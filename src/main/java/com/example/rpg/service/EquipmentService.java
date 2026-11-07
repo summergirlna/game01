@@ -16,9 +16,9 @@ public class EquipmentService {
         WeaponType weapon = WeaponType.COPPER_SWORD;
 
         if (!player.getEquipment().equipWeapon(weapon)) {
-            return new GameActionResult(weapon.getDisplayName() + "を持っていません。");
+            return GameActionResult.message(weapon.getDisplayName() + "を持っていません。");
         }
 
-        return new GameActionResult(weapon.getDisplayName() + "を装備した。攻撃力が " + weapon.getAttackBonus() + " 上がる。");
+        return GameActionResult.message(weapon.getDisplayName() + "を装備した。攻撃力が " + weapon.getAttackBonus() + " 上がる。");
     }
 }

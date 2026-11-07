@@ -15,14 +15,14 @@ public class InnService {
     /// @param player プレイヤー
     public GameActionResult stay(Player player) {
         if (player.getCurrentArea() != FieldArea.TOWN) {
-            return new GameActionResult("ここには宿屋がない。");
+            return GameActionResult.message("ここには宿屋がない。");
         }
 
         if (!player.payGold(COST)) {
-            return new GameActionResult("ゴールドが足りません。必要なゴールド: " + COST);
+            return GameActionResult.message("ゴールドが足りません。必要なゴールド: " + COST);
         }
 
         player.healFull();
-        return new GameActionResult("宿屋に泊まった。HPが全回復した。");
+        return GameActionResult.message("宿屋に泊まった。HPが全回復した。");
     }
 }

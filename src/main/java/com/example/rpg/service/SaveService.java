@@ -37,9 +37,9 @@ public class SaveService {
 
         try {
             Files.write(Path.of(SAVE_FILE_NAME), lines);
-            return new GameActionResult(SAVE_FILE_NAME + " にセーブしました。");
+            return GameActionResult.message(SAVE_FILE_NAME + " にセーブしました。");
         } catch (IOException e) {
-            return new GameActionResult("セーブに失敗しました。");
+            return GameActionResult.message("セーブに失敗しました。");
         }
     }
 }
