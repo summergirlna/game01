@@ -33,7 +33,7 @@ public class BattleController {
 
         model.addAttribute("player", player);
         model.addAttribute("monster", monster);
-        model.addAttribute("message", webGameSession.consumeLastMessage(monster.getName()) + "が現れた！");
+        model.addAttribute("message", webGameSession.consumeLastMessage(monster.getName() + "が現れた！"));
 
         return "battle";
     }
