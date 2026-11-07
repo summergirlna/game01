@@ -16,6 +16,12 @@ import java.util.function.Function;
 @RequiredArgsConstructor
 public class GameController {
 
+    private static final String VIEW_GAME = "game";
+    private static final String ATTRIBUTE_PLAYER = "player";
+    private static final String ATTRIBUTE_IS_TOWN = "isTown";
+    private static final String ATTRIBUTE_MESSAGE = "message";
+    private static final String DEFAULT_MESSAGE = "コマンドを選んでください。";
+
     private final WebGameSession webGameSession;
 
     private final GameFacade gameFacade;
@@ -28,14 +34,14 @@ public class GameController {
     public String game(Model model) {
         Player player = webGameSession.getPlayer();
 
-        model.addAttribute("player", player);
-        model.addAttribute("isTown", player.getCurrentArea().name().equals("TOWN"));
+        model.addAttribute(ATTRIBUTE_PLAYER, player);
+        model.addAttribute(ATTRIBUTE_IS_TOWN, player.isInTown());
 
-        if (!model.containsAttribute("message")) {
-            model.addAttribute("message", webGameSession.consumeLastMessage("コマンドを選んでください。"));
+        if (!model.containsAttribute(ATTRIBUTE_MESSAGE)) {
+            model.addAttribute(ATTRIBUTE_MESSAGE, webGameSession.consumeLastMessage(DEFAULT_MESSAGE));
         }
 
-        return "game";
+        return VIEW_GAME;
     }
 
     /// 薬草を使う
@@ -118,7 +124,7 @@ public class GameController {
         Player player = webGameSession.getPlayer();
         GameActionResult result = action.apply(player);
 
-        model.addAttribute("message", result.message());
+        model.addAttribute(ATTRIBUTE_MESSAGE, result.message());
 
         return game(model);
     }

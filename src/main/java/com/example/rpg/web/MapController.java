@@ -23,6 +23,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MapController {
 
+    private static final String VIEW_MAP = "map";
+    private static final String REDIRECT_PREFIX = "redirect:";
+    private static final String PATH_BATTLE = "/battle";
+    private static final String PATH_BOSS_BATTLE = "/battle/boss";
+    private static final String ATTRIBUTE_PLAYER = "player";
+    private static final String ATTRIBUTE_ROWS = "rows";
+    private static final String ATTRIBUTE_MESSAGE = "message";
+    private static final String DEFAULT_MESSAGE = "探索を開始した。";
+    private static final String PLAYER_SYMBOL = "P";
+    private static final String EMPTY_SYMBOL = ".";
+    private static final String PLAYER_CELL_CLASS = "player";
+    private static final String EMPTY_CELL_CLASS = "empty";
+    private static final String EVENT_CELL_CLASS_PREFIX = "event ";
+
     private final WebGameSession webGameSession;
 
     private final MapService mapService;
@@ -35,9 +49,9 @@ public class MapController {
     /// @return テンプレート名
     @GetMapping("/map")
     public String map(Model model) {
-        String message = webGameSession.consumeLastMessage("探索を開始した。");
+        String message = webGameSession.consumeLastMessage(DEFAULT_MESSAGE);
         addMapAttributes(model, message);
-        return "map";
+        return VIEW_MAP;
     }
 
     /// マップ上を移動する
@@ -53,25 +67,33 @@ public class MapController {
         GameActionResult result = mapService.move(player, gameMap, command);
 
         if (result.hasRedirect()) {
-            if ("/battle".equals(result.redirectPath())) {
-                webGameSession.startBattle(monsterFactory.createRandomMonster(player.getCurrentArea()), false);
-                webGameSession.setLastMessage(result.message());
-                return "redirect:/battle";
-            }
-
-            if ("/battle/boss".equals(result.redirectPath())) {
-                webGameSession.startBattle(monsterFactory.createBoss(), true);
-                webGameSession.setLastMessage(result.message());
-                return "redirect:/battle";
-            }
-
-            webGameSession.setLastMessage(result.message());
-            return "redirect:" + result.redirectPath();
+            return handleRedirect(result, player);
         }
 
         addMapAttributes(model, result.message());
 
         return "map";
+    }
+
+    /// リダイレクトを伴うマップ操作結果を処理する
+    /// @param result 操作結果
+    /// @param player プレイヤー
+    /// @return リダイレクト先
+    private String handleRedirect(GameActionResult result, Player player) {
+        if (PATH_BATTLE.equals(result.redirectPath())) {
+            webGameSession.startBattle(monsterFactory.createRandomMonster(player.getCurrentArea()), false);
+            webGameSession.setLastMessage(result.message());
+            return REDIRECT_PREFIX + PATH_BATTLE;
+        }
+
+        if (PATH_BOSS_BATTLE.equals(result.redirectPath())) {
+            webGameSession.startBattle(monsterFactory.createBoss(), true);
+            webGameSession.setLastMessage(result.message());
+            return REDIRECT_PREFIX + PATH_BOSS_BATTLE;
+        }
+
+        webGameSession.setLastMessage(result.message());
+        return REDIRECT_PREFIX + result.redirectPath();
     }
 
     /// マップ画面用属性を追加する
@@ -82,9 +104,9 @@ public class MapController {
         Player player = webGameSession.getPlayer();
         GameMap gameMap = webGameSession.getGameMap();
 
-        model.addAttribute("player", player);
-        model.addAttribute("rows", buildRows(player, gameMap));
-        model.addAttribute("message", message);
+        model.addAttribute(ATTRIBUTE_PLAYER, player);
+        model.addAttribute(ATTRIBUTE_ROWS, buildRows(player, gameMap));
+        model.addAttribute(ATTRIBUTE_MESSAGE, message);
     }
 
     /// マップ表示行を作成する
@@ -117,7 +139,7 @@ public class MapController {
     /// @return マップ表示セル
     private MapCell buildCell(Player player, GameMap gameMap, Position position) {
         if (gameMap.isPlayerPosition(position)) {
-            return new MapCell(position.getX(), position.getY(), "P", "player");
+            return new MapCell(position.getX(), position.getY(), PLAYER_SYMBOL, PLAYER_CELL_CLASS);
         }
 
         MapEvent event = gameMap.getEventAt(player.getCurrentArea(), position);
@@ -127,9 +149,9 @@ public class MapController {
                     position.getX(),
                     position.getY(),
                     String.valueOf(event.getSymbol()),
-                    "event " + event.name().toLowerCase());
+                    EVENT_CELL_CLASS_PREFIX + event.name().toLowerCase());
         }
 
-        return new MapCell(position.getX(), position.getY(), ".", "empty");
+        return new MapCell(position.getX(), position.getY(), EMPTY_SYMBOL, EMPTY_CELL_CLASS);
     }
 }

@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class StatusController {
 
+    private static final String VIEW_STATUS = "status";
+    private static final String ATTRIBUTE_STATUS = "status";
+
     private final WebGameSession webGameSession;
 
     /// ステータス画面を表示する
@@ -23,18 +26,8 @@ public class StatusController {
     public String status(Model model) {
         Player player = webGameSession.getPlayer();
 
-        model.addAttribute("name", player.getName());
-        model.addAttribute("area", player.getCurrentArea().getDisplayName());
-        model.addAttribute("level", player.getLevel().getValue());
-        model.addAttribute("hp", player.getHp());
-        model.addAttribute("maxHp", player.getMaxHp());
-        model.addAttribute("attack", player.getAttack());
-        model.addAttribute("weapon", player.getEquipment().getWeapon().getDisplayName());
-        model.addAttribute("hasCopperSword", player.getEquipment().getInventory().hasWeapon(WeaponType.COPPER_SWORD));
-        model.addAttribute("exp", player.getExp());
-        model.addAttribute("gold", player.getGold());
-        model.addAttribute("herbAmount", player.getInventory().getAmount(ItemType.HERB));
+        model.addAttribute(ATTRIBUTE_STATUS, StatusView.from(player));
 
-        return "status";
+        return VIEW_STATUS;
     }
 }

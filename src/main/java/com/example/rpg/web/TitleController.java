@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TitleController {
 
+    private static final String VIEW_TITLE = "title";
+    private static final String VIEW_HELP = "help";
+
     /// タイトル画面を表示する
     ///
     /// @return テンプレート名
     @GetMapping("/")
     public String title() {
-        return "title";
+        return VIEW_TITLE;
     }
 
     /// ヘルプ画面を表示する
@@ -20,7 +23,6 @@ public class TitleController {
     /// @return テンプレート名
     @GetMapping("/help")
     public String help() {
-        return "help";
+        return VIEW_HELP;
     }
-
 }

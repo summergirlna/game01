@@ -17,6 +17,15 @@ import java.util.function.BiFunction;
 @RequiredArgsConstructor
 public class BattleController {
 
+    private static final String VIEW_BATTLE = "battle";
+    private static final String REDIRECT_PREFIX = "redirect:";
+    private static final String REDIRECT_MAP = "redirect:/map";
+    private static final String PATH_MAP = "/map";
+    private static final String PATH_CLEAR = "/clear";
+    private static final String ATTRIBUTE_PLAYER = "player";
+    private static final String ATTRIBUTE_MONSTER = "monster";
+    private static final String ATTRIBUTE_MESSAGE = "message";
+
     private final WebGameSession webGameSession;
 
     private final BattleService battleService;
@@ -28,7 +37,7 @@ public class BattleController {
     @GetMapping("/battle")
     public String battle(Model model) {
         if (!webGameSession.isInBattle()) {
-            return "redirect:/map";
+            return REDIRECT_MAP;
         }
 
         Player player = webGameSession.getPlayer();
@@ -37,7 +46,7 @@ public class BattleController {
 
         addBattleAttributes(model, player, monster, message);
 
-        return "battle";
+        return VIEW_BATTLE;
     }
 
     /// 攻撃する
@@ -47,10 +56,10 @@ public class BattleController {
     @PostMapping("/battle/attack")
     public String attack(Model model) {
         if (!webGameSession.isInBattle()) {
-            return "redirect:/map";
+            return REDIRECT_MAP;
         }
 
-        String winRedirectPath = webGameSession.isBossBattle() ? "/clear" : "/map";
+        String winRedirectPath = webGameSession.isBossBattle() ? PATH_CLEAR : PATH_MAP;
 
         return handleBattleAction(model, (player, monster) -> battleService.attack(player, monster, winRedirectPath));
 
@@ -63,7 +72,7 @@ public class BattleController {
     @PostMapping("/battle/use-herb")
     public String useHerb(Model model) {
         if (!webGameSession.isInBattle()) {
-            return "redirect:/map";
+            return REDIRECT_MAP;
         }
 
         return handleBattleAction(model, battleService::useHerb);
@@ -80,7 +89,7 @@ public class BattleController {
         webGameSession.clearBattle();
         webGameSession.setLastMessage(result.message());
 
-        return "redirect:" + result.redirectPath();
+        return REDIRECT_PREFIX + result.redirectPath();
     }
 
     /// 戦闘操作を実行する
@@ -96,12 +105,12 @@ public class BattleController {
         if (result.hasRedirect()) {
             webGameSession.clearBattle();
             webGameSession.setLastMessage(result.message());
-            return "redirect:" + result.redirectPath();
+            return REDIRECT_PREFIX + result.redirectPath();
         }
 
         addBattleAttributes(model, player, monster, result.message());
 
-        return "battle";
+        return VIEW_BATTLE;
     }
 
     /// 戦闘画面用属性を追加する
@@ -110,8 +119,8 @@ public class BattleController {
     /// @param monster モンスター
     /// @param message メッセージ
     private void addBattleAttributes(Model model, Player player, Monster monster, String message) {
-        model.addAttribute("player", player);
-        model.addAttribute("monster", monster);
-        model.addAttribute("message", message);
+        model.addAttribute(ATTRIBUTE_PLAYER, player);
+        model.addAttribute(ATTRIBUTE_MONSTER, monster);
+        model.addAttribute(ATTRIBUTE_MESSAGE, message);
     }
 }

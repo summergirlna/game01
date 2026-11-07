@@ -158,6 +158,12 @@ public class Player extends GameCharacter {
         this.currentArea = currentArea;
     }
 
+    /// 町にいるかどうかを返す
+    /// @return 町にいる場合はtrue
+    public boolean isInTown() {
+        return currentArea == FieldArea.TOWN;
+    }
+
     /// セーブデータから状態を復元する
     ///
     /// @param currentArea    現在地
