@@ -275,3 +275,8 @@ h1 {
     background: #991b1b;
     color: #fef2f2;
 }
+
+.clear-card {
+    border-color: #fde68a;
+    box-shadow: 0 24px 100px rgba(250, 204, 21, 0.18);
+}

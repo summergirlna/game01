@@ -52,9 +52,18 @@ public class MapController {
 
         if (result.hasRedirect()) {
             if ("/battle".equals(result.redirectPath())) {
-                webGameSession.setCurrentMonster(monsterFactory.createRandomMonster(player.getCurrentArea()));
+                webGameSession.startBattle(monsterFactory.createRandomMonster(player.getCurrentArea()), false);
+                webGameSession.setLastMessage(result.message());
+                return "redirect:/battle";
             }
 
+            if ("/battle/boss".equals(result.redirectPath())) {
+                webGameSession.startBattle(monsterFactory.createBoss(), true);
+                webGameSession.setLastMessage(result.message());
+                return "redirect:/battle";
+            }
+
+            webGameSession.setLastMessage(result.message());
             return "redirect:" + result.redirectPath();
         }
 

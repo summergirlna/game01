@@ -65,7 +65,7 @@ public class MapService {
             case NEXT_AREA -> moveToNextArea(player, gameMap);
             case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
             case CHEST -> openChest(player);
-            case BOSS -> GameActionResult.message("強大な敵が立ちはだかった！ボス戦はまだ準備中です。");
+            case BOSS -> GameActionResult.redirect("強大な敵が立ちはだかった！", "/battle/boss");
         };
     }
 

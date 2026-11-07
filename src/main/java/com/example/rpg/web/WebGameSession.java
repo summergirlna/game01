@@ -19,7 +19,17 @@ public class WebGameSession {
 
     private Monster currentMonster;
 
+    private boolean bossBattle;
+
     private String lastMessage;
+
+    /// 戦闘を開始する
+    /// @param monster モンスター
+    /// @param bossBattle ボス戦の場合はtrue
+    public void startBattle(Monster monster, boolean bossBattle) {
+        this.currentMonster = monster;
+        this.bossBattle = bossBattle;
+    }
 
     /// 戦闘中か判定する
     /// @return 戦闘中の場合はtrue

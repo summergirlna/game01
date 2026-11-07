@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BattleService {
 
-    public GameActionResult attack(Player player, Monster monster) {
+    public GameActionResult attack(Player player, Monster monster, String winRedirectPath) {
         StringBuilder message = new StringBuilder();
 
         int playerDamage = applyAttack(player, monster);
@@ -43,7 +43,7 @@ public class BattleService {
                 player.resetLeveledUp();
             }
 
-            return GameActionResult.redirect(message.toString(), "/map");
+            return GameActionResult.redirect(message.toString(), winRedirectPath);
         }
 
         appendMonsterAttack(player, monster, message);

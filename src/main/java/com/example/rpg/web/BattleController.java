@@ -33,7 +33,7 @@ public class BattleController {
 
         model.addAttribute("player", player);
         model.addAttribute("monster", monster);
-        model.addAttribute("message", monster.getName() + "が現れた！");
+        model.addAttribute("message", webGameSession.consumeLastMessage(monster.getName()) + "が現れた！");
 
         return "battle";
     }
@@ -49,8 +49,9 @@ public class BattleController {
 
         Player player = webGameSession.getPlayer();
         Monster monster = webGameSession.getCurrentMonster();
+        String winRedirectPath = webGameSession.isBossBattle() ? "/clear" : "/map";
 
-        GameActionResult result = battleService.attack(player, monster);
+        GameActionResult result = battleService.attack(player, monster, winRedirectPath);
 
         if (result.hasRedirect()) {
             webGameSession.clearBattle();
