@@ -1,17 +1,11 @@
 package com.example.rpg.service;
 
-import com.example.rpg.battle.Battle;
-import com.example.rpg.battle.BattleResult;
-import com.example.rpg.character.Monster;
-import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.FieldArea;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.field.MapEvent;
-import com.example.rpg.field.MapResult;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.command.MapCommand;
-import com.example.rpg.ui.field.MapMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +15,10 @@ import java.util.Scanner;
 @RequiredArgsConstructor
 @Service
 public class MapService {
+
+    private static final int CHEST_GOLD = 20;
+
+    private static final int CHEST_HERB_AMOUNT = 2;
 
     /// 移動する
     /// @param player プレイヤー
@@ -32,6 +30,86 @@ public class MapService {
             return new GameActionResult("これ以上そちらには進めません。");
         }
 
-        return new GameActionResult(player.getCurrentArea().getDisplayName() + "を探索している。");
+        MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
+
+        if (event == null) {
+            return new GameActionResult(player.getCurrentArea().getDisplayName() + "を探索している。");
+        }
+
+        return handleMapEvent(player, gameMap, event);
+    }
+
+    /// マップイベントを処理する
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @param event マップイベント
+    /// @return 操作結果
+    private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
+        return switch (event) {
+            case TOWN -> returnToTown(player, gameMap);
+            case NEXT_AREA -> moveToNextArea(player, gameMap);
+            case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
+            case CHEST -> openChest(player);
+            case BOSS -> new GameActionResult("強大な敵が立ちはだかった！ボス戦はまだ準備中です。");
+        };
+    }
+
+    /// 町へ戻る
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @return 操作結果
+    private GameActionResult returnToTown(Player player, GameMap gameMap) {
+        player.moveTo(FieldArea.TOWN);
+        gameMap.resetPlayerPosition();
+        return new GameActionResult("町へ戻った。");
+    }
+
+    /// 次のエリアへ移動する
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @return 操作結果
+    private GameActionResult moveToNextArea(Player player, GameMap gameMap) {
+        FieldArea nextArea = switch (player.getCurrentArea()) {
+            case GRASSLAND -> FieldArea.FOREST;
+            case FOREST -> FieldArea.CAVE;
+            case CAVE, TOWN -> player.getCurrentArea();
+        };
+
+        player.moveTo(nextArea);
+        gameMap.resetPlayerPosition();
+
+        return new GameActionResult(nextArea.getDisplayName() + "へ移動した。");
+    }
+
+    /// 前のエリアへ移動する
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @return 操作結果
+    private GameActionResult moveToPreviousArea(Player player, GameMap gameMap) {
+        FieldArea previousArea = switch (player.getCurrentArea()) {
+            case FOREST -> FieldArea.GRASSLAND;
+            case CAVE -> FieldArea.FOREST;
+            case GRASSLAND, TOWN -> player.getCurrentArea();
+        };
+
+        player.moveTo(previousArea);
+        gameMap.resetPlayerPosition();
+
+        return new GameActionResult(previousArea.getDisplayName() + "へ移動した。");
+    }
+
+    /// 宝箱を開ける
+    /// @param player プレイヤー
+    /// @return 操作結果
+    private GameActionResult openChest(Player player) {
+        if (player.hasOpenedTreasureChest()) {
+            return new GameActionResult("宝箱は空だった。");
+        }
+
+        player.openTreasureChest();
+        player.addGold(CHEST_GOLD);
+        player.getInventory().add(ItemType.HERB, CHEST_HERB_AMOUNT);
+
+        return new GameActionResult("宝箱を開けた！" + CHEST_GOLD + " ゴールドと薬草 " + CHEST_HERB_AMOUNT + " 個を手に入れた。");
     }
 }

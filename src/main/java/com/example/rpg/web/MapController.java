@@ -97,7 +97,11 @@ public class MapController {
         MapEvent event = gameMap.getEventAt(player.getCurrentArea(), position);
 
         if (event != null) {
-            return new MapCell(position.getX(), position.getY(), String.valueOf(event.getSymbol()), "event");
+            return new MapCell(
+                    position.getX(),
+                    position.getY(),
+                    String.valueOf(event.getSymbol()),
+                    "event " + event.name().toLowerCase());
         }
 
         return new MapCell(position.getX(), position.getY(), ".", "empty");

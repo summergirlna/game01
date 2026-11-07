@@ -249,3 +249,28 @@ h1 {
     font-size: 13px;
     line-height: 1.6;
 }
+
+.map-cell.town {
+    border-color: #93c5fd;
+    background: #1d4ed8;
+    color: #eff6ff;
+}
+
+.map-cell.next_area,
+.map-cell.previous_area {
+    border-color: #86efac;
+    background: #166534;
+    color: #f0fdf4;
+}
+
+.map-cell.chest {
+    border-color: #fde68a;
+    background: #92400e;
+    color: #fef3c7;
+}
+
+.map-cell.boss {
+    border-color: #fca5a5;
+    background: #991b1b;
+    color: #fef2f2;
+}
