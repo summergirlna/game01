@@ -93,7 +93,8 @@ public class BattleController {
     }
 
     /// 戦闘操作を実行する
-    /// @param model 画面モデル
+    ///
+    /// @param model  画面モデル
     /// @param action 戦闘操作
     /// @return テンプレート名またはリダイレクト先
     private String handleBattleAction(Model model, BiFunction<Player, Monster, GameActionResult> action) {
@@ -114,8 +115,9 @@ public class BattleController {
     }
 
     /// 戦闘画面用属性を追加する
-    /// @param model 画面モデル
-    /// @param player プレイヤー
+    ///
+    /// @param model   画面モデル
+    /// @param player  プレイヤー
     /// @param monster モンスター
     /// @param message メッセージ
     private void addBattleAttributes(Model model, Player player, Monster monster, String message) {

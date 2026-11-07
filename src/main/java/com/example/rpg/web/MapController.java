@@ -76,6 +76,7 @@ public class MapController {
     }
 
     /// リダイレクトを伴うマップ操作結果を処理する
+    ///
     /// @param result 操作結果
     /// @param player プレイヤー
     /// @return リダイレクト先

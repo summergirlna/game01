@@ -29,6 +29,7 @@ public class GameController {
     private final GameFacade gameFacade;
 
     /// ニューゲームを開始する
+    ///
     /// @return リダイレクト先
     @PostMapping("/game/new")
     public String newGame() {
@@ -97,7 +98,8 @@ public class GameController {
     }
 
     /// ゲーム操作を実行してゲームメニュー画面を再表示する
-    /// @param model 画面モデル
+    ///
+    /// @param model  画面モデル
     /// @param action プレイヤーに対するゲーム操作
     /// @return テンプレート名
     private String handleGameAction(Model model, Function<Player, GameActionResult> action) {

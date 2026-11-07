@@ -55,6 +55,7 @@ public class MapService {
     }
 
     /// 探索メッセージを作成する
+    ///
     /// @param player プレイヤー
     /// @return 探索メッセージ
     private String exploringMessage(Player player) {
@@ -66,6 +67,7 @@ public class MapService {
     }
 
     /// 通常エンカウントできるかどうかを返す
+    ///
     /// @param player プレイヤー
     /// @return 通常エンカウントできる場合はtrue
     public boolean canEncounter(Player player) {
@@ -100,7 +102,8 @@ public class MapService {
     }
 
     /// 町を出て草原へ移動する
-    /// @param player プレイヤー
+    ///
+    /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @return 操作結果
     private GameActionResult leaveTown(Player player, GameMap gameMap) {

@@ -1,8 +1,6 @@
 package com.example.rpg.web;
 
 import com.example.rpg.character.Player;
-import com.example.rpg.equipment.WeaponType;
-import com.example.rpg.item.ItemType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

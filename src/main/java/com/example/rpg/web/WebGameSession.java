@@ -23,6 +23,13 @@ public class WebGameSession {
 
     private String lastMessage;
 
+    /// 初期プレイヤーを作成する
+    ///
+    /// @return 初期プレイヤー
+    private static Player createInitialPlayer() {
+        return new Player("勇者", 30, 8);
+    }
+
     /// ニューゲームを開始する
     public void startNewGame() {
         player = createInitialPlayer();
@@ -30,13 +37,6 @@ public class WebGameSession {
         currentMonster = null;
         bossBattle = false;
         lastMessage = "冒険を開始した。";
-    }
-
-    /// 初期プレイヤーを作成する
-    ///
-    /// @return 初期プレイヤー
-    private static Player createInitialPlayer() {
-        return new Player("勇者", 30, 8);
     }
 
     /// 戦闘を開始する

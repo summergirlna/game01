@@ -159,6 +159,7 @@ public class Player extends GameCharacter {
     }
 
     /// 町にいるかどうかを返す
+    ///
     /// @return 町にいる場合はtrue
     public boolean isInTown() {
         return currentArea == FieldArea.TOWN;
