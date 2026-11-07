@@ -32,6 +32,12 @@
                 <strong th:text="${player.attack}">8</strong>
             </div>
             <div>
+                <span class="summary-label">薬草</span>
+                <strong>
+                    <span th:text="${player.inventory.getAmount(T(com.example.rpg.item.ItemType).HERB)}">3</span> 個
+                </strong>
+            </div>
+            <div>
                 <span class="summary-label">敵 HP</span>
                 <strong>
                     <span th:text="${monster.hp}">10</span>
@@ -49,7 +55,9 @@
             <form method="post" th:action="@{/battle/attack}">
                 <button class="menu-button" type="submit">攻撃する</button>
             </form>
-
+            <form method="post" th:action="@{/battle/use-herb}">
+                <button class="menu-button" type="submit">薬草を使う</button>
+            </form>
             <form method="post" th:action="@{/battle/escape}">
                 <button class="menu-button" type="submit">逃げる</button>
             </form>

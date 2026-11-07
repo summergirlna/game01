@@ -65,6 +65,33 @@ public class BattleController {
         return "battle";
     }
 
+    /// 薬草を使う
+    /// @param model 画面モデル
+    /// @return テンプレート名
+    @PostMapping("/battle/use-herb")
+    public String useHerb(Model model) {
+        if (!webGameSession.isInBattle()) {
+            return "redirect:/map";
+        }
+
+        Player player = webGameSession.getPlayer();
+        Monster monster = webGameSession.getCurrentMonster();
+
+        GameActionResult result = battleService.useHerb(player, monster);
+
+        if (result.hasRedirect()) {
+            webGameSession.clearBattle();
+            webGameSession.setLastMessage(result.message());
+            return "redirect:" + result.redirectPath();
+        }
+
+        model.addAttribute("player", player);
+        model.addAttribute("monster", monster);
+        model.addAttribute("message", result.message());
+
+        return "battle";
+    }
+
     /// 逃げる
     /// @return リダイレクト先
     @PostMapping("/battle/escape")

@@ -3,6 +3,7 @@ package com.example.rpg.service;
 import com.example.rpg.character.GameCharacter;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
+import com.example.rpg.item.ItemType;
 import org.springframework.stereotype.Service;
 
 /// Web版戦闘処理を担当するサービス
@@ -45,14 +46,38 @@ public class BattleService {
             return GameActionResult.redirect(message.toString(), "/map");
         }
 
-        int monsterDamage = applyAttack(monster, player);
-        message.append("\n")
-                .append(monster.getName())
-                .append("の攻撃！")
-                .append(player.getName())
-                .append("に")
-                .append(monsterDamage)
-                .append("ダメージ！");
+        appendMonsterAttack(player, monster, message);
+
+        if (!player.isAlive()) {
+            message.append("\n")
+                    .append(player.getName())
+                    .append("は倒れた……");
+
+            return GameActionResult.redirect(message.toString(), "/game");
+        }
+
+        return GameActionResult.message(message.toString());
+    }
+
+    /// 薬草を使う
+    /// @param player プレイヤー
+    /// @param monster モンスター
+    /// @return 操作結果
+    public GameActionResult useHerb(Player player, Monster monster) {
+        StringBuilder message = new StringBuilder();
+        ItemType itemType = ItemType.HERB;
+
+        if (!player.getInventory().use(itemType)) {
+            return GameActionResult.message(itemType.getDisplayName() + "を持っていません。");
+        }
+
+        player.heal(itemType.getHealAmount());
+        message.append(itemType.getDisplayName())
+                .append("を使った。HPが ")
+                .append(itemType.getHealAmount())
+                .append(" 回復した。");
+
+        appendMonsterAttack(player, monster, message);
 
         if (!player.isAlive()) {
             message.append("\n")
@@ -70,6 +95,21 @@ public class BattleService {
     /// @return 操作結果
     public GameActionResult escape(Player player) {
         return GameActionResult.redirect(player.getName() + "は逃げ出した！", "/map");
+    }
+
+    /// モンスターの攻撃メッセージを追加する
+    /// @param player プレイヤー
+    /// @param monster モンスター
+    /// @param message メッセージ
+    private void appendMonsterAttack(Player player, Monster monster, StringBuilder message) {
+        int monsterDamage = applyAttack(monster, player);
+        message.append("\n")
+                .append(monster.getName())
+                .append("の攻撃！")
+                .append(player.getName())
+                .append("に")
+                .append(monsterDamage)
+                .append("ダメージ！");
     }
 
     /// 攻撃する
