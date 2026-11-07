@@ -19,6 +19,13 @@
             </div>
         </header>
 
+        <section class="monster-stage" aria-label="敵キャラクター">
+            <div class="monster-sprite" aria-hidden="true">
+                <span class="monster-symbol">●</span>
+            </div>
+            <p class="monster-name" th:text="${monster.name}">スライム</p>
+        </section>
+
         <section class="hero-summary">
             <div>
                 <span class="summary-label">勇者 HP</span>

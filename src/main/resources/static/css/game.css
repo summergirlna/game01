@@ -588,3 +588,100 @@ h1 {
 .dq-back-command:focus-visible {
     padding-left: 42px;
 }
+
+.monster-stage {
+    display: grid;
+    justify-items: center;
+    gap: 12px;
+    margin: 28px 0 8px;
+    padding: 28px 16px 22px;
+    border: 1px solid rgba(147, 197, 253, 0.24);
+    border-radius: 18px;
+    background:
+            radial-gradient(circle at center, rgba(96, 165, 250, 0.18), transparent 42%),
+            rgba(15, 23, 42, 0.42);
+}
+
+.monster-sprite {
+    position: relative;
+    width: 128px;
+    height: 96px;
+    border-radius: 58% 58% 48% 48%;
+    background:
+            radial-gradient(circle at 38% 36%, #ffffff 0 7px, transparent 8px),
+            radial-gradient(circle at 62% 36%, #ffffff 0 7px, transparent 8px),
+            radial-gradient(circle at 38% 38%, #111827 0 3px, transparent 4px),
+            radial-gradient(circle at 62% 38%, #111827 0 3px, transparent 4px),
+            radial-gradient(ellipse at 50% 70%, #1e3a8a 0 10px, transparent 11px),
+            linear-gradient(180deg, #67e8f9 0%, #06b6d4 52%, #0284c7 100%);
+    box-shadow:
+            inset -12px -18px 0 rgba(15, 23, 42, 0.22),
+            inset 14px 12px 0 rgba(255, 255, 255, 0.18),
+            0 18px 28px rgba(2, 6, 23, 0.35);
+    animation: monster-bounce 1.8s ease-in-out infinite;
+}
+
+.monster-sprite::before {
+    content: "";
+    position: absolute;
+    top: 16px;
+    left: 26px;
+    width: 34px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.28);
+    transform: rotate(-18deg);
+}
+
+.monster-sprite::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 18px;
+    width: 92px;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(2, 6, 23, 0.32);
+    filter: blur(2px);
+    animation: monster-shadow 1.8s ease-in-out infinite;
+}
+
+.monster-symbol {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.monster-name {
+    margin: 0;
+    color: #f8fafc;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.45);
+}
+
+@keyframes monster-bounce {
+    0%,
+    100% {
+        transform: translateY(0) scale(1, 1);
+    }
+
+    50% {
+        transform: translateY(-8px) scale(1.04, 0.96);
+    }
+}
+
+@keyframes monster-shadow {
+    0%,
+    100% {
+        transform: scaleX(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scaleX(0.82);
+        opacity: 0.48;
+    }
+}
