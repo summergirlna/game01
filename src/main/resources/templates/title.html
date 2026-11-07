@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RPG - タイトル</title>
+    <link rel="stylesheet" th:href="@{/css/game.css}">
+</head>
+<body>
+<main class="title-page">
+    <section class="title-card">
+        <p class="caption">WEB RPG</p>
+        <h1>RPG</h1>
+
+        <p class="title-description">
+            小さな町から始まる、勇者の冒険。<br>
+            装備を整え、敵を倒し、まだ見ぬ地へ進もう。
+        </p>
+
+        <div class="title-actions">
+            <a class="title-button primary" th:href="@{/game}">冒険を始める</a>
+        </div>
+
+        <section class="title-guide">
+            <h2>遊び方</h2>
+            <ul>
+                <li>町では宿屋・道具屋・武器屋を利用できます。</li>
+                <li>フィールドでは探索して敵と戦います。</li>
+                <li>HPが減ったら薬草や宿屋で回復しましょう。</li>
+                <li>セーブ・ロードで冒険の状態を管理できます。</li>
+            </ul>
+        </section>
+    </section>
+</main>
+</body>
+</html>

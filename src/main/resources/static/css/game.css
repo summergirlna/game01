@@ -289,3 +289,110 @@ h1 {
 .game-over-label {
     background: #991b1b;
 }
+
+.title-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background:
+            radial-gradient(circle at top, rgba(255, 255, 255, 0.14), transparent 34%),
+            linear-gradient(135deg, #16213e 0%, #0f172a 55%, #020617 100%);
+    color: #f8fafc;
+}
+
+.title-card {
+    width: min(720px, 100%);
+    padding: 48px;
+    border: 2px solid rgba(248, 250, 252, 0.24);
+    border-radius: 24px;
+    background: rgba(15, 23, 42, 0.88);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+    text-align: center;
+}
+
+.title-card .caption {
+    margin: 0 0 12px;
+    color: #facc15;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+}
+
+.title-card h1 {
+    margin: 0;
+    font-size: clamp(4rem, 12vw, 7rem);
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-shadow: 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+.title-description {
+    margin: 28px 0 0;
+    color: #cbd5e1;
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+.title-actions {
+    margin-top: 36px;
+}
+
+.title-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 220px;
+    padding: 16px 28px;
+    border-radius: 999px;
+    color: #0f172a;
+    font-weight: 800;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.title-button.primary {
+    background: linear-gradient(135deg, #fde047, #f59e0b);
+    box-shadow: 0 12px 28px rgba(245, 158, 11, 0.35);
+}
+
+.title-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(245, 158, 11, 0.45);
+}
+
+.title-guide {
+    margin-top: 40px;
+    padding: 24px;
+    border-radius: 18px;
+    background: rgba(30, 41, 59, 0.8);
+    text-align: left;
+}
+
+.title-guide h2 {
+    margin: 0 0 16px;
+    color: #facc15;
+    font-size: 1.2rem;
+}
+
+.title-guide ul {
+    margin: 0;
+    padding-left: 1.4em;
+    color: #e2e8f0;
+    line-height: 1.8;
+}
+
+@media (max-width: 640px) {
+    .title-page {
+        padding: 20px;
+    }
+
+    .title-card {
+        padding: 32px 24px;
+    }
+
+    .title-card h1 {
+        font-size: 4rem;
+    }
+}

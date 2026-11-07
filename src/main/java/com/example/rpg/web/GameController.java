@@ -24,7 +24,7 @@ public class GameController {
     /// @return リダイレクト先
     @GetMapping("/")
     public String index() {
-        return "redirect:/game";
+        return "title";
     }
 
     /// ゲームメニュー画面を表示する
