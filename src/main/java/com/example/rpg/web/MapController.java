@@ -104,7 +104,6 @@ public class MapController {
             }
 
             rows.add(row);
-
         }
 
         return rows;

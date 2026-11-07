@@ -2,6 +2,23 @@
     const SELECTED_CLASS = "is-selected";
     const ITEM_SELECTOR = "[data-nav-item]:not([disabled])";
 
+    const MAP_COMMAND_BY_KEY = {
+        ArrowUp: "UP",
+        ArrowDown: "DOWN",
+        ArrowLeft: "LEFT",
+        ArrowRight: "RIGHT"
+    };
+
+    const SELECTION_MOVE_BY_KEY = {
+        ArrowUp: -1,
+        ArrowDown: 1,
+        ArrowLeft: -1,
+        ArrowRight: 1
+    }
+
+    const DECISION_KEYS = new Set(["Enter", " "]);
+    const BACK_KEYS = new Set(["Escape", "Backspace"]);
+
     const getItems = () => Array.from(document.querySelectorAll(ITEM_SELECTOR))
         .filter((item) => item.offsetParent !== null);
 
@@ -38,12 +55,12 @@
     const activateMapCommand = (command) => {
         const commandItem = document.querySelector(`[data-map-command="${command}"]`);
 
-        if (commandItem) {
-            commandItem.click();
-            return true;
+        if (!commandItem) {
+            return false;
         }
 
-        return false;
+        commandItem.click();
+        return true;
     };
 
     const moveSelection = (direction) => {
@@ -70,6 +87,16 @@
         }
     };
 
+    const handlwArrowKey = (key) => {
+        const mapCommand = MAP_COMMAND_BY_KEY[key];
+
+        if (activateMapCommand(mapCommand)) {
+            return;
+        }
+
+        moveSelection(SELECTION_MOVE_BY_KEY[key]);
+    }
+
     window.addEventListener("DOMContentLoaded", () => {
         const items = getItems();
 
@@ -85,51 +112,21 @@
             return;
         }
 
-        switch (event.key) {
-            case "ArrowUp":
-                event.preventDefault();
+        if (event.key in SELECTION_MOVE_BY_KEY) {
+            event.preventDefault();
+            handlwArrowKey(event.key);
+            return;
+        }
 
-                if (!activateMapCommand("UP")) {
-                    moveSelection(-1);
-                }
+        if (DECISION_KEYS.has(event.key)) {
+            event.preventDefault();
+            activateItem(items[getSelectedIndex(items)]);
+            return;
+        }
 
-                break;
-            case "ArrowDown":
-                event.preventDefault();
-
-                if (!activateMapCommand("DOWN")) {
-                    moveSelection(1);
-                }
-
-                break;
-            case "ArrowLeft":
-                event.preventDefault();
-
-                if (!activateMapCommand("LEFT")) {
-                    moveSelection(-1);
-                }
-
-                break;
-            case "ArrowRight":
-                event.preventDefault();
-
-                if (!activateMapCommand("RIGHT")) {
-                    moveSelection(1);
-                }
-
-                break;
-            case "Enter":
-            case " ":
-                event.preventDefault();
-                activateItem(items[getSelectedIndex(items)]);
-                break;
-            case "Escape":
-            case "Backspace":
-                event.preventDefault();
-                back();
-                break;
-            default:
-                break;
+        if (BACK_KEYS.has(event.key)) {
+            event.preventDefault();
+            back();
         }
     });
 })();

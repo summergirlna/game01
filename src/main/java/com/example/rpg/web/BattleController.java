@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.function.BiFunction;
+
 /// Web版戦闘画面コントローラ
 @Controller
 @RequiredArgsConstructor
@@ -31,10 +33,9 @@ public class BattleController {
 
         Player player = webGameSession.getPlayer();
         Monster monster = webGameSession.getCurrentMonster();
+        String message = webGameSession.consumeLastMessage(monster.getName() + "が現れた！");
 
-        model.addAttribute("player", player);
-        model.addAttribute("monster", monster);
-        model.addAttribute("message", webGameSession.consumeLastMessage(monster.getName() + "が現れた！"));
+        addBattleAttributes(model, player, monster, message);
 
         return "battle";
     }
@@ -49,23 +50,10 @@ public class BattleController {
             return "redirect:/map";
         }
 
-        Player player = webGameSession.getPlayer();
-        Monster monster = webGameSession.getCurrentMonster();
         String winRedirectPath = webGameSession.isBossBattle() ? "/clear" : "/map";
 
-        GameActionResult result = battleService.attack(player, monster, winRedirectPath);
+        return handleBattleAction(model, (player, monster) -> battleService.attack(player, monster, winRedirectPath));
 
-        if (result.hasRedirect()) {
-            webGameSession.clearBattle();
-            webGameSession.setLastMessage(result.message());
-            return "redirect:" + result.redirectPath();
-        }
-
-        model.addAttribute("player", player);
-        model.addAttribute("monster", monster);
-        model.addAttribute("message", result.message());
-
-        return "battle";
     }
 
     /// 薬草を使う
@@ -78,22 +66,7 @@ public class BattleController {
             return "redirect:/map";
         }
 
-        Player player = webGameSession.getPlayer();
-        Monster monster = webGameSession.getCurrentMonster();
-
-        GameActionResult result = battleService.useHerb(player, monster);
-
-        if (result.hasRedirect()) {
-            webGameSession.clearBattle();
-            webGameSession.setLastMessage(result.message());
-            return "redirect:" + result.redirectPath();
-        }
-
-        model.addAttribute("player", player);
-        model.addAttribute("monster", monster);
-        model.addAttribute("message", result.message());
-
-        return "battle";
+        return handleBattleAction(model, battleService::useHerb);
     }
 
     /// 逃げる
@@ -108,5 +81,37 @@ public class BattleController {
         webGameSession.setLastMessage(result.message());
 
         return "redirect:" + result.redirectPath();
+    }
+
+    /// 戦闘操作を実行する
+    /// @param model 画面モデル
+    /// @param action 戦闘操作
+    /// @return テンプレート名またはリダイレクト先
+    private String handleBattleAction(Model model, BiFunction<Player, Monster, GameActionResult> action) {
+        Player player = webGameSession.getPlayer();
+        Monster monster = webGameSession.getCurrentMonster();
+
+        GameActionResult result = action.apply(player, monster);
+
+        if (result.hasRedirect()) {
+            webGameSession.clearBattle();
+            webGameSession.setLastMessage(result.message());
+            return "redirect:" + result.redirectPath();
+        }
+
+        addBattleAttributes(model, player, monster, result.message());
+
+        return "battle";
+    }
+
+    /// 戦闘画面用属性を追加する
+    /// @param model 画面モデル
+    /// @param player プレイヤー
+    /// @param monster モンスター
+    /// @param message メッセージ
+    private void addBattleAttributes(Model model, Player player, Monster monster, String message) {
+        model.addAttribute("player", player);
+        model.addAttribute("monster", monster);
+        model.addAttribute("message", message);
     }
 }

@@ -1,8 +1,6 @@
 package com.example.rpg.web;
 
 import com.example.rpg.character.Player;
-import com.example.rpg.equipment.WeaponType;
-import com.example.rpg.item.ItemType;
 import com.example.rpg.service.GameActionResult;
 import com.example.rpg.service.GameFacade;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.function.Function;
 
 /// Web版ゲーム画面コントローラ
 @Controller
@@ -19,22 +19,6 @@ public class GameController {
     private final WebGameSession webGameSession;
 
     private final GameFacade gameFacade;
-
-    /// トップ画面を表示する
-    ///
-    /// @return テンプレート名
-    @GetMapping("/")
-    public String index() {
-        return "title";
-    }
-
-    /// ヘルプ画面を表示する
-    ///
-    /// @return テンプレート名
-    @GetMapping("/help")
-    public String help() {
-        return "help";
-    }
 
     /// ゲームメニュー画面を表示する
     ///
@@ -60,11 +44,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/use-herb")
     public String useHerb(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.useHerb(player);
-        model.addAttribute("message", result.message());
-
-        return game(model);
+        return handleGameAction(model, gameFacade::useHerb);
     }
 
     /// 宿屋に泊まる
@@ -73,11 +53,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/inn")
     public String stayInn(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.stayInn(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::stayInn);
     }
 
     /// 次のエリアへ移動する
@@ -86,11 +62,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/move")
     public String move(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.moveToNextArea(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::moveToNextArea);
     }
 
     /// 薬草を購入する
@@ -99,11 +71,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/buy-herb")
     public String buyHerb(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.buyHerb(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::buyHerb);
     }
 
     /// 銅の剣を装備する
@@ -112,11 +80,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/equip-copper-sword")
     public String equipCopperSword(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.equipCopperSword(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::equipCopperSword);
     }
 
     /// 銅の剣を購入する
@@ -125,11 +89,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/buy-copper-sword")
     public String buyCopperSword(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.buyCopperSword(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::buyCopperSword);
     }
 
     /// セーブする
@@ -138,11 +98,7 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/save")
     public String save(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.save(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::save);
     }
 
     /// ロードする
@@ -151,33 +107,19 @@ public class GameController {
     /// @return テンプレート名
     @PostMapping("/game/load")
     public String load(Model model) {
-        Player player = webGameSession.getPlayer();
-        GameActionResult result = gameFacade.load(player);
-
-        model.addAttribute("message", result.message());
-        return game(model);
+        return handleGameAction(model, gameFacade::load);
     }
 
-    /// ステータス画面を表示する
-    ///
+    /// ゲーム操作を実行してゲームメニュー画面を再表示する
     /// @param model 画面モデル
+    /// @param action プレイヤーに対するゲーム操作
     /// @return テンプレート名
-    @GetMapping("/status")
-    public String status(Model model) {
+    private String handleGameAction(Model model, Function<Player, GameActionResult> action) {
         Player player = webGameSession.getPlayer();
+        GameActionResult result = action.apply(player);
 
-        model.addAttribute("name", player.getName());
-        model.addAttribute("area", player.getCurrentArea().getDisplayName());
-        model.addAttribute("level", player.getLevel().getValue());
-        model.addAttribute("hp", player.getHp());
-        model.addAttribute("maxHp", player.getMaxHp());
-        model.addAttribute("attack", player.getAttack());
-        model.addAttribute("weapon", player.getEquipment().getWeapon().getDisplayName());
-        model.addAttribute("hasCopperSword", player.getEquipment().getInventory().hasWeapon(WeaponType.COPPER_SWORD));
-        model.addAttribute("exp", player.getExp());
-        model.addAttribute("gold", player.getGold());
-        model.addAttribute("herbAmount", player.getInventory().getAmount(ItemType.HERB));
+        model.addAttribute("message", result.message());
 
-        return "status";
+        return game(model);
     }
 }
