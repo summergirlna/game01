@@ -9,6 +9,7 @@ import com.example.rpg.ui.command.MapCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /// マップ移動処理を担当するクラス
@@ -19,6 +20,10 @@ public class MapService {
     private static final int CHEST_GOLD = 20;
 
     private static final int CHEST_HERB_AMOUNT = 2;
+
+    private static final int ENCOUNTER_RATE_PERCENT = 30;
+
+    private final Random random = new Random();
 
     /// 移動する
     /// @param player プレイヤー
@@ -32,11 +37,21 @@ public class MapService {
 
         MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
 
-        if (event == null) {
-            return new GameActionResult(player.getCurrentArea().getDisplayName() + "を探索している。");
+        if (event != null) {
+            return handleMapEvent(player, gameMap, event);
         }
 
-        return handleMapEvent(player, gameMap, event);
+        if (encounter()) {
+            return new GameActionResult("モンスターが現れた！戦闘はまだ準備中です。");
+        }
+
+        return new GameActionResult(player.getCurrentArea().getDisplayName() + "を探索している。");
+    }
+
+    /// 通常エンカウントを判定する
+    /// @return エンカウントした場合はtrue
+    private boolean encounter() {
+        return random.nextInt(100) < ENCOUNTER_RATE_PERCENT;
     }
 
     /// マップイベントを処理する
