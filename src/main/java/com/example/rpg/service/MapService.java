@@ -148,14 +148,11 @@ public class MapService {
     /// @return 案内メッセージ
     private String eventMessage(MapEvent event) {
         return switch (event) {
-            case TOWN -> "世界マップへ戻る道だ。Enterで出る。";
-            case EXIT -> "出口だ。Enterで世界マップへ戻る。";
+            case EXIT -> "出入口だ。Enterで世界マップへ出る。";
             case INN -> "宿屋の前にいる。Enterで泊まる。";
             case ITEM_SHOP -> "道具屋の前にいる。Enterで薬草を買う。";
             case WEAPON_SHOP -> "武器屋の前にいる。Enterで銅の剣を買う。";
             case SAVE_POINT -> "セーブポイントだ。Enterで記録する。";
-            case NEXT_AREA -> "世界マップへ続く道だ。Enterで出る。";
-            case PREVIOUS_AREA -> "世界マップへ戻る道だ。Enterで出る。";
             case CHEST -> "宝箱がある。Enterで開ける。";
             case BOSS -> "強大な敵の気配がする。Enterで挑む。";
         };
@@ -196,7 +193,7 @@ public class MapService {
     /// @return 操作結果
     private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
         return switch (event) {
-            case TOWN, EXIT, NEXT_AREA, PREVIOUS_AREA -> returnToWorldMap(player, gameMap);
+            case EXIT -> returnToWorldMap(player, gameMap);
             case INN -> innService.stay(player);
             case ITEM_SHOP -> shopService.buyHerb(player);
             case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);

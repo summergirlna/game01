@@ -53,12 +53,6 @@
     line-height: 1.6;
 }
 
-.map-cell.town {
-    border-color: #93c5fd;
-    background: #1d4ed8;
-    color: #eff6ff;
-}
-
 .map-cell.exit {
     border-color: #86efac;
     background: #15803d;
@@ -87,13 +81,6 @@
     border-color: #67e8f9;
     background: #155e75;
     color: #ecfeff;
-}
-
-.map-cell.next_area,
-.map-cell.previous_area {
-    border-color: #86efac;
-    background: #166534;
-    color: #f0fdf4;
 }
 
 .map-cell.chest {
