@@ -34,27 +34,34 @@
             <div></div>
             <form method="post" th:action="@{/map/move}">
                 <input name="command" type="hidden" value="UP">
-                <button class="menu-button" data-map-command="UP" data-nav-item type="submit">↑</button>
+                <button class="menu-button" data-map-command="UP" type="submit">↑</button>
             </form>
             <div></div>
 
             <form method="post" th:action="@{/map/move}">
                 <input name="command" type="hidden" value="LEFT">
-                <button class="menu-button" data-map-command="LEFT" data-nav-item type="submit">←</button>
+                <button class="menu-button" data-map-command="LEFT" type="submit">←</button>
             </form>
-            <a class="menu-button" data-nav-back data-nav-item th:href="@{/game}">メニュー</a>
+
+            <form method="post" th:action="@{/map/move}">
+                <input name="command" type="hidden" value="ACTION">
+                <button class="menu-button" data-map-action data-nav-item type="submit">調べる</button>
+            </form>
+
             <form method="post" th:action="@{/map/move}">
                 <input name="command" type="hidden" value="RIGHT">
-                <button class="menu-button" data-map-command="RIGHT" data-nav-item type="submit">→</button>
+                <button class="menu-button" data-map-command="RIGHT" type="submit">→</button>
             </form>
 
             <div></div>
             <form method="post" th:action="@{/map/move}">
                 <input name="command" type="hidden" value="DOWN">
-                <button class="menu-button" data-map-command="DOWN" data-nav-item type="submit">↓</button>
+                <button class="menu-button" data-map-command="DOWN" type="submit">↓</button>
             </form>
             <div></div>
         </section>
+
+        <a class="visually-hidden" data-nav-back th:href="@{/game}">メニュー</a>
 
         <p class="message-box" th:text="${message}">
             探索を開始した。

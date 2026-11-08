@@ -39,6 +39,10 @@ public class MapService {
     /// @param command マップ操作コマンド
     /// @return 操作結果
     public GameActionResult move(Player player, GameMap gameMap, MapCommand command) {
+        if (command == MapCommand.ACTION) {
+            return executeCurrentEvent(player, gameMap);
+        }
+
         if (!gameMap.move(command)) {
             return GameActionResult.message("これ以上そちらには進めません。");
         }
@@ -46,7 +50,7 @@ public class MapService {
         MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
 
         if (event != null) {
-            return handleMapEvent(player, gameMap, event);
+            return GameActionResult.message(eventMessage(event));
         }
 
         if (canEncounter(player) && encounter()) {
@@ -54,6 +58,39 @@ public class MapService {
         }
 
         return GameActionResult.message(exploringMessage(player));
+    }
+
+    /// 現在地のマップイベントを実行する
+    /// @param player プレイヤー
+    /// @param gameMap マップ
+    /// @return 操作結果
+    private GameActionResult executeCurrentEvent(Player player, GameMap gameMap) {
+        MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
+
+        if (event == null) {
+            return GameActionResult.message("ここには何もない。");
+        }
+
+        return handleMapEvent(player, gameMap, event);
+    }
+
+    /// マップイベント案内メッセージを作成する
+    ///
+    /// @param event マップイベント
+    /// @return 案内メッセージ
+    private String eventMessage(MapEvent event) {
+        return switch (event) {
+            case TOWN -> "町が見える。Enterで町へ入る。";
+            case EXIT -> "町の出口だ。Enterで外へ出る。";
+            case INN -> "宿屋の前にいる。Enterで泊まる。";
+            case ITEM_SHOP -> "道具屋の前にいる。Enterで薬草を買う。";
+            case WEAPON_SHOP -> "武器屋の前にいる。Enterで銅の剣を買う。";
+            case SAVE_POINT -> "セーブポイントだ。Enterで記録する。";
+            case NEXT_AREA -> "次のエリアへ続く道だ。Enterで進む。";
+            case PREVIOUS_AREA -> "前のエリアへ戻る道だ。Enterで戻る。";
+            case CHEST -> "宝箱がある。Enterで開ける。";
+            case BOSS -> "強大な敵の気配がする。Enterで挑む。";
+        };
     }
 
     /// 探索メッセージを作成する

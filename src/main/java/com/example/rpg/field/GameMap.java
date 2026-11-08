@@ -54,7 +54,7 @@ public class GameMap {
             case DOWN -> playerPosition.down();
             case LEFT -> playerPosition.left();
             case RIGHT -> playerPosition.right();
-            case MENU, INVALID -> playerPosition;
+            case ACTION, MENU, INVALID -> playerPosition;
         };
 
         if (!isInBounds(nextPosition)) {

@@ -82,6 +82,17 @@
         }
     };
 
+    const activateMapAction = () => {
+        const actionItem = document.querySelector("[data-map-action]");
+
+        if (!actionItem) {
+            return false;
+        }
+
+        actionItem.click();
+        return true;
+    };
+
     const handleArrowKey = (key) => {
         const mapCommand = MAP_COMMAND_BY_KEY[key];
 
@@ -115,7 +126,11 @@
 
         if (DECISION_KEYS.has(event.key)) {
             event.preventDefault();
-            activateItem(items[getSelectedIndex(items)]);
+
+            if (!activateMapAction()) {
+                activateItem(items[getSelectedIndex(items)]);
+            }
+
             return;
         }
 

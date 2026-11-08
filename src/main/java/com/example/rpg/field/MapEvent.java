@@ -9,11 +9,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MapEvent {
     TOWN('T', new Position(4, 4)),
-    EXIT('出', new Position(4, 4)),
-    INN('宿', new Position(1, 2)),
-    ITEM_SHOP('道', new Position(3, 2)),
-    WEAPON_SHOP('武', new Position(2, 1)),
-    SAVE_POINT('記', new Position(2, 3)),
+    EXIT('出', new Position(4, 0)),
+    INN('宿', new Position(0, 2)),
+    ITEM_SHOP('道', new Position(4, 2)),
+    WEAPON_SHOP('武', new Position(0, 0)),
+    SAVE_POINT('記', new Position(2, 4)),
     BOSS('B', new Position(0, 0)),
     NEXT_AREA('N', new Position(4, 0)),
     PREVIOUS_AREA('R', new Position(0, 4)),
