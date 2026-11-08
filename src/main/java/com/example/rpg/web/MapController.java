@@ -65,15 +65,7 @@ public class MapController {
     @PostMapping("/map/move")
     public String move(@RequestParam MapCommand command, Model model) {
         Player player = webGameSession.getPlayer();
-        WorldMap worldMap = webGameSession.getWorldMap();
-        GameMap gameMap = webGameSession.getGameMap();
-        MapMode mapMode = webGameSession.getMapMode();
-
-        GameActionResult result = mapService.move(player, mapMode, worldMap, gameMap, command);
-
-        if (result.hasNextMapMode()) {
-            webGameSession.setMapMode(result.nextMapMode());
-        }
+        GameActionResult result = mapService.move(player, webGameSession.getMapState(), command);
 
         if (result.hasRedirect()) {
             return handleRedirect(result, player);
@@ -112,13 +104,14 @@ public class MapController {
     /// @param message メッセージ
     private void addMapAttributes(Model model, String message) {
         Player player = webGameSession.getPlayer();
-        WorldMap worldMap = webGameSession.getWorldMap();
-        GameMap gameMap = webGameSession.getGameMap();
+        MapState mapState = webGameSession.getMapState();
+        WorldMap worldMap = mapState.getWorldMap();
+        GameMap gameMap = mapState.getGameMap();
 
         model.addAttribute(ATTRIBUTE_PLAYER, player);
         model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildMapRows(worldMap, position -> buildWorldCell(worldMap, position)));
         model.addAttribute(ATTRIBUTE_ROWS, buildMapRows(gameMap, position -> buildCell(player, gameMap, position)));
-        model.addAttribute(ATTRIBUTE_MAP_MODE, webGameSession.getMapMode());
+        model.addAttribute(ATTRIBUTE_MAP_MODE, mapState.getMode());
         model.addAttribute(ATTRIBUTE_MESSAGE, message);
     }
 

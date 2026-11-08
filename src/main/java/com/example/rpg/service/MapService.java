@@ -33,39 +33,33 @@ public class MapService {
     /// 移動する
     ///
     /// @param player   プレイヤー
-    /// @param mapMode  マップ操作モード
-    /// @param worldMap 世界マップ
-    /// @param gameMap  個別マップ
+    /// @param mapState マップ探索状態
     /// @param command  マップ操作コマンド
     /// @return 操作結果
     public GameActionResult move(
             Player player,
-            MapMode mapMode,
-            WorldMap worldMap,
-            GameMap gameMap,
+            MapState mapState,
             MapCommand command
     ) {
-        return switch (mapMode) {
-            case WORLD -> moveOnWorldMap(player, worldMap, gameMap, command);
-            case FIELD -> moveOnFieldMap(player, gameMap, command);
-        };
+        if (mapState.isWorldMode()) {
+            return moveOnWorldMap(player, mapState, command);
+        }
+
+        return moveOnFieldMap(player, mapState, command);
+
     }
 
     /// 世界マップ上を移動する
     ///
     /// @param player   プレイヤー
-    /// @param worldMap 世界マップ
-    /// @param gameMap  個別マップ
+    /// @param mapState マップ探索状態
     /// @param command  マップ操作コマンド
     /// @return 操作結果
-    private GameActionResult moveOnWorldMap(
-            Player player,
-            WorldMap worldMap,
-            GameMap gameMap,
-            MapCommand command
-    ) {
+    private GameActionResult moveOnWorldMap(Player player, MapState mapState, MapCommand command) {
+        WorldMap worldMap = mapState.getWorldMap();
+
         if (command == MapCommand.ACTION) {
-            return enterCurrentWorldArea(player, worldMap, gameMap);
+            return enterCurrentWorldArea(player, mapState);
         }
 
         if (!worldMap.move(command)) {
@@ -84,31 +78,33 @@ public class MapService {
     /// 現在いる世界マップエリアへ入る
     ///
     /// @param player   プレイヤー
-    /// @param worldMap 世界マップ
-    /// @param gameMap  個別マップ
+    /// @param mapState マップ探索状態
     /// @return 操作結果
-    private GameActionResult enterCurrentWorldArea(Player player, WorldMap worldMap, GameMap gameMap) {
-        WorldMap.WorldMapArea area = worldMap.getPlayerArea();
+    private GameActionResult enterCurrentWorldArea(Player player, MapState mapState) {
+        WorldMap.WorldMapArea area = mapState.getWorldMap().getPlayerArea();
 
         if (area == null) {
             return GameActionResult.message("ここには入れる場所がない。");
         }
 
         player.moveTo(area.fieldArea());
-        gameMap.resetPlayerPosition();
+        mapState.getGameMap().resetPlayerPosition();
+        mapState.switchToField();
 
-        return GameActionResult.message(area.fieldArea().getDisplayName() + "へ入った。", MapMode.FIELD);
+        return GameActionResult.message(area.fieldArea().getDisplayName() + "へ入った。");
     }
 
-    /// 移動する
+    /// 個別マップ上を移動する
     ///
     /// @param player  プレイヤー
-    /// @param gameMap マップ
+    /// @param mapState マップ探索状態
     /// @param command マップ操作コマンド
     /// @return 操作結果
-    public GameActionResult moveOnFieldMap(Player player, GameMap gameMap, MapCommand command) {
+    public GameActionResult moveOnFieldMap(Player player, MapState mapState, MapCommand command) {
+        GameMap gameMap = mapState.getGameMap();
+
         if (command == MapCommand.ACTION) {
-            return executeCurrentEvent(player, gameMap);
+            return executeCurrentEvent(player, mapState);
         }
 
         if (!gameMap.move(command)) {
@@ -130,16 +126,17 @@ public class MapService {
 
     /// 現在地のマップイベントを実行する
     /// @param player プレイヤー
-    /// @param gameMap マップ
+    /// @param mapState マップ探索状態
     /// @return 操作結果
-    private GameActionResult executeCurrentEvent(Player player, GameMap gameMap) {
+    private GameActionResult executeCurrentEvent(Player player, MapState mapState) {
+        GameMap gameMap = mapState.getGameMap();
         MapEvent event = gameMap.getPlayerEvent(player.getCurrentArea());
 
         if (event == null) {
             return GameActionResult.message("ここには何もない。");
         }
 
-        return handleMapEvent(player, gameMap, event);
+        return handleMapEvent(player, mapState, event);
     }
 
     /// マップイベント案内メッセージを作成する
@@ -188,12 +185,12 @@ public class MapService {
     /// マップイベントを処理する
     ///
     /// @param player  プレイヤー
-    /// @param gameMap マップ
+    /// @param mapState マップ探索状態 マップ
     /// @param event   マップイベント
     /// @return 操作結果
-    private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
+    private GameActionResult handleMapEvent(Player player, MapState mapState, MapEvent event) {
         return switch (event) {
-            case EXIT -> returnToWorldMap(player, gameMap);
+            case EXIT -> returnToWorldMap(player, mapState);
             case INN -> innService.stay(player);
             case ITEM_SHOP -> shopService.buyHerb(player);
             case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);
@@ -206,15 +203,13 @@ public class MapService {
     /// 個別マップから世界マップへ戻る
     ///
     /// @param player  プレイヤー
-    /// @param gameMap 個別マップ
+    /// @param mapState マップ探索状態
     /// @return 操作結果
-    private GameActionResult returnToWorldMap(Player player, GameMap gameMap) {
-        gameMap.resetPlayerPosition();
+    private GameActionResult returnToWorldMap(Player player, MapState mapState) {
+        mapState.getGameMap().resetPlayerPosition();
+        mapState.switchToWorld();
 
-        return GameActionResult.message(
-                player.getCurrentArea().getDisplayName() + "を出て世界マップへ戻った。",
-                MapMode.WORLD
-        );
+        return GameActionResult.message(player.getCurrentArea().getDisplayName() + "を出て世界マップへ戻った。");
     }
 
     /// 宝箱を開ける

@@ -2,9 +2,7 @@ package com.example.rpg.web;
 
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
-import com.example.rpg.field.GameMap;
-import com.example.rpg.field.MapMode;
-import com.example.rpg.field.WorldMap;
+import com.example.rpg.field.MapState;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
@@ -17,11 +15,7 @@ public class WebGameSession {
 
     private Player player = new Player("勇者", 30, 8);
 
-    private MapMode mapMode = MapMode.WORLD;
-
-    private WorldMap worldMap = WorldMap.initial();
-
-    private GameMap gameMap = GameMap.initial();
+    private MapState mapState = MapState.initial();
 
     private Monster currentMonster;
 
@@ -39,9 +33,7 @@ public class WebGameSession {
     /// ニューゲームを開始する
     public void startNewGame() {
         player = createInitialPlayer();
-        mapMode = MapMode.WORLD;
-        worldMap = WorldMap.initial();
-        gameMap = GameMap.initial();
+        mapState = MapState.initial();
         currentMonster = null;
         bossBattle = false;
         lastMessage = "冒険を開始した。";
