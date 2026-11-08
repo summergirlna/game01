@@ -108,3 +108,13 @@
     color: #fef2f2;
 }
 
+.map-grid.world-map-grid {
+    grid-template-columns: repeat(3, 3rem);
+    justify-content: center;
+    margin-top: 12px;
+    margin-bottom: 1.5rem;
+}
+
+.map-cell.world-area {
+    color: #f5d76e;
+}

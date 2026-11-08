@@ -19,15 +19,32 @@
             </div>
         </header>
 
-        <section class="map-grid">
-            <th:block th:each="row : ${rows}">
-                <div class="map-cell"
-                     th:classappend="' ' + ${cell.cssClass}"
-                     th:each="cell : ${row}"
-                     th:text="${cell.symbol}">
-                    .
-                </div>
-            </th:block>
+        <section>
+            <p class="caption">WORLD MAP</p>
+            <section class="map-grid world-map-grid">
+                <th:block th:each="row : ${worldRows}">
+                    <div class="map-cell"
+                         th:classappend="' ' + ${cell.cssClass}"
+                         th:each="cell : ${row}"
+                         th:text="${cell.symbol}">
+                        .
+                    </div>
+                </th:block>
+            </section>
+        </section>
+
+        <section>
+            <p class="caption">FIELD MAP</p>
+            <section class="map-grid">
+                <th:block th:each="row : ${rows}">
+                    <div class="map-cell"
+                         th:classappend="' ' + ${cell.cssClass}"
+                         th:each="cell : ${row}"
+                         th:text="${cell.symbol}">
+                        .
+                    </div>
+                </th:block>
+            </section>
         </section>
 
         <section class="map-controls">

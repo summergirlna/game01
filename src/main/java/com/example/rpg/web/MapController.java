@@ -4,6 +4,7 @@ import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
 import com.example.rpg.field.MapEvent;
+import com.example.rpg.field.WorldMap;
 import com.example.rpg.service.GameActionResult;
 import com.example.rpg.service.MapService;
 import com.example.rpg.ui.command.MapCommand;
@@ -28,6 +29,7 @@ public class MapController {
     private static final String PATH_BATTLE = "/battle";
     private static final String PATH_BOSS_BATTLE = "/battle/boss";
     private static final String ATTRIBUTE_PLAYER = "player";
+    private static final String ATTRIBUTE_WORLD_ROWS = "worldRows";
     private static final String ATTRIBUTE_ROWS = "rows";
     private static final String ATTRIBUTE_MESSAGE = "message";
     private static final String DEFAULT_MESSAGE = "探索を開始した。";
@@ -36,6 +38,7 @@ public class MapController {
     private static final String PLAYER_CELL_CLASS = "player";
     private static final String EMPTY_CELL_CLASS = "empty";
     private static final String EVENT_CELL_CLASS_PREFIX = "event ";
+    private static final String WORLD_AREA_CELL_CLASS = "event world-area";
 
     private final WebGameSession webGameSession;
 
@@ -103,11 +106,59 @@ public class MapController {
     /// @param message メッセージ
     private void addMapAttributes(Model model, String message) {
         Player player = webGameSession.getPlayer();
+        WorldMap worldMap = webGameSession.getWorldMap();
         GameMap gameMap = webGameSession.getGameMap();
 
         model.addAttribute(ATTRIBUTE_PLAYER, player);
+        model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildWorldRows(player, worldMap));
         model.addAttribute(ATTRIBUTE_ROWS, buildRows(player, gameMap));
         model.addAttribute(ATTRIBUTE_MESSAGE, message);
+    }
+
+    /// 世界マップ表示行を作成する
+    ///
+    /// @param player   プレイヤー
+    /// @param worldMap 世界マップ
+    /// @return 世界マップ表示行
+    private List<List<MapCell>> buildWorldRows(Player player, WorldMap worldMap) {
+        List<List<MapCell>> rows = new ArrayList<>();
+
+        for (int y = 0; y < worldMap.getHeight(); y++) {
+            List<MapCell> row = new ArrayList<>();
+
+            for (int x = 0; x < worldMap.getWidth(); x++) {
+                Position position = new Position(x, y);
+                row.add(buildWorldCell(player, worldMap, position));
+            }
+
+            rows.add(row);
+        }
+
+        return rows;
+    }
+
+    /// 世界マップ表示セルを作成する
+    ///
+    /// @param player    プレイヤー
+    /// @param worldMap  世界マップ
+    /// @param position  座標
+    /// @return 世界マップ表示セル
+    private MapCell buildWorldCell(Player player, WorldMap worldMap, Position position) {
+        if (worldMap.isPlayerPosition(player.getCurrentArea(), position)) {
+            return new MapCell(position.getX(), position.getY(), PLAYER_SYMBOL, PLAYER_CELL_CLASS);
+        }
+
+        WorldMap.WorldMapArea area = worldMap.getAreaAt(position);
+
+        if (area != null) {
+            return new MapCell(
+                    position.getX(),
+                    position.getY(),
+                    String.valueOf(area.symbol()),
+                    WORLD_AREA_CELL_CLASS);
+        }
+
+        return new MapCell(position.getX(), position.getY(), EMPTY_SYMBOL, EMPTY_CELL_CLASS);
     }
 
     /// マップ表示行を作成する
