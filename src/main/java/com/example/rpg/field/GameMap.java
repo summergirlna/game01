@@ -8,26 +8,14 @@ import java.util.Arrays;
 
 /// フィールドマップを表すクラス
 @Getter
-public class GameMap {
-    private final int width;
-
-    private final int height;
-
+public class GameMap extends GridMap {
     private final Position initialPlayerPosition;
 
     private Position playerPosition;
 
     public GameMap(int width, int height, Position playerPosition) {
-        if (width <= 0) {
-            throw new IllegalArgumentException("マップの幅は1以上である必要があります。");
-        }
+        super(width, height, "マップ");
 
-        if (height <= 0) {
-            throw new IllegalArgumentException("マップの高さは1以上である必要があります。");
-        }
-
-        this.width = width;
-        this.height = height;
         this.initialPlayerPosition = playerPosition;
 
         if (!isInBounds(playerPosition)) {
@@ -63,17 +51,6 @@ public class GameMap {
 
         playerPosition = nextPosition;
         return true;
-    }
-
-    /// 指定した座標がマップ範囲内か判定する
-    ///
-    /// @param position 座標
-    /// @return 範囲内の場合はtrue、範囲外の場合はfalse
-    public boolean isInBounds(Position position) {
-        return position.getX() >= 0
-                && position.getX() < width
-                && position.getY() >= 0
-                && position.getY() < height;
     }
 
     /// 指定した座標がプレイヤーの位置か判定する

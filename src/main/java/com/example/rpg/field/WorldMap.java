@@ -6,8 +6,7 @@ import lombok.Getter;
 import java.util.Arrays;
 
 /// 世界マップを表すクラス
-@Getter
-public class WorldMap {
+public class WorldMap extends GridMap {
     private static final WorldMapArea[] AREAS = {
             new WorldMapArea(FieldArea.TOWN, new Position(0, 1), '町'),
             new WorldMapArea(FieldArea.GRASSLAND, new Position(1, 1), '草'),
@@ -15,21 +14,8 @@ public class WorldMap {
             new WorldMapArea(FieldArea.CAVE, new Position(1, 2), '洞')
     };
 
-    private final int width;
-
-    private final int height;
-
     public WorldMap(int width, int height) {
-        if (width <= 0) {
-            throw new IllegalArgumentException("世界マップの幅は1以上である必要があります。");
-        }
-
-        if (height <= 0) {
-            throw new IllegalArgumentException("世界マップの高さは1以上である必要があります。");
-        }
-
-        this.width = width;
-        this.height = height;
+        super(width, height, "世界マップ");
     }
 
     /// 初期世界マップ生成

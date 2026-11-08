@@ -3,6 +3,7 @@ package com.example.rpg.web;
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.GridMap;
 import com.example.rpg.field.MapEvent;
 import com.example.rpg.field.WorldMap;
 import com.example.rpg.service.GameActionResult;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 
 /// Web版マップ画面コントローラ
 @Controller
@@ -110,31 +112,45 @@ public class MapController {
         GameMap gameMap = webGameSession.getGameMap();
 
         model.addAttribute(ATTRIBUTE_PLAYER, player);
-        model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildWorldRows(player, worldMap));
-        model.addAttribute(ATTRIBUTE_ROWS, buildRows(player, gameMap));
+        model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildMapRows(worldMap, position -> buildWorldCell(player, worldMap, position)));
+        model.addAttribute(ATTRIBUTE_ROWS, buildMapRows(gameMap, position -> buildCell(player, gameMap, position)));
         model.addAttribute(ATTRIBUTE_MESSAGE, message);
     }
 
-    /// 世界マップ表示行を作成する
-    ///
-    /// @param player   プレイヤー
-    /// @param worldMap 世界マップ
-    /// @return 世界マップ表示行
-    private List<List<MapCell>> buildWorldRows(Player player, WorldMap worldMap) {
+    /// マップ表示行を作成する
+    /// @param gridMap グリッドマップ
+    /// @param cellBuilder セル作成処理
+    /// @return マップ表示行
+    private List<List<MapCell>> buildMapRows(GridMap gridMap, Function<Position, MapCell> cellBuilder) {
         List<List<MapCell>> rows = new ArrayList<>();
 
-        for (int y = 0; y < worldMap.getHeight(); y++) {
+        for (int y = 0; y < gridMap.getHeight(); y++) {
             List<MapCell> row = new ArrayList<>();
 
-            for (int x = 0; x < worldMap.getWidth(); x++) {
-                Position position = new Position(x, y);
-                row.add(buildWorldCell(player, worldMap, position));
+            for (int x = 0; x < gridMap.getWidth(); x++) {
+                row.add(cellBuilder.apply(new Position(x, y)));
             }
 
             rows.add(row);
         }
 
         return rows;
+    }
+
+    /// プレイヤー表示セルを作成する
+    ///
+    /// @param position 座標
+    /// @return プレイヤー表示セル
+    private MapCell playerCell(Position position) {
+        return new MapCell(position.getX(), position.getY(), PLAYER_SYMBOL, PLAYER_CELL_CLASS);
+    }
+
+    /// 空白セルを作成する
+    ///
+    /// @param position 座標
+    /// @return 空白セル
+    private MapCell emptyCell(Position position) {
+        return new MapCell(position.getX(), position.getY(), EMPTY_SYMBOL, EMPTY_CELL_CLASS);
     }
 
     /// 世界マップ表示セルを作成する
@@ -145,7 +161,7 @@ public class MapController {
     /// @return 世界マップ表示セル
     private MapCell buildWorldCell(Player player, WorldMap worldMap, Position position) {
         if (worldMap.isPlayerPosition(player.getCurrentArea(), position)) {
-            return new MapCell(position.getX(), position.getY(), PLAYER_SYMBOL, PLAYER_CELL_CLASS);
+            return playerCell(position);
         }
 
         WorldMap.WorldMapArea area = worldMap.getAreaAt(position);
@@ -158,29 +174,7 @@ public class MapController {
                     WORLD_AREA_CELL_CLASS);
         }
 
-        return new MapCell(position.getX(), position.getY(), EMPTY_SYMBOL, EMPTY_CELL_CLASS);
-    }
-
-    /// マップ表示行を作成する
-    ///
-    /// @param player  プレイヤー
-    /// @param gameMap マップ
-    /// @return マップ表示行
-    private List<List<MapCell>> buildRows(Player player, GameMap gameMap) {
-        List<List<MapCell>> rows = new ArrayList<>();
-
-        for (int y = 0; y < gameMap.getHeight(); y++) {
-            List<MapCell> row = new ArrayList<>();
-
-            for (int x = 0; x < gameMap.getWidth(); x++) {
-                Position position = new Position(x, y);
-                row.add(buildCell(player, gameMap, position));
-            }
-
-            rows.add(row);
-        }
-
-        return rows;
+        return emptyCell(position);
     }
 
     /// マップ表示セルを作成する
@@ -191,7 +185,7 @@ public class MapController {
     /// @return マップ表示セル
     private MapCell buildCell(Player player, GameMap gameMap, Position position) {
         if (gameMap.isPlayerPosition(position)) {
-            return new MapCell(position.getX(), position.getY(), PLAYER_SYMBOL, PLAYER_CELL_CLASS);
+            return playerCell(position);
         }
 
         MapEvent event = gameMap.getEventAt(player.getCurrentArea(), position);
@@ -204,6 +198,6 @@ public class MapController {
                     EVENT_CELL_CLASS_PREFIX + event.name().toLowerCase());
         }
 
-        return new MapCell(position.getX(), position.getY(), EMPTY_SYMBOL, EMPTY_CELL_CLASS);
+        return emptyCell(position);
     }
 }
