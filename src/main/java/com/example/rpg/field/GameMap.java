@@ -29,7 +29,7 @@ public class GameMap extends GridMap {
     ///
     /// @return 初期マップ
     public static GameMap initial() {
-        return new GameMap(5, 5, new Position(2, 2));
+        return new GameMap(5, 5, new Position(4, 0));
     }
 
     /// 指定した方向へ移動する
