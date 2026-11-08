@@ -1,9 +1,7 @@
 package com.example.rpg.service;
 
 import com.example.rpg.character.Player;
-import com.example.rpg.field.FieldArea;
-import com.example.rpg.field.GameMap;
-import com.example.rpg.field.MapEvent;
+import com.example.rpg.field.*;
 import com.example.rpg.item.ItemType;
 import com.example.rpg.ui.command.MapCommand;
 import lombok.RequiredArgsConstructor;
@@ -34,11 +32,75 @@ public class MapService {
 
     /// 移動する
     ///
+    /// @param player   プレイヤー
+    /// @param mapMode  マップ操作モード
+    /// @param worldMap 世界マップ
+    /// @param gameMap  個別マップ
+    /// @param command  マップ操作コマンド
+    /// @return 操作結果
+    public GameActionResult move(
+            Player player,
+            MapMode mapMode,
+            WorldMap worldMap,
+            GameMap gameMap,
+            MapCommand command
+    ) {
+        return switch (mapMode) {
+            case WORLD -> moveOnWorldMap(player, worldMap, gameMap, command);
+            case FIELD -> moveOnFieldMap(player, gameMap, command);
+        };
+    }
+
+    /// 世界マップ上を移動する
+    ///
+    /// @param player   プレイヤー
+    /// @param worldMap 世界マップ
+    /// @param gameMap  個別マップ
+    /// @param command  マップ操作コマンド
+    /// @return 操作結果
+    private GameActionResult moveOnWorldMap(
+            Player player,
+            WorldMap worldMap,
+            GameMap gameMap,
+            MapCommand command
+    ) {
+        if (command == MapCommand.ACTION) {
+            return enterCurrentWorldArea(player, worldMap, gameMap);
+        }
+
+        if (!worldMap.move(command)) {
+            return GameActionResult.message("これ以上そちらには進めません。");
+        }
+
+        WorldMap.WorldMapArea area = worldMap.getPlayerArea();
+
+        if (area != null) {
+            return GameActionResult.message(area.fieldArea().getDisplayName() + "が見える。Enterで入る。");
+        }
+
+        return GameActionResult.message("世界を移動している。");
+    }
+
+    private GameActionResult enterCurrentWorldArea(Player player, WorldMap worldMap, GameMap gameMap) {
+        WorldMap.WorldMapArea area = worldMap.getPlayerArea();
+
+        if (area == null) {
+            return GameActionResult.message("ここには入れる場所がない。");
+        }
+
+        player.moveTo(area.fieldArea());
+        gameMap.resetPlayerPosition();
+
+        return GameActionResult.message(area.fieldArea().getDisplayName() + "へ入った。");
+    }
+
+    /// 移動する
+    ///
     /// @param player  プレイヤー
     /// @param gameMap マップ
     /// @param command マップ操作コマンド
     /// @return 操作結果
-    public GameActionResult move(Player player, GameMap gameMap, MapCommand command) {
+    public GameActionResult moveOnFieldMap(Player player, GameMap gameMap, MapCommand command) {
         if (command == MapCommand.ACTION) {
             return executeCurrentEvent(player, gameMap);
         }

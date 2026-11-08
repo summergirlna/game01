@@ -3,6 +3,7 @@ package com.example.rpg.web;
 import com.example.rpg.character.Monster;
 import com.example.rpg.character.Player;
 import com.example.rpg.field.GameMap;
+import com.example.rpg.field.MapMode;
 import com.example.rpg.field.WorldMap;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,8 @@ import org.springframework.stereotype.Component;
 public class WebGameSession {
 
     private Player player = new Player("勇者", 30, 8);
+
+    private MapMode mapMode = MapMode.WORLD;
 
     private WorldMap worldMap = WorldMap.initial();
 
@@ -36,6 +39,7 @@ public class WebGameSession {
     /// ニューゲームを開始する
     public void startNewGame() {
         player = createInitialPlayer();
+        mapMode = MapMode.WORLD;
         worldMap = WorldMap.initial();
         gameMap = GameMap.initial();
         currentMonster = null;

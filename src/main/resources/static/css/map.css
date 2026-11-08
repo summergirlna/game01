@@ -118,3 +118,10 @@
 .map-cell.world-area {
     color: #f5d76e;
 }
+
+.map-mode {
+    margin: 4px 0 0;
+    color: #bfdbfe;
+    font-size: 13px;
+    font-weight: 700;
+}

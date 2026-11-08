@@ -2,10 +2,7 @@ package com.example.rpg.web;
 
 import com.example.rpg.character.MonsterFactory;
 import com.example.rpg.character.Player;
-import com.example.rpg.field.GameMap;
-import com.example.rpg.field.GridMap;
-import com.example.rpg.field.MapEvent;
-import com.example.rpg.field.WorldMap;
+import com.example.rpg.field.*;
 import com.example.rpg.service.GameActionResult;
 import com.example.rpg.service.MapService;
 import com.example.rpg.ui.command.MapCommand;
@@ -32,6 +29,7 @@ public class MapController {
     private static final String PATH_BOSS_BATTLE = "/battle/boss";
     private static final String ATTRIBUTE_PLAYER = "player";
     private static final String ATTRIBUTE_WORLD_ROWS = "worldRows";
+    private static final String ATTRIBUTE_MAP_MODE = "mapMode";
     private static final String ATTRIBUTE_ROWS = "rows";
     private static final String ATTRIBUTE_MESSAGE = "message";
     private static final String DEFAULT_MESSAGE = "探索を開始した。";
@@ -67,9 +65,15 @@ public class MapController {
     @PostMapping("/map/move")
     public String move(@RequestParam MapCommand command, Model model) {
         Player player = webGameSession.getPlayer();
+        WorldMap worldMap = webGameSession.getWorldMap();
         GameMap gameMap = webGameSession.getGameMap();
+        MapMode mapMode = webGameSession.getMapMode();
 
-        GameActionResult result = mapService.move(player, gameMap, command);
+        GameActionResult result = mapService.move(player, mapMode, worldMap, gameMap, command);
+
+        if (mapMode == MapMode.WORLD && command == MapCommand.ACTION && worldMap.getPlayerArea() != null) {
+            webGameSession.setMapMode(MapMode.FIELD);
+        }
 
         if (result.hasRedirect()) {
             return handleRedirect(result, player);
@@ -77,7 +81,7 @@ public class MapController {
 
         addMapAttributes(model, result.message());
 
-        return "map";
+        return VIEW_MAP;
     }
 
     /// リダイレクトを伴うマップ操作結果を処理する
@@ -112,8 +116,9 @@ public class MapController {
         GameMap gameMap = webGameSession.getGameMap();
 
         model.addAttribute(ATTRIBUTE_PLAYER, player);
-        model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildMapRows(worldMap, position -> buildWorldCell(player, worldMap, position)));
+        model.addAttribute(ATTRIBUTE_WORLD_ROWS, buildMapRows(worldMap, position -> buildWorldCell(worldMap, position)));
         model.addAttribute(ATTRIBUTE_ROWS, buildMapRows(gameMap, position -> buildCell(player, gameMap, position)));
+        model.addAttribute(ATTRIBUTE_MAP_MODE, webGameSession.getMapMode());
         model.addAttribute(ATTRIBUTE_MESSAGE, message);
     }
 
@@ -155,12 +160,11 @@ public class MapController {
 
     /// 世界マップ表示セルを作成する
     ///
-    /// @param player    プレイヤー
     /// @param worldMap  世界マップ
     /// @param position  座標
     /// @return 世界マップ表示セル
-    private MapCell buildWorldCell(Player player, WorldMap worldMap, Position position) {
-        if (worldMap.isPlayerPosition(player.getCurrentArea(), position)) {
+    private MapCell buildWorldCell(WorldMap worldMap, Position position) {
+        if (worldMap.isPlayerPosition(position)) {
             return playerCell(position);
         }
 

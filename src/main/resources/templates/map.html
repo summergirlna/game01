@@ -21,6 +21,7 @@
 
         <section>
             <p class="caption">WORLD MAP</p>
+            <p class="map-mode" th:if="${mapMode.name() == 'WORLD'}">現在操作中</p>
             <section class="map-grid world-map-grid">
                 <th:block th:each="row : ${worldRows}">
                     <div class="map-cell"
@@ -35,6 +36,7 @@
 
         <section>
             <p class="caption">FIELD MAP</p>
+            <p class="map-mode" th:if="${mapMode.name() == 'FIELD'}">現在操作中</p>
             <section class="map-grid">
                 <th:block th:each="row : ${rows}">
                     <div class="map-cell"
