@@ -81,6 +81,12 @@ public class MapService {
         return GameActionResult.message("世界を移動している。");
     }
 
+    /// 現在いる世界マップエリアへ入る
+    ///
+    /// @param player   プレイヤー
+    /// @param worldMap 世界マップ
+    /// @param gameMap  個別マップ
+    /// @return 操作結果
     private GameActionResult enterCurrentWorldArea(Player player, WorldMap worldMap, GameMap gameMap) {
         WorldMap.WorldMapArea area = worldMap.getPlayerArea();
 
@@ -91,7 +97,7 @@ public class MapService {
         player.moveTo(area.fieldArea());
         gameMap.resetPlayerPosition();
 
-        return GameActionResult.message(area.fieldArea().getDisplayName() + "へ入った。");
+        return GameActionResult.message(area.fieldArea().getDisplayName() + "へ入った。", MapMode.FIELD);
     }
 
     /// 移動する
@@ -142,14 +148,14 @@ public class MapService {
     /// @return 案内メッセージ
     private String eventMessage(MapEvent event) {
         return switch (event) {
-            case TOWN -> "町が見える。Enterで町へ入る。";
-            case EXIT -> "町の出口だ。Enterで外へ出る。";
+            case TOWN -> "世界マップへ戻る道だ。Enterで出る。";
+            case EXIT -> "出口だ。Enterで世界マップへ戻る。";
             case INN -> "宿屋の前にいる。Enterで泊まる。";
             case ITEM_SHOP -> "道具屋の前にいる。Enterで薬草を買う。";
             case WEAPON_SHOP -> "武器屋の前にいる。Enterで銅の剣を買う。";
             case SAVE_POINT -> "セーブポイントだ。Enterで記録する。";
-            case NEXT_AREA -> "次のエリアへ続く道だ。Enterで進む。";
-            case PREVIOUS_AREA -> "前のエリアへ戻る道だ。Enterで戻る。";
+            case NEXT_AREA -> "世界マップへ続く道だ。Enterで出る。";
+            case PREVIOUS_AREA -> "世界マップへ戻る道だ。Enterで出る。";
             case CHEST -> "宝箱がある。Enterで開ける。";
             case BOSS -> "強大な敵の気配がする。Enterで挑む。";
         };
@@ -190,75 +196,28 @@ public class MapService {
     /// @return 操作結果
     private GameActionResult handleMapEvent(Player player, GameMap gameMap, MapEvent event) {
         return switch (event) {
-            case TOWN -> returnToTown(player, gameMap);
-            case EXIT -> leaveTown(player, gameMap);
+            case TOWN, EXIT, NEXT_AREA, PREVIOUS_AREA -> returnToWorldMap(player, gameMap);
             case INN -> innService.stay(player);
             case ITEM_SHOP -> shopService.buyHerb(player);
             case WEAPON_SHOP -> weaponShopService.buyCopperSword(player);
             case SAVE_POINT -> saveService.save(player);
-            case NEXT_AREA -> moveToNextArea(player, gameMap);
-            case PREVIOUS_AREA -> moveToPreviousArea(player, gameMap);
             case CHEST -> openChest(player);
             case BOSS -> GameActionResult.redirect("強大な敵が立ちはだかった！", "/battle/boss");
         };
     }
 
-    /// 町を出て草原へ移動する
+    /// 個別マップから世界マップへ戻る
     ///
     /// @param player  プレイヤー
-    /// @param gameMap マップ
+    /// @param gameMap 個別マップ
     /// @return 操作結果
-    private GameActionResult leaveTown(Player player, GameMap gameMap) {
-        player.moveTo(FieldArea.GRASSLAND);
-        gameMap.resetPlayerPosition();
-        return GameActionResult.message("町を出て草原へ向かった。");
-    }
-
-    /// 町へ戻る
-    ///
-    /// @param player  プレイヤー
-    /// @param gameMap マップ
-    /// @return 操作結果
-    private GameActionResult returnToTown(Player player, GameMap gameMap) {
-        player.moveTo(FieldArea.TOWN);
-        gameMap.resetPlayerPosition();
-        return GameActionResult.message("町へ戻った。");
-    }
-
-    /// 次のエリアへ移動する
-    ///
-    /// @param player  プレイヤー
-    /// @param gameMap マップ
-    /// @return 操作結果
-    private GameActionResult moveToNextArea(Player player, GameMap gameMap) {
-        FieldArea nextArea = switch (player.getCurrentArea()) {
-            case GRASSLAND -> FieldArea.FOREST;
-            case FOREST -> FieldArea.CAVE;
-            case CAVE, TOWN -> player.getCurrentArea();
-        };
-
-        player.moveTo(nextArea);
+    private GameActionResult returnToWorldMap(Player player, GameMap gameMap) {
         gameMap.resetPlayerPosition();
 
-        return GameActionResult.message(nextArea.getDisplayName() + "へ移動した。");
-    }
-
-    /// 前のエリアへ移動する
-    ///
-    /// @param player  プレイヤー
-    /// @param gameMap マップ
-    /// @return 操作結果
-    private GameActionResult moveToPreviousArea(Player player, GameMap gameMap) {
-        FieldArea previousArea = switch (player.getCurrentArea()) {
-            case FOREST -> FieldArea.GRASSLAND;
-            case CAVE -> FieldArea.FOREST;
-            case GRASSLAND, TOWN -> player.getCurrentArea();
-        };
-
-        player.moveTo(previousArea);
-        gameMap.resetPlayerPosition();
-
-        return GameActionResult.message(previousArea.getDisplayName() + "へ移動した。");
+        return GameActionResult.message(
+                player.getCurrentArea().getDisplayName() + "を出て世界マップへ戻った。",
+                MapMode.WORLD
+        );
     }
 
     /// 宝箱を開ける

@@ -71,8 +71,8 @@ public class MapController {
 
         GameActionResult result = mapService.move(player, mapMode, worldMap, gameMap, command);
 
-        if (mapMode == MapMode.WORLD && command == MapCommand.ACTION && worldMap.getPlayerArea() != null) {
-            webGameSession.setMapMode(MapMode.FIELD);
+        if (result.hasNextMapMode()) {
+            webGameSession.setMapMode(result.nextMapMode());
         }
 
         if (result.hasRedirect()) {
